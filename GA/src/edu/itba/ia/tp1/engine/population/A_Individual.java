@@ -9,9 +9,14 @@ package edu.itba.ia.tp1.engine.population;
  * @author Pablo F. Siviero
  */
 public abstract class A_Individual {
-	
+
 	/* Individual identification. */
 	private Long id;
+
+	/**
+	 * A_Individual doesn't know what to do when input comes and what to return.
+	 */
+	public abstract Object operate(Object input);
 
 	/* Getters and Setters. */
 	public Long getId() {
