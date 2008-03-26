@@ -10,7 +10,7 @@ import edu.itba.ia.tp1.engine.population.Population;
  * 
  * @author Pablo F. Siviero
  */
-public class CrossAlgorithmImpl implements IReproductionAlgorithm {
+public class CrossAlgorithmImpl implements I_ReproductionAlgorithm {
 
 	/*
 	 * (non-Javadoc)

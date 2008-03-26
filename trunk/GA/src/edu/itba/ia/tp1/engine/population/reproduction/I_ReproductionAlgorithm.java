@@ -11,7 +11,7 @@ import edu.itba.ia.tp1.engine.population.Population;
  * 
  * @author Pablo F. Siviero
  */
-public interface IReproductionAlgorithm {
+public interface I_ReproductionAlgorithm {
 
 	/**
 	 * Reproduces the population.
