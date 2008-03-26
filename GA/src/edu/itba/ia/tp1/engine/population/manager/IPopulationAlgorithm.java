@@ -19,8 +19,10 @@ public interface IPopulationAlgorithm {
 	 * @param population
 	 *            Partial population over which selection or replacement is
 	 *            applied.
+	 * @param nIndividuals
+	 * 			  Amount of individuals to select or replace.
 	 * @return The new population after selection or replacement.
 	 */
-	public Population execute(Population population);
+	public Population execute(Population population, Integer nIndividuals);
 
 }

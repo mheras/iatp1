@@ -14,9 +14,9 @@ import edu.itba.ia.tp1.engine.population.reproduction.IReproductionAlgorithm;
  * 
  * @author Pablo F. Siviero
  */
-public class Binary2BCDProblem extends AProblem {
+public class Problem extends AProblem {
 
-	public Binary2BCDProblem(IPopulationAlgorithm selection,
+	public Problem(IPopulationAlgorithm selection,
 			IPopulationAlgorithm replacement,
 			IReproductionAlgorithm reproduction, IAptitude aptitude) {
 		super(selection, replacement, reproduction, aptitude);

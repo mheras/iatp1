@@ -4,14 +4,14 @@
 package edu.itba.ia.tp1.problem.binary2bcd;
 
 import edu.itba.ia.tp1.engine.IAptitude;
-import edu.itba.ia.tp1.engine.population.Individual;
+import edu.itba.ia.tp1.engine.population.AIndividual;
 
 /**
  * This is the aptitude function for a Binary to BCD Converter.
  * 
  * @author Pablo F. Siviero
  */
-public class Binary2BCDAptitudeImpl implements IAptitude {
+public class AptitudeImpl implements IAptitude {
 
 	/*
 	 * (non-Javadoc)
@@ -19,7 +19,7 @@ public class Binary2BCDAptitudeImpl implements IAptitude {
 	 * @see edu.itba.ia.tp1.engine.IAptitude#evaluate(edu.itba.ia.tp1.engine.population.Individual)
 	 */
 	@Override
-	public double evaluate(Individual x) {
+	public double evaluate(AIndividual x) {
 		return 0;
 	}
 
