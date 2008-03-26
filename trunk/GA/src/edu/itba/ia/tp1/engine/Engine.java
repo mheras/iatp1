@@ -27,7 +27,7 @@ public class Engine {
 	 * 
 	 * @param problem. An instance of AProblem.
 	 */
-	public void run(AProblem problem) {
+	public void run(A_Problem problem) {
 		Population population = problem.getPopulation();
 
 		for (int i = 0; i < this.maxGenerations; i++) {
