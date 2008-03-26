@@ -31,10 +31,10 @@ public class Engine {
 		Population population = problem.getPopulation();
 
 		for (int i = 0; i < this.maxGenerations; i++) {
-			Population parents = problem.getSelection().execute(population);
+			Population parents = problem.getSelection().execute(population, this.maxParents);
 			Population offsprings = problem.getReproduction()
 					.reproduce(parents);
-			population = problem.getReplacement().execute(offsprings);
+			population = problem.getReplacement().execute(offsprings, this.maxParents);
 		}
 	}
 

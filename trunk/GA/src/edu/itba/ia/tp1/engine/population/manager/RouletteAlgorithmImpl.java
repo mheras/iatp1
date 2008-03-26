@@ -18,7 +18,7 @@ public class RouletteAlgorithmImpl implements IPopulationAlgorithm {
 	 * @see edu.itba.ia.tp1.motor.population.IPopulationAlgorithm#execute()
 	 */
 	@Override
-	public Population execute(Population population) {
+	public Population execute(Population population, Integer nIndividuals) {
 		return null;
 	}
 

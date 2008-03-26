@@ -3,7 +3,7 @@
  */
 package edu.itba.ia.tp1.engine;
 
-import edu.itba.ia.tp1.engine.population.Individual;
+import edu.itba.ia.tp1.engine.population.AIndividual;
 
 /**
  * Implementations of IAptitude should provide the way to analyze how adapted is
@@ -19,6 +19,6 @@ public interface IAptitude {
 	 * @param x The individual to analyze
 	 * @return a number between 0 and 1 representing how adapted it is.
 	 */
-	public double evaluate(Individual x);
+	public double evaluate(AIndividual x);
 
 }
