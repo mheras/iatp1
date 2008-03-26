@@ -10,7 +10,7 @@ import edu.itba.ia.tp1.engine.population.Population;
  * 
  * @author Pablo F. Siviero
  */
-public class MutationAlgorithmImpl implements IReproductionAlgorithm {
+public class MutationAlgorithmImpl implements I_ReproductionAlgorithm {
 
 	/*
 	 * (non-Javadoc)
