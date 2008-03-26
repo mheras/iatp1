@@ -7,7 +7,7 @@ import edu.itba.ia.tp1.engine.A_Problem;
 import edu.itba.ia.tp1.engine.I_Aptitude;
 import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.reproduction.I_ReproductionAlgorithm;
-import edu.itba.ia.tp1.engine.population.selection.IPopulationAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.I_PopulationAlgorithm;
 
 /**
  * Problem that is solved by the GA Engine.
@@ -16,8 +16,8 @@ import edu.itba.ia.tp1.engine.population.selection.IPopulationAlgorithm;
  */
 public class Problem extends A_Problem {
 
-	public Problem(IPopulationAlgorithm selection,
-			IPopulationAlgorithm replacement,
+	public Problem(I_PopulationAlgorithm selection,
+			I_PopulationAlgorithm replacement,
 			I_ReproductionAlgorithm reproduction, I_Aptitude aptitude) {
 		super(selection, replacement, reproduction, aptitude);
 	}
