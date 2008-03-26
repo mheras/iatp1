@@ -6,15 +6,16 @@ package edu.itba.ia.tp1.engine.population.selection;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
- * @author Pablo F. Siviero
+ * Implementation of Elite Algorithm.
  * 
+ * @author Pablo F. Siviero
  */
-public class EliteUniversalAlgorithmImpl implements I_PopulationAlgorithm {
+public class EliteImpl implements I_PopulationAlgorithm {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.itba.ia.tp1.engine.population.manager.IPopulationAlgorithm#execute(edu.itba.ia.tp1.engine.population.Population)
+	 * @see edu.itba.ia.tp1.motor.population.IPopulationAlgorithm#execute()
 	 */
 	@Override
 	public Population execute(Population population, Integer nIndividuals) {
