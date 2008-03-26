@@ -14,7 +14,7 @@ import java.util.Set;
 public class Population {
 
 	/* Set of individuals */
-	private Set<AIndividual> individuals;
+	private Set<A_Individual> individuals;
 
 	/**
 	 * Returns the size of the population.
@@ -30,7 +30,7 @@ public class Population {
 	 * 
 	 * @param individual
 	 */
-	public void addIndividual(AIndividual individual) {
+	public void addIndividual(A_Individual individual) {
 		this.individuals.add(individual);
 	}
 
@@ -39,16 +39,16 @@ public class Population {
 	 * 
 	 * @param individual
 	 */
-	public void removeIndividual(AIndividual individual) {
+	public void removeIndividual(A_Individual individual) {
 		this.individuals.remove(individual);
 	}
 
 	/* Getters and Setters. */
-	public Set<AIndividual> getIndividuals() {
+	public Set<A_Individual> getIndividuals() {
 		return individuals;
 	}
 
-	public void setIndividuals(Set<AIndividual> individuals) {
+	public void setIndividuals(Set<A_Individual> individuals) {
 		this.individuals = individuals;
 	}
 }
