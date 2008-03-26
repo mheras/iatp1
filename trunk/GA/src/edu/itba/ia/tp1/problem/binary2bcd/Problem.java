@@ -3,22 +3,22 @@
  */
 package edu.itba.ia.tp1.problem.binary2bcd;
 
-import edu.itba.ia.tp1.engine.AProblem;
-import edu.itba.ia.tp1.engine.IAptitude;
+import edu.itba.ia.tp1.engine.A_Problem;
+import edu.itba.ia.tp1.engine.I_Aptitude;
 import edu.itba.ia.tp1.engine.population.Population;
-import edu.itba.ia.tp1.engine.population.manager.IPopulationAlgorithm;
-import edu.itba.ia.tp1.engine.population.reproduction.IReproductionAlgorithm;
+import edu.itba.ia.tp1.engine.population.reproduction.I_ReproductionAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.IPopulationAlgorithm;
 
 /**
  * Problem that is solved by the GA Engine.
  * 
  * @author Pablo F. Siviero
  */
-public class Problem extends AProblem {
+public class Problem extends A_Problem {
 
 	public Problem(IPopulationAlgorithm selection,
 			IPopulationAlgorithm replacement,
-			IReproductionAlgorithm reproduction, IAptitude aptitude) {
+			I_ReproductionAlgorithm reproduction, I_Aptitude aptitude) {
 		super(selection, replacement, reproduction, aptitude);
 	}
 
