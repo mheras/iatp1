@@ -6,11 +6,11 @@ package edu.itba.ia.tp1.engine.population.selection;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
- * Implementation of Roulette Algorithm
+ * Implementation of Universal Algorithm.
  * 
  * @author Pablo F. Siviero
  */
-public class RouletteAlgorithmImpl implements I_PopulationAlgorithm {
+public class UniversalImpl implements I_PopulationAlgorithm {
 
 	/*
 	 * (non-Javadoc)
