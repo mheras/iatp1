@@ -3,6 +3,7 @@
  */
 package edu.itba.ia.tp1.engine.population.selection;
 
+import edu.itba.ia.tp1.engine.I_Aptitude;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
@@ -20,7 +21,7 @@ public class EliteUniversalImpl implements I_SelectionAlgorithm {
 	 * @see edu.itba.ia.tp1.engine.population.manager.IPopulationAlgorithm#execute(edu.itba.ia.tp1.engine.population.Population)
 	 */
 	@Override
-	public Population execute(Population population, Integer nIndividuals) {
+	public Population execute(Population population, I_Aptitude aptitude,Integer nIndividuals) {
 		return null;
 	}
 
