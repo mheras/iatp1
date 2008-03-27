@@ -15,6 +15,9 @@ public abstract class A_Individual {
 
 	/**
 	 * A_Individual doesn't know what to do when input comes and what to return.
+	 * 
+	 * @param input
+	 * @return The output
 	 */
 	public abstract Object operate(Object input);
 
