@@ -9,7 +9,7 @@ import edu.itba.ia.tp1.engine.population.Population;
  * @author Pablo F. Siviero
  * 
  */
-public class EliteUniversalImpl implements I_PopulationAlgorithm {
+public class EliteUniversalImpl implements I_SelectionAlgorithm {
 
 	/*
 	 * (non-Javadoc)

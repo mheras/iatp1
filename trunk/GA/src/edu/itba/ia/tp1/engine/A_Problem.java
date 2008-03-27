@@ -5,7 +5,7 @@ package edu.itba.ia.tp1.engine;
 
 import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.reproduction.I_ReproductionAlgorithm;
-import edu.itba.ia.tp1.engine.population.selection.I_PopulationAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
 
 /**
  * The GA Engine solves a Problem, a child of AProblem. The problem is applied
@@ -23,16 +23,16 @@ public abstract class A_Problem {
 	/* Population over which the GA performs selection and replacement. */
 	private Population population;
 	/* Selection algorithm. */
-	private I_PopulationAlgorithm selection;
+	private I_SelectionAlgorithm selection;
 	/* Replacement algorithm. */
-	private I_PopulationAlgorithm replacement;
+	private I_SelectionAlgorithm replacement;
 	/* Reproduction algorithm. */
 	private I_ReproductionAlgorithm reproduction;
 	/* The aptitude function to evaluate an individual. */
 	private I_Aptitude aptitude;
 
-	public A_Problem(I_PopulationAlgorithm selection,
-			I_PopulationAlgorithm replacement,
+	public A_Problem(I_SelectionAlgorithm selection,
+			I_SelectionAlgorithm replacement,
 			I_ReproductionAlgorithm reproduction, I_Aptitude aptitude) {
 		this.selection = selection;
 		this.replacement = replacement;
@@ -58,19 +58,19 @@ public abstract class A_Problem {
 		this.population = population;
 	}
 
-	public I_PopulationAlgorithm getSelection() {
+	public I_SelectionAlgorithm getSelection() {
 		return selection;
 	}
 
-	public void setSelection(I_PopulationAlgorithm selection) {
+	public void setSelection(I_SelectionAlgorithm selection) {
 		this.selection = selection;
 	}
 
-	public I_PopulationAlgorithm getReplacement() {
+	public I_SelectionAlgorithm getReplacement() {
 		return replacement;
 	}
 
-	public void setReplacement(I_PopulationAlgorithm replacement) {
+	public void setReplacement(I_SelectionAlgorithm replacement) {
 		this.replacement = replacement;
 	}
 
