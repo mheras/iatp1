@@ -10,7 +10,7 @@ import edu.itba.ia.tp1.engine.population.reproduction.I_ReproductionAlgorithm;
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
 
 /**
- * Problem that is solved by the GA Engine.
+ * Binary2BCD Problem that is solved by the GA Engine.
  * 
  * @author Pablo F. Siviero
  */

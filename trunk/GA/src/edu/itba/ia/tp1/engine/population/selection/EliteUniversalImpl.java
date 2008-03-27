@@ -6,8 +6,11 @@ package edu.itba.ia.tp1.engine.population.selection;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
- * @author Pablo F. Siviero
+ * Implementation of EliteUniversal Algorithm; in which Elite is applied first,
+ * and regarding the amount of Individuals retrieved, the rest of the population
+ * is calculated by Universal.
  * 
+ * @author Pablo F. Siviero
  */
 public class EliteUniversalImpl implements I_SelectionAlgorithm {
 

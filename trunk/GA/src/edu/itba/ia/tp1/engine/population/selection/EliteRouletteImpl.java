@@ -6,8 +6,11 @@ package edu.itba.ia.tp1.engine.population.selection;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
- * @author Pablo F. Siviero
+ * Implementation of EliteRoulette Algorithm; in which Elite is applied first,
+ * and regarding the amount of Individuals retrieved, the rest of the population
+ * is calculated by Roulette.
  * 
+ * @author Pablo F. Siviero
  */
 public class EliteRouletteImpl implements I_SelectionAlgorithm {
 
