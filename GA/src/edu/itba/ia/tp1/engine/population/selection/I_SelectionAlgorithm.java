@@ -11,7 +11,7 @@ import edu.itba.ia.tp1.engine.population.Population;
  * 
  * @author Pablo F. Siviero
  */
-public interface I_PopulationAlgorithm {
+public interface I_SelectionAlgorithm {
 
 	/**
 	 * Executes the algorithm over the population.
