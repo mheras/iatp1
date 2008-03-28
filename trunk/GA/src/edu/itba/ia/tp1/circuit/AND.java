@@ -3,8 +3,7 @@ package src.edu.itba.ia.tp1.circuit;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import TP1.circuit.CircuitComponent;
-import TP1.circuit.Gate;
+
 
 
 

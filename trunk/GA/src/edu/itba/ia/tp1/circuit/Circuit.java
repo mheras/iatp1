@@ -11,12 +11,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 
-import TP1.circuit.CircuitComponent;
-import TP1.circuit.Gate;
-import TP1.circuit.Input;
-import TP1.circuit.NOT;
-import TP1.circuit.OR;
-import TP1.circuit.Output;
+
 
 import com.sun.corba.se.pept.transport.OutboundConnectionCache;
 
