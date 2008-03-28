@@ -19,6 +19,6 @@ public interface I_Aptitude {
 	 * @param x The individual to analyze
 	 * @return a number between 0 and 1 representing how adapted it is.
 	 */
-	public double evaluate(A_Individual x);
+	public Double evaluate(A_Individual x);
 
 }

@@ -26,6 +26,6 @@ public interface I_SelectionAlgorithm {
 	 * 			  Amount of individuals to select or replace.
 	 * @return The new population after selection or replacement.
 	 */
-	public Population execute(Population population, I_Aptitude aptitude, Integer nIndividuals);
+	public Population execute(Population population, I_Aptitude aptitude, Long nIndividuals);
 
 }
