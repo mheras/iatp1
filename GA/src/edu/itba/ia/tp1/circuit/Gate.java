@@ -5,8 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import TP1.circuit.NOT;
-import TP1.circuit.OR;
 
 
 public abstract class Gate extends CircuitComponent{

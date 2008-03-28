@@ -2,10 +2,7 @@ package src.edu.itba.ia.tp1.circuit;
 
 import java.util.ArrayList;
 
-import TP1.circuit.Input;
-import TP1.circuit.NOT;
-import TP1.circuit.OR;
-import TP1.circuit.Output;
+
 
 
 public abstract class CircuitComponent {
