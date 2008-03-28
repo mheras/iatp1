@@ -6,7 +6,7 @@ package edu.itba.ia.tp1.problem.binary2bcd;
 import edu.itba.ia.tp1.engine.A_Problem;
 import edu.itba.ia.tp1.engine.I_Aptitude;
 import edu.itba.ia.tp1.engine.population.Population;
-import edu.itba.ia.tp1.engine.population.reproduction.I_ReproductionAlgorithm;
+import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
 
 /**
@@ -18,7 +18,7 @@ public class Problem extends A_Problem {
 
 	public Problem(I_SelectionAlgorithm selection,
 			I_SelectionAlgorithm replacement,
-			I_ReproductionAlgorithm reproduction, I_Aptitude aptitude) {
+			ReproductionAlgorithm reproduction, I_Aptitude aptitude) {
 		super(selection, replacement, reproduction, aptitude);
 	}
 

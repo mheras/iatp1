@@ -4,7 +4,7 @@
 package edu.itba.ia.tp1.engine;
 
 import edu.itba.ia.tp1.engine.population.Population;
-import edu.itba.ia.tp1.engine.population.reproduction.I_ReproductionAlgorithm;
+import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
 
 /**
@@ -27,13 +27,13 @@ public abstract class A_Problem {
 	/* Replacement algorithm. */
 	private I_SelectionAlgorithm replacement;
 	/* Reproduction algorithm. */
-	private I_ReproductionAlgorithm reproduction;
+	private ReproductionAlgorithm reproduction;
 	/* The aptitude function to evaluate an individual. */
 	private I_Aptitude aptitude;
 
 	public A_Problem(I_SelectionAlgorithm selection,
 			I_SelectionAlgorithm replacement,
-			I_ReproductionAlgorithm reproduction, I_Aptitude aptitude) {
+			ReproductionAlgorithm reproduction, I_Aptitude aptitude) {
 		this.selection = selection;
 		this.replacement = replacement;
 		this.reproduction = reproduction;
@@ -74,11 +74,11 @@ public abstract class A_Problem {
 		this.replacement = replacement;
 	}
 
-	public I_ReproductionAlgorithm getReproduction() {
+	public ReproductionAlgorithm getReproduction() {
 		return reproduction;
 	}
 
-	public void setReproduction(I_ReproductionAlgorithm reproduction) {
+	public void setReproduction(ReproductionAlgorithm reproduction) {
 		this.reproduction = reproduction;
 	}
 
