@@ -16,57 +16,122 @@ public class Engine {
 	private Long maxParents;
 	/* Amount of generations to inspect. */
 	private Long maxGenerations;
-	/* Generation callback */
-	private I_GenerationCallback generationCallback;
+	/* Current generation. */
+	private Long currentGeneration;
+	/* Specific problem. */
+	private A_Problem problem;
 
-	public Engine(Long maxParents, Long maxGenerations) {
-		this(maxParents, maxGenerations, null);
-	}
-	
-	public Engine(Long maxParents, Long maxGenerations, I_GenerationCallback generationCallback) {
+	public Engine(A_Problem problem, Long maxParents, Long maxGenerations) {
 		this.maxParents = maxParents;
 		this.maxGenerations = maxGenerations;
-		this.generationCallback = generationCallback;
+		this.currentGeneration = 0L;
+		// problem specified has its population initialized.
+		this.problem = problem;
 	}
 
 	/**
-	 * Performs the Genetic Algorithm.
-	 * 
-	 * @param problem. An instance of AProblem.
+	 * Resets the engine. Usefull to step the engine from the beginning without
+	 * having to instantiate another engine.
 	 */
-	public void run(A_Problem problem) {
-		Population population = problem.getPopulation();
+	public void reset() {
+		/* Reinitialize the population. */
+		this.problem.setPopulation(this.problem.initPopulation());
+		/* Reset current generation counter. */
+		this.currentGeneration = 0L;
+	}
 
-		for (int i = 0; i < this.maxGenerations; i++) {
-			Population parents = problem.getSelection().execute(population, problem.getAptitude(), this.maxParents);
-			Population offsprings = problem.getReproduction().reproduce(parents);
-			population = problem.getReplacement().execute(offsprings, problem.getAptitude(), this.maxParents);
-			generationCallback.onGenerationStep(population);
+	/**
+	 * Steps the engine in order to get a new generation.
+	 * 
+	 * @return <code>true</code> if there is another generation available;
+	 *         otherwise <code>false</code>.
+	 */
+	public boolean step() {
+
+		/* Return false if execution is done. */
+		if (this.currentGeneration.equals(this.maxGenerations)) {
+			return false;
 		}
+
+		/* Select parents based on the selection method attached to the problem. */
+		Population parents = problem.getSelection()
+				.execute(problem.getPopulation(), problem.getAptitude(),
+						this.maxParents);
+		/* Obtain offsprings using reproduction method over their 
+		 * parents (i.e. Crossing and mutation). */
+		Population offsprings = problem.getReproduction().reproduce(parents);
+		problem.setPopulation(problem.getReplacement().execute(offsprings,
+				problem.getAptitude(), this.maxParents));
+		/* Increment current generation counter. */
+		this.currentGeneration++;
+
+		return true;
 	}
 
 	/* Getters and Setters. */
+
+	/**
+	 * Gets maximum parents allowed.
+	 * 
+	 * @return Maximum parents allowed.
+	 */
 	public Long getMaxParents() {
 		return maxParents;
 	}
 
+	/**
+	 * Sets maximum parents allowed.
+	 * 
+	 * @param maxParents
+	 *            Maximum parents allowed.
+	 */
 	public void setMaxParents(Long maxParents) {
 		this.maxParents = maxParents;
 	}
 
+	/**
+	 * Gets maximum generations.
+	 * 
+	 * @return Maximum generations.
+	 */
 	public Long getMaxGenerations() {
 		return maxGenerations;
 	}
 
+	/**
+	 * Sets maximum generations.
+	 * 
+	 * @param maxGenerations
+	 */
 	public void setMaxGenerations(Long maxGenerations) {
 		this.maxGenerations = maxGenerations;
 	}
 
-	public I_GenerationCallback getGenerationCallback() {
-		return generationCallback;
+	/**
+	 * Gets the problem attached to the engine.
+	 * 
+	 * @return The problem attached to the engine.
+	 */
+	public A_Problem getProblem() {
+		return problem;
 	}
 
-	public void setGenerationCallback(I_GenerationCallback generationCallback) {
-		this.generationCallback = generationCallback;
+	/**
+	 * Gets the current step population. This method must be called after
+	 * calling step method.
+	 * 
+	 * @return The current step population.
+	 */
+	public Population getPopulation() {
+		return problem.getPopulation();
+	}
+
+	/**
+	 * Gets current generation.
+	 * 
+	 * @return Current generation.
+	 */
+	public Long getCurrentGeneration() {
+		return currentGeneration;
 	}
 }
