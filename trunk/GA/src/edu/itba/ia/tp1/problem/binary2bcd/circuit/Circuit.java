@@ -28,14 +28,7 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
  * 
  */
 
-/**
- * @author jgoldman
- *
- */
-/**
- * @author jgoldman
- *
- */
+
 public class Circuit extends A_Individual {
 
 	/* Collection of inputs. */
