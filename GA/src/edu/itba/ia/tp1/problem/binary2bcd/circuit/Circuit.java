@@ -19,10 +19,22 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOn;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
 /**
- * TODO: Comment
  * 
  * @author Jorge Goldman & Martín A. Heras
  * 
+ * This class implementates a circuit. The main concept behind of this implementation
+ * is a graph that all of its nodes must be correctly connected, based on the concepts
+ * of a circuit.
+ * 
+ */
+
+/**
+ * @author jgoldman
+ *
+ */
+/**
+ * @author jgoldman
+ *
  */
 public class Circuit extends A_Individual {
 
@@ -58,6 +70,7 @@ public class Circuit extends A_Individual {
 	private Circuit(Integer inputBits, Integer outputBits, Integer minGates,
 			Integer maxGates) {
 
+		
 		this.inputBits = inputBits;
 		this.outputBits = outputBits;
 		this.minGates = minGates;
@@ -68,7 +81,12 @@ public class Circuit extends A_Individual {
 		this.gates = new ArrayList<CircuitComponent>();
 		this.outputs = new ArrayList<CircuitComponent>();
 	}
-
+	/**
+	 * Returns a new circuit instance, fully conected. In which the connections and the 
+	 * gates between the inputs and the outputs of the circuit are generated randomly
+	 * 
+	 */
+	
 	public static Circuit generateRandomCircuit(Integer inputBits,
 			Integer outputBits, Integer minGates, Integer maxGates) {
 
@@ -168,45 +186,62 @@ public class Circuit extends A_Individual {
 		return circuit;
 	}
 
+	/**
+	 * Adds an input to the circuit. The CircuitComponent must be and Input class instance.
+	 */
 	private void addInput(CircuitComponent in) {
 		inputs.add(in);
 	}
 
+	/**
+	 * Adds an output to the circuit. The CircuitComponent must be and Output class instance.
+	 */
 	private void addOutput(CircuitComponent output) {
 		outputs.add(output);
 	}
-
+	/**
+	 * Adds an gate to the circuit. The CircuitComponent must be and Gate class instance.
+	 */
 	private void addGate(CircuitComponent gate) {
 		this.gates.add(gate);
 	}
 
 	/**
-	 * TODO: Comment
+	 * Prints a circuit recursively. The output of this method could be a bit confusing in 
+	 * the way that prints the circuit. It might print the same gate twice.
 	 */
 	public void printCircuit() {
 
-		String separator = "\t";
+		String separator = "	";
 		List<CircuitComponent> inputs = this.getInputs();
-
+		/* Prints the inputs of the circuit. */
 		for (CircuitComponent input : inputs) {
 			System.out.println(input);
+			/* Prints the components attached to this input*/
 			this.printNextComponents(input.getNextComponents(), separator);
 		}
 	}
 
+	/**
+	 * Prints all the components attached to a certain component. 
+	 */
 	private void printNextComponents(List<CircuitComponent> list,
 			String separator) {
 
 		for (CircuitComponent comp : list) {
 			System.out.println(comp);
+			/* Prints the components attached to this component */
 			this.printNextComponents(comp.getNextComponents(), separator);
 		}
 	}
 
 	/**
-	 * Assume that the input is binary.
+	 * This method receives an input for a certain Circuit instance and evaluates
+	 * the circuit depending on the given input. 
 	 * 
 	 * @param input
+	 * 		An Integer instance containing a number to be processed by
+	 * 		the circuit.
 	 * @return
 	 */
 	@Override
@@ -215,7 +250,7 @@ public class Circuit extends A_Individual {
 		if (!(input instanceof Integer)) {
 			return null;
 		}
-
+		
 		int inputValue = ((Integer) input).intValue();
 		/* Put the input in the inputs of the circuit. */
 		List<CircuitComponent> inputs = (ArrayList<CircuitComponent>) this
@@ -230,16 +265,28 @@ public class Circuit extends A_Individual {
 				currentInput.setInput(new LogicOff());
 			}
 			inputValue /= 2;
+			/* Put the inputs in the evaluation queue */
 			evaluationQueue.add(currentInput);
 		}
 		Collections.reverse(inputs);
-
+		
+		/* Operates on every Circuit Component in the operation queue, until the queue is empty. */
 		while (!evaluationQueue.isEmpty()) {
 			CircuitComponent element = (CircuitComponent) evaluationQueue
 					.get(0);
+			
+			/* Takes the first element of the queue. */
 			evaluationQueue.remove(0);
+			
+			/* Checks if the element is ready, if it is, operates on the component,
+			 * if it's not, it goes back to the queue.
+			 */
 			if (element.isReady()) {
 				element.operate();
+				
+				/* If the component is not an output, enqueue the components attached to
+				 * to the componene we operated over before.
+				 */
 				if (!(element instanceof Output)) {
 					List<CircuitComponent> nextComponents = element
 							.getNextComponents();
@@ -274,71 +321,104 @@ public class Circuit extends A_Individual {
 		return new Integer(out);
 	}
 
+	/**
+	 * This method has the behavior of reseting all the gates on the circuit.
+	 *
+	 */
 	private void resetCircuit() {
 
 		List<CircuitComponent> inputs = this.getInputs();
 		List<CircuitComponent> outputs = this.getOutputs();
 		List<CircuitComponent> gates = this.getGates();
 
+		/* Resets the inputs. */
 		for (CircuitComponent input : inputs) {
 			input.resetComponent();
 		}
-
+		/* Resets the outputs. */
 		for (CircuitComponent output : outputs) {
 			output.resetComponent();
 		}
-
+		/* Resets the gates. */
 		for (CircuitComponent gate : gates) {
 			gate.resetComponent();
 		}
 	}
-
+	/**
+	 * Returns a List of the inputs of the circuit.
+	 */
 	private List<CircuitComponent> getInputs() {
 		return this.inputs;
 	}
-
+	/**
+	 * Sets a List of the inputs of the circuit.
+	 */
 	private void setInputs(List<CircuitComponent> inputs) {
 		this.inputs = inputs;
 	}
 
+	/**
+	 * Returns a List of the outputs of the circuit.
+	 */
 	private List<CircuitComponent> getOutputs() {
 		return outputs;
 	}
-
+	/**
+	 * Sets a List of the outputs of the circuit.
+	 */
 	private void setOutputs(List<CircuitComponent> outputs) {
 		this.outputs = outputs;
 	}
 
+	/**
+	 * Returns a List of the gates of the circuit.
+	 */
 	private List<CircuitComponent> getGates() {
 		return this.gates;
 	}
-
+	/**
+	 * Sets a List of the gates of the circuit.
+	 */
 	private void setGates(List<CircuitComponent> gates) {
 		this.gates = gates;
 	}
 
+
+	/**
+	 * This method returns a new instance of Circuit that is identical to the given circuit.
+	 *   
+	 */
 	public Circuit clone() {
 
+		/* List of the components that has already been cloned. */
 		List<CircuitComponent> alreadyCloned = new ArrayList<CircuitComponent>();
+		/* List of the inputs of the circuit that were cloned. */
 		List<CircuitComponent> insCloned = new ArrayList<CircuitComponent>();
+		/* List of the gates of the circuit that were cloned. */
 		List<CircuitComponent> partsCloned = new ArrayList<CircuitComponent>();
+		/* List of the outputs of the circuit that were cloned. */
 		List<CircuitComponent> outsCloned = new ArrayList<CircuitComponent>();
 
+		/* Clone the inputs of the circuit first. */
 		for (CircuitComponent input : this.getInputs()) {
 			CircuitComponent cloned = input.clone();
 			alreadyCloned.add(cloned);
 		}
-
+		/* Clone the gates of the circuit. */
 		for (CircuitComponent gate : this.getGates()) {
 			CircuitComponent cloned = gate.clone();
 			alreadyCloned.add(cloned);
 		}
 
+		/* Clone the outputs of the circuit. */
 		for (CircuitComponent output : this.getOutputs()) {
 			CircuitComponent cloned = output.clone();
 			alreadyCloned.add(cloned);
 		}
 
+		/* Now, let´s connect the cloned components in the same way that the real
+		 * circuit was connected.
+		 */
 		List<CircuitComponent> total = new ArrayList<CircuitComponent>();
 		total.addAll(this.getInputs());
 		total.addAll(this.getGates());
@@ -359,6 +439,7 @@ public class Circuit extends A_Individual {
 			}
 		}
 
+		/* Build up the connected components in the new circuit instance*/
 		for (CircuitComponent clonedComponent : alreadyCloned) {
 			if (clonedComponent instanceof Gate) {
 				partsCloned.add(clonedComponent);
@@ -378,11 +459,19 @@ public class Circuit extends A_Individual {
 		return circuit;
 	}
 
+	/**
+	 * This method is intended to get an already cloned component from the list of components 
+	 * that were cloned.
+	 * Returns the cloned component or <code>null</code> otherwise
+	 */
 	private CircuitComponent getCloned(List<CircuitComponent> alreadyCloned,
 			CircuitComponent compN) {
 		boolean found = false;
 		CircuitComponent aux = null;
-		
+		/* Iterates over the list of already cloned components lloking for one
+		 * with the same id of the requested component.
+		 * 
+		 * */
 		Iterator<CircuitComponent> iter = alreadyCloned.iterator();
 		while (iter.hasNext() && !found) {
 			CircuitComponent c = (CircuitComponent) iter.next();
@@ -396,19 +485,28 @@ public class Circuit extends A_Individual {
 		
 		return aux;
 	}
-
+	
+	/**
+	 * Returns the number of inputs of the given circuit.
+	 */
 	public Integer getInputBits() {
 		return inputBits;
 	}
-
+	/**
+	 * Returns the number of outputs of the given circuit.
+	 */
 	public Integer getOutputBits() {
 		return outputBits;
 	}
-
+	/**
+	 * Returns the number of minimun possible gates of the given circuit.
+	 */
 	public Integer getMinGates() {
 		return minGates;
 	}
-
+	/**
+	 * Returns the number of maximun possible gates of the given circuit.
+	 */
 	public Integer getMaxGates() {
 		return maxGates;
 	}
