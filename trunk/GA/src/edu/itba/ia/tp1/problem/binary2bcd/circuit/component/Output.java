@@ -1,6 +1,6 @@
 package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
 
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicState;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
 /**
  * TODO: Comment 

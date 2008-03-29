@@ -1,7 +1,7 @@
 package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
 
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicNotReady;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicState;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicNotReady;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
 public abstract class BinaryGate extends Gate {
 
