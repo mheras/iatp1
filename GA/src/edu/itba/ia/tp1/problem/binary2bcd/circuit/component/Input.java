@@ -8,7 +8,7 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOn;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
 /**
- * TODO: Comment 
+ * This class represents the input of a given circuit
  * @author Martín A. Heras
  * 
  */

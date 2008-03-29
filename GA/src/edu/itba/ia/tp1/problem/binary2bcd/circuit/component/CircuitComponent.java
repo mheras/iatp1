@@ -6,7 +6,7 @@ import java.util.List;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
 /**
- * TODO: Comment
+ * This class represents a Circuit componet.
  * 
  * @author Jorge Goldman & Martín A. Heras
  * 

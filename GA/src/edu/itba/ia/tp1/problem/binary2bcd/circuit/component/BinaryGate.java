@@ -3,6 +3,12 @@ package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicNotReady;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
+/**
+ * This class represents a Binary Gate
+ * 
+ * @author Jorge Goldman
+ *
+ */
 public abstract class BinaryGate extends Gate {
 
 	/* Inputs. */
