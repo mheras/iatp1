@@ -2,10 +2,10 @@ package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
 
 import java.util.List;
 
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicOff;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicOn;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicState;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.Exceptions.InputNotReadyException;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.exceptions.InputNotReadyException;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOff;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOn;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
 /**
  * TODO: Comment

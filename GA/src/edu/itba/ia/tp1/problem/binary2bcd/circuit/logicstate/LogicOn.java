@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState;
+package edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate;
 
 /**
  * Logic On, implementation of LogicState.

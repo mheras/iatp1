@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Random;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicOff;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicOn;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicState;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.BinaryGate;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.Gate;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.Input;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.Output;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.UnaryGate;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOff;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOn;
+import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
 /**
  * TODO: Comment
