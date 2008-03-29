@@ -3,6 +3,13 @@ package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicNotReady;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
+/**
+ * This class represents a wire, used to generate the 
+ * inputs and outputs of a circuit.
+ * 
+ * @author Jorge Goldman
+ *
+ */
 public abstract class Wire extends CircuitComponent {
 
 	/* Input. */

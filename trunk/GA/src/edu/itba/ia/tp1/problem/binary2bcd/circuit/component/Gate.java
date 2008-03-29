@@ -5,18 +5,20 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * TODO: Comment.
- * 
- * @author Martín A. Heras
+ * This class represents a gate. A gate is a Circuit component that has a logic operation that
+ * could be performed to obtain an output of a given input.
+ *
+ * @author Jorge Goldman
  * 
  */
 public abstract class Gate extends CircuitComponent{
 		
 	/**
-	 * TODO: Comment.
+	 * This method generates a random gate and returns its instance.
 	 * 
-	 * @return
-	 */
+	 * @return Gate
+	 * 			An instance of a randomly generated gate.
+	 */		
 	public static Gate randomGate() {
 		
 		Gate gate;

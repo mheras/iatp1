@@ -4,7 +4,7 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicNotReady;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
 /**
- * TODO: Comment
+ * This class represents a Binary Gate
  * 
  * @author Martín A. Heras
  * 
