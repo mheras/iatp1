@@ -229,9 +229,10 @@ public class Circuit extends A_Individual {
 			String separator) {
 
 		for (CircuitComponent comp : list) {
-			System.out.println(comp);
+			System.out.println(separator + comp);
+			separator = separator + separator;
 			/* Prints the components attached to this component */
-			this.printNextComponents(comp.getNextComponents(), separator);
+			printNextComponents(comp.getNextComponents(), separator);
 		}
 	}
 
