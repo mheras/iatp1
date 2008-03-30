@@ -19,16 +19,13 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOn;
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
 
 /**
- * 
- * @author Jorge Goldman & Martín A. Heras
- * 
  * This class implementates a circuit. The main concept behind of this implementation
  * is a graph that all of its nodes must be correctly connected, based on the concepts
  * of a circuit.
  * 
+ * @author Jorge Goldman & Martín A. Heras
+ * 
  */
-
-
 public class Circuit extends A_Individual {
 
 	/* Collection of inputs. */
@@ -74,12 +71,20 @@ public class Circuit extends A_Individual {
 		this.gates = new ArrayList<CircuitComponent>();
 		this.outputs = new ArrayList<CircuitComponent>();
 	}
+	
 	/**
 	 * Returns a new circuit instance, fully conected. In which the connections and the 
-	 * gates between the inputs and the outputs of the circuit are generated randomly
+	 * gates between the inputs and the outputs of the circuit are generated randomly.
 	 * 
+	 * @param inputBits
+	 *            Input bits.
+	 * @param outputBits
+	 *            Output bits.
+	 * @param minGates
+	 *            Minumum gates.
+	 * @param maxGates
+	 *            Maximum gates.
 	 */
-	
 	public static Circuit generateRandomCircuit(Integer inputBits,
 			Integer outputBits, Integer minGates, Integer maxGates) {
 
@@ -456,16 +461,15 @@ public class Circuit extends A_Individual {
 	/**
 	 * This method is intended to get an already cloned component from the list of components 
 	 * that were cloned.
-	 * Returns the cloned component or <code>null</code> otherwise
+	 * Returns the cloned component or <code>null</code> otherwise.
 	 */
 	private CircuitComponent getCloned(List<CircuitComponent> alreadyCloned,
 			CircuitComponent compN) {
 		boolean found = false;
 		CircuitComponent aux = null;
-		/* Iterates over the list of already cloned components lloking for one
+		/* Iterates over the list of already cloned components looking for one
 		 * with the same id of the requested component.
-		 * 
-		 * */
+		 */
 		Iterator<CircuitComponent> iter = alreadyCloned.iterator();
 		while (iter.hasNext() && !found) {
 			CircuitComponent c = (CircuitComponent) iter.next();
