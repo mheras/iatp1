@@ -12,13 +12,15 @@ import org.jfree.chart.axis.TickUnitSource;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  * @author Martín A. Heras
- *
+ * 
  */
 public class AptitudeChart {
 
@@ -28,7 +30,12 @@ public class AptitudeChart {
 	private JPanel chartPanel;
 	private XYSeries data;
 	private NumberAxis generationsAxis;
+	private XYPlot plot;
 
+	private XYItemRenderer linesRenderer;
+	private XYItemRenderer splinesRenderer;
+
+	private boolean splinesOn;
 	private double generation;
 
 	/**
@@ -56,28 +63,36 @@ public class AptitudeChart {
 		aptitudeAxis.setUpperBound(1.0);
 
 		TickUnitSource units = NumberAxis.createIntegerTickUnits();
-		
+
 		this.generationsAxis = new NumberAxis("Generation");
 		this.generationsAxis.setStandardTickUnits(units);
-		this.generationsAxis.setLowerBound(0.0);		
+		this.generationsAxis.setLowerBound(0.0);
 		// This must be changed with public setter every time a new execution is
 		// performed.
 		this.generationsAxis.setUpperBound(200.0);
 
 		aptitudeAxis.setAutoRangeIncludesZero(false);
-		
-		XYItemRenderer renderer = new StandardXYItemRenderer();
-		renderer.setBaseStroke(new BasicStroke(2.0F));
-		
-		XYPlot plot = new XYPlot(dataset, this.generationsAxis, aptitudeAxis,
+
+		// Init splines renderer.
+		this.splinesRenderer = new XYSplineRenderer(50);
+		((XYLineAndShapeRenderer) this.splinesRenderer).setSeriesShapesVisible(
+				0, false);
+		// Init lines renderer.
+		this.linesRenderer = new StandardXYItemRenderer();
+
+		// Default renderer (lines renderer).
+		XYItemRenderer renderer = this.linesRenderer;
+		renderer.setBaseStroke(new BasicStroke(1.0F));
+
+		this.plot = new XYPlot(dataset, this.generationsAxis, aptitudeAxis,
 				renderer);
-		plot.setBackgroundPaint(Color.lightGray);
-		plot.setDomainGridlinePaint(Color.white);
-		plot.setRangeGridlinePaint(Color.white);
-		plot.setOutlineVisible(false);
+		this.plot.setBackgroundPaint(Color.lightGray);
+		this.plot.setDomainGridlinePaint(Color.white);
+		this.plot.setRangeGridlinePaint(Color.white);
+		this.plot.setOutlineVisible(false);
 
 		JFreeChart chart = new JFreeChart(
-				"Population aptitude over generations", plot);
+				"Population aptitude over generations", this.plot);
 		chart.setBackgroundPaint(Color.white);
 
 		this.reset();
@@ -99,5 +114,20 @@ public class AptitudeChart {
 
 	public void addGenerationAptitude(double aptitude) {
 		this.data.add(this.generation++, aptitude);
+	}
+
+	public boolean isSplinesOn() {
+		return splinesOn;
+	}
+
+	public void setSplinesOn(boolean splinesOn) {
+
+		this.splinesOn = splinesOn;
+
+		if (splinesOn) {
+			this.plot.setRenderer(this.splinesRenderer);
+		} else {
+			this.plot.setRenderer(this.linesRenderer);
+		}
 	}
 }

@@ -53,6 +53,7 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 
 		this.printParameters();
 		AptitudeChart chart = AptitudeChart.getInstance();
+		chart.setSplinesOn(true);
 		chart.reset();
 		chart.setMaxGenerations(this.maximumGenerations);
 
