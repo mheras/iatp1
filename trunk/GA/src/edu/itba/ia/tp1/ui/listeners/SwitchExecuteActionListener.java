@@ -32,9 +32,8 @@ public class SwitchExecuteActionListener implements ActionListener, IExecutionTh
 	 * 
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
-	@Override
 	public void actionPerformed(ActionEvent event) {
-
+		
 		JButton source = (JButton) event.getSource();
 
 		/*
