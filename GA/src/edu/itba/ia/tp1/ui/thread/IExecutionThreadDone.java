@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.ui.threads;
+package edu.itba.ia.tp1.ui.thread;
 
 /**
  * Callback used to notify that the execution thread is done with his job.

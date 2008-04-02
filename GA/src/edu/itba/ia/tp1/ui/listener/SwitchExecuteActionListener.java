@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.ui.listeners;
+package edu.itba.ia.tp1.ui.listener;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -9,9 +9,9 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import edu.itba.ia.tp1.ui.MainFrame;
-import edu.itba.ia.tp1.ui.threads.ExecutionThread;
-import edu.itba.ia.tp1.ui.threads.IExecutionThreadDone;
-import edu.itba.ia.tp1.ui.threads.ThreadsBag;
+import edu.itba.ia.tp1.ui.thread.ExecutionThread;
+import edu.itba.ia.tp1.ui.thread.IExecutionThreadDone;
+import edu.itba.ia.tp1.ui.thread.ThreadsBag;
 
 /**
  * SwitchExecute button listener. This class handles SwitchExecute button
