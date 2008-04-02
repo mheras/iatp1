@@ -60,7 +60,55 @@ public class CircuitTree {
 	}
 
 	public void operate(){
-		//TODO
+		List<CircuitComponent> queueList = getInputLeafs();
+		
+		while(!queueList.isEmpty()){
+			CircuitComponent component = queueList.get(0);
+			queueList.remove(0);
+			if(component.isReady()){
+				component.operate();
+				if(component instanceof BinaryGate) {
+					queueList.add(((BinaryGate)component).getLeftSon());
+					queueList.add(((BinaryGate)component).getRightSon());
+				}
+				else{
+					queueList.add(((UnaryGate)component).getSon());
+				}
+				
+			}
+			else{
+				queueList.add(component);
+			}
+			
+		}
+	}
+	
+	private List<CircuitComponent> getInputLeafs(){
+		List<CircuitComponent> inputLeafs = new ArrayList<CircuitComponent>();
+		
+		for(CircuitComponent component: this.getGates()){
+			
+			if(component instanceof BinaryGate){
+				if((((BinaryGate)component).getLeftSon() instanceof Input) 
+						|| (((BinaryGate)component).getRightSon() instanceof Input)){
+					inputLeafs.add(component);
+				}
+			}else{
+				if((((UnaryGate)component).getSon() instanceof Input)){
+					inputLeafs.add(component);
+				}
+			}
+		}
+		
+		
+		return gates;
+		
+	}
+	
+	public void resetTree(){
+		for(CircuitComponent component: this.gates){
+			component.resetComponent();
+		}
 	}
 	
 	public void connectOutput(CircuitComponent output){

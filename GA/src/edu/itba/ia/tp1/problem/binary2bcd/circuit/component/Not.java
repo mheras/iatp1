@@ -1,5 +1,6 @@
 package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
 
+import java.awt.Component;
 import java.util.List;
 
 import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.exceptions.InputNotReadyException;
@@ -20,7 +21,6 @@ public class Not extends UnaryGate {
 	 */
 	public void operate() {
 		
-		List<CircuitComponent> nexts = this.getNextComponents();
 		LogicState output;
 		
 		if (this.input.isNotReady()) {
@@ -33,9 +33,9 @@ public class Not extends UnaryGate {
 			output = new LogicOff();
 		}
 
-		for (CircuitComponent component : nexts) {
-			component.setInput(output);
-		}		
+		CircuitComponent component = this.getFather();
+		component.setInput(output);
+		
 	}	
 	
 	public String getOperationString(){
