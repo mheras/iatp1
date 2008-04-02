@@ -11,6 +11,10 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
  */
 public abstract class BinaryGate extends Gate {
 
+	
+	/* Sons of this Component. */
+	private CircuitComponent [] sons = new CircuitComponent [] {null, null};
+	
 	/* Inputs. */
 	protected LogicState[] inputs = new LogicState[] { new LogicNotReady(),
 			new LogicNotReady() };
@@ -43,5 +47,27 @@ public abstract class BinaryGate extends Gate {
 			inputs[1] = state;
 		}
 	}
+	/* Getters and Setters. */
+	
+	public CircuitComponent[] getSons() {
+		return sons;
+	}
 
+	public void setSons(CircuitComponent[] sons) {
+		this.sons = sons;
+	}
+	public void setLeftSon(CircuitComponent component){
+		this.sons[0] = component;
+	}
+	public void setRightSon(CircuitComponent component){
+		this.sons[1] = component;
+	}
+	
+	public CircuitComponent getRightSon(){
+		return this.sons[1];
+	}
+	
+	public CircuitComponent getLeftSon(){
+		return this.sons[0];
+	}
 }
