@@ -13,6 +13,9 @@ import java.util.Random;
  */
 public abstract class Gate extends CircuitComponent{
 		
+	/* Father Component. */ 
+	private CircuitComponent father;
+	
 	/**
 	 * This method generates a random gate and returns its instance.
 	 * 
@@ -42,5 +45,13 @@ public abstract class Gate extends CircuitComponent{
 		}
 
 		return gate;
+	}
+	
+	public CircuitComponent getFather() {
+		return father;
+	}
+
+	public void setFather(CircuitComponent father) {
+		this.father = father;
 	}
 }

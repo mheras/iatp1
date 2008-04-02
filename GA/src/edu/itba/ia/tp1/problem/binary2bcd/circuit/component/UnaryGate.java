@@ -11,6 +11,10 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
  */
 public abstract class UnaryGate extends Gate {
 
+	/* Son component of this component. */
+	private CircuitComponent son = null;
+	
+	
 	/* Input. */
 	protected LogicState input = new LogicNotReady();
 
@@ -38,5 +42,13 @@ public abstract class UnaryGate extends Gate {
 		if (input.isNotReady()) {
 			input = state;
 		}
+	}
+
+	public CircuitComponent getSon() {
+		return son;
+	}
+
+	public void setSon(CircuitComponent son) {
+		this.son = son;
 	}
 }
