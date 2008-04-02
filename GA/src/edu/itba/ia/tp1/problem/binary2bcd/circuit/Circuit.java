@@ -194,12 +194,11 @@ public class Circuit extends A_Individual {
 		
 		List<CircuitComponent> outputs = this.getOutputs();
 		
-		for(int i = 0; i < outputs.size(); i++ ){
-			this.circuits[i].connectOutput(outputs.get(i));
+		for(CircuitComponent currentInput: inputs){
+			currentInput.operate();
 		}
 		
 		for(CircuitTree currentTree : this.circuits){
-			currentTree.connectInputs(inputs);
 			currentTree.operate();
 		}
 		
