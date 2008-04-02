@@ -1,19 +1,19 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate;
 
 /**
- * Logic Not Ready, implementation of LogicState.
+ * Logic On, implementation of LogicState.
  * 
  * @author Martín A. Heras
  * 
  */
-public class LogicNotReady extends LogicState {
+public class LogicOn extends LogicState {
 
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicState#isNotReady()
 	 */
 	@Override
 	public boolean isNotReady() {
-		return true;
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -29,14 +29,14 @@ public class LogicNotReady extends LogicState {
 	 */
 	@Override
 	public boolean isOn() {
-		return false;
+		return true;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		return (obj instanceof LogicNotReady);		
+		return (obj instanceof LogicOn);		
 	}
 }

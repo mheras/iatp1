@@ -1,6 +1,6 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.component;
 
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
 
 /**
  * This class represents the output of a given circuit

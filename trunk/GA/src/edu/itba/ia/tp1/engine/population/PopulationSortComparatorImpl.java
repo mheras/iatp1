@@ -11,7 +11,7 @@ import edu.itba.ia.tp1.engine.I_Aptitude;
  * Implementation of Comparator to decide if an Individual is better
  * adapted than another one.
  * 
- * @author francisco.siviero
+ * @author Pablo F. Siviero
  */
 public class PopulationSortComparatorImpl implements Comparator<A_Individual> {
 	

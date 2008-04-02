@@ -1,7 +1,7 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.component;
 
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicNotReady;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicNotReady;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
 
 /**
  * This class represents a wire, used to generate the 

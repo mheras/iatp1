@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.itba.ia.tp1.problem.binary2bcd;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree;
 
 import edu.itba.ia.tp1.engine.A_Problem;
 import edu.itba.ia.tp1.engine.I_Aptitude;
@@ -14,12 +14,20 @@ import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
  * 
  * @author Pablo F. Siviero
  */
-public class Problem extends A_Problem {
+public class CircuitTreeProblem extends A_Problem {
 
-	public Problem(I_SelectionAlgorithm selection,
+	/**
+	 * @param selection
+	 * @param replacement
+	 * @param reproduction
+	 * @param aptitude
+	 * @param individuals
+	 */
+	public CircuitTreeProblem(I_SelectionAlgorithm selection,
 			I_SelectionAlgorithm replacement,
-			ReproductionAlgorithm reproduction, I_Aptitude aptitude) {
-		super(selection, replacement, reproduction, aptitude);
+			ReproductionAlgorithm reproduction, I_Aptitude aptitude,
+			Long individuals) {
+		super(selection, replacement, reproduction, aptitude, individuals);
 	}
 
 	/*
@@ -28,7 +36,7 @@ public class Problem extends A_Problem {
 	 * @see edu.itba.ia.tp1.engine.problem.AProblem#initPopulation()
 	 */
 	@Override
-	public Population initPopulation() {
+	public Population initPopulation(Long individuals) {
 		// TODO: Implement
 		return null;
 	}

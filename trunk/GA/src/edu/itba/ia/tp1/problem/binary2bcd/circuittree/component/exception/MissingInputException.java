@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.component.exceptions;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.exception;
 
 public class MissingInputException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,9 @@ public abstract class Gate extends CircuitComponent{
 		
 		List<String> subclasses = new ArrayList<String>();
 		/* The following is hardcoded. */
-		subclasses.add("edu.itba.ia.tp1.problem.binary2bcd.circuit.component.And");
-		subclasses.add("edu.itba.ia.tp1.problem.binary2bcd.circuit.component.Or");
-		subclasses.add("edu.itba.ia.tp1.problem.binary2bcd.circuit.component.Not");
+		subclasses.add("edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.And");
+		subclasses.add("edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Or");
+		subclasses.add("edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Not");
 
 		Random rand = new Random();
 		int chosenIndexGate = rand.nextInt(subclasses.size());

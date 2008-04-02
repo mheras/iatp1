@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate;
 
 /**
  * Logic Off, implementation of LogicState.

@@ -1,9 +1,9 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
 
 /**
  * This class represents a Circuit componet.
