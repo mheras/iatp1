@@ -67,14 +67,9 @@ public class CircuitTree {
 			queueList.remove(0);
 			if(component.isReady()){
 				component.operate();
-				if(component instanceof BinaryGate) {
-					queueList.add(((BinaryGate)component).getLeftSon());
-					queueList.add(((BinaryGate)component).getRightSon());
+				if(component instanceof Gate){
+					queueList.add(((Gate)component).getFather());
 				}
-				else{
-					queueList.add(((UnaryGate)component).getSon());
-				}
-				
 			}
 			else{
 				queueList.add(component);
