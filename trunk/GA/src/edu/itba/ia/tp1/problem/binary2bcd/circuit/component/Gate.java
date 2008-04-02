@@ -54,4 +54,7 @@ public abstract class Gate extends CircuitComponent{
 	public void setFather(CircuitComponent father) {
 		this.father = father;
 	}
+	public abstract String getOperationString();
+	
+	
 }

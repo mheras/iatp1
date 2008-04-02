@@ -125,13 +125,7 @@ public class CircuitTree {
 	}
 
 	private String getOperationString(CircuitComponent component) {
-		if (component instanceof And){
-			return " & ";
-		}else if (component instanceof Or){
-			return " | ";
-		}else{
-			return " ^";
-		}
+		return ((Gate)component).getOperationString();
 		
 	}
 

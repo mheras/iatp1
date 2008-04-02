@@ -37,4 +37,8 @@ public class Not extends UnaryGate {
 			component.setInput(output);
 		}		
 	}	
+	
+	public String getOperationString(){
+		return "¬";
+	}
 }
