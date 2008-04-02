@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author jgoldman
+ * TODO: Comment
+ * @author Jorge Goldman
  *
  */
 
@@ -58,6 +59,10 @@ public class CircuitTree {
 		
 	}
 
+	public void operate(){
+		//TODO
+	}
+	
 	public void connectOutput(CircuitComponent output){
 		CircuitComponent root = this.getGates().get(0);
 		((Gate)root).setFather(output);
