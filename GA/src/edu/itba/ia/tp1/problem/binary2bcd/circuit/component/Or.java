@@ -37,4 +37,7 @@ public class Or extends BinaryGate {
 			component.setInput(output);
 		}		
 	}
+	public String getOperationString(){
+		return "|";
+	}
 }
