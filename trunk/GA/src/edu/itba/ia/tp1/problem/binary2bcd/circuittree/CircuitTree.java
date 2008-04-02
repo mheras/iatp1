@@ -14,9 +14,9 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicOn;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
 
 /**
- * This class implementates a circuit. The main concept behind of this implementation
- * is a graph that all of its nodes must be correctly connected, based on the concepts
- * of a circuit.
+ * This class implementates a circuit. The main concept behind of this
+ * implementation is a graph that all of its nodes must be correctly connected,
+ * based on the concepts of a circuit.
  * 
  * @author Jorge Goldman & Martín A. Heras
  * 
@@ -28,7 +28,7 @@ public class CircuitTree extends A_Individual {
 	/* Collection of outputs. */
 	private List<CircuitComponent> outputs;
 	/* Collection of gates. */
-	private CircuitOutputTree [] circuits;
+	private CircuitOutputTree[] circuits;
 
 	/* Number of input bits. */
 	private Integer inputBits;
@@ -52,10 +52,9 @@ public class CircuitTree extends A_Individual {
 	 * @param maxGates
 	 *            Maximum gates.
 	 */
-	private CircuitTree(Integer inputBits, Integer outputBits, Integer minGates,
-			Integer maxGates) {
+	private CircuitTree(Integer inputBits, Integer outputBits,
+			Integer minGates, Integer maxGates) {
 
-		
 		this.inputBits = inputBits;
 		this.outputBits = outputBits;
 		this.minGates = minGates;
@@ -63,13 +62,14 @@ public class CircuitTree extends A_Individual {
 
 		/* Initialize collections. */
 		this.inputs = new ArrayList<CircuitComponent>();
-		this.circuits = new CircuitOutputTree [outputBits];
+		this.circuits = new CircuitOutputTree[outputBits];
 		this.outputs = new ArrayList<CircuitComponent>();
 	}
-	
+
 	/**
-	 * Returns a new circuit instance, fully conected. In which the connections and the 
-	 * gates between the inputs and the outputs of the circuit are generated randomly.
+	 * Returns a new circuit instance, fully conected. In which the connections
+	 * and the gates between the inputs and the outputs of the circuit are
+	 * generated randomly.
 	 * 
 	 * @param inputBits
 	 *            Input bits.
@@ -83,7 +83,8 @@ public class CircuitTree extends A_Individual {
 	public static CircuitTree generateRandomCircuit(Integer inputBits,
 			Integer outputBits, Integer minGates, Integer maxGates) {
 
-		CircuitTree circuit = new CircuitTree(inputBits, outputBits, minGates, maxGates);
+		CircuitTree circuit = new CircuitTree(inputBits, outputBits, minGates,
+				maxGates);
 
 		/* Generate Inputs. */
 		Long n = 0L;
@@ -94,13 +95,14 @@ public class CircuitTree extends A_Individual {
 		}
 
 		/* Generate the number of gates that will be part of the circuit. */
-		CircuitOutputTree [] circuitTrees = new CircuitOutputTree[outputBits];
-		for(Integer i = 0; i < circuit.getOutputBits() ; i++){
-			CircuitOutputTree newRandomCircuit = CircuitOutputTree.generateRandomCircuitTree(maxGates);
+		CircuitOutputTree[] circuitTrees = new CircuitOutputTree[outputBits];
+		for (Integer i = 0; i < circuit.getOutputBits(); i++) {
+			CircuitOutputTree newRandomCircuit = CircuitOutputTree
+					.generateRandomCircuitTree(maxGates);
 			newRandomCircuit.connectInputs(circuit.getInputs());
 			circuitTrees[i] = newRandomCircuit;
 		}
-		
+
 		/* Generate outputs and connect the outputs randomly. */
 		for (Integer i = 0; i < circuit.getOutputBits(); i++) {
 			CircuitComponent output = new Output();
@@ -113,39 +115,41 @@ public class CircuitTree extends A_Individual {
 	}
 
 	/**
-	 * Adds an input to the circuit. The CircuitComponent must be and Input class instance.
+	 * Adds an input to the circuit. The CircuitComponent must be and Input
+	 * class instance.
 	 */
 	private void addInput(CircuitComponent in) {
 		inputs.add(in);
 	}
 
 	/**
-	 * Adds an output to the circuit. The CircuitComponent must be and Output class instance.
+	 * Adds an output to the circuit. The CircuitComponent must be and Output
+	 * class instance.
 	 */
 	private void addOutput(CircuitComponent output) {
 		outputs.add(output);
 	}
-	
 
 	/**
-	 * Prints a circuit recursively. The output of this method could be a bit confusing in 
-	 * the way that prints the circuit. It might print the same gate twice.
+	 * Prints a circuit recursively. The output of this method could be a bit
+	 * confusing in the way that prints the circuit. It might print the same
+	 * gate twice.
 	 */
 	public void printCircuit() {
 
-		for(CircuitOutputTree tree: this.getCircuits()){
+		for (CircuitOutputTree tree : this.getCircuits()) {
 			System.out.println(tree.toString());
 		}
-		
+
 	}
 
 	/**
-	 * This method receives an input for a certain Circuit instance and evaluates
-	 * the circuit depending on the given input. 
+	 * This method receives an input for a certain Circuit instance and
+	 * evaluates the circuit depending on the given input.
 	 * 
 	 * @param input
-	 * 		An Integer instance containing a number to be processed by
-	 * 		the circuit.
+	 *            An Integer instance containing a number to be processed by the
+	 *            circuit.
 	 * @return
 	 */
 	@Override
@@ -154,12 +158,12 @@ public class CircuitTree extends A_Individual {
 		if (!(input instanceof Integer)) {
 			return null;
 		}
-		
+
 		int inputValue = ((Integer) input).intValue();
 		/* Put the input in the inputs of the circuit. */
 		List<CircuitComponent> inputs = (ArrayList<CircuitComponent>) this
 				.getInputs();
-		
+
 		Collections.reverse(inputs);
 		for (CircuitComponent currentInput : inputs) {
 			if ((inputValue % 2) == 1) {
@@ -171,20 +175,20 @@ public class CircuitTree extends A_Individual {
 			/* Put the inputs in the evaluation queue */
 		}
 		Collections.reverse(inputs);
-		
+
 		List<CircuitComponent> outputs = this.getOutputs();
-		
-		for(CircuitComponent currentInput: inputs){
+
+		for (CircuitComponent currentInput : inputs) {
 			currentInput.operate();
 		}
-		
-		for(CircuitOutputTree currentTree : this.circuits){
+
+		for (CircuitOutputTree currentTree : this.circuits) {
 			currentTree.operate();
 		}
-		
+
 		/* Generates the output. */
 		int out = 0;
-		
+
 		Collections.reverse(outputs);
 
 		int power = 1;
@@ -198,7 +202,7 @@ public class CircuitTree extends A_Individual {
 		}
 
 		Collections.reverse(outputs);
-		
+
 		this.resetCircuit();
 
 		return new Integer(out);
@@ -206,13 +210,13 @@ public class CircuitTree extends A_Individual {
 
 	/**
 	 * This method has the behavior of reseting all the gates on the circuit.
-	 *
+	 * 
 	 */
 	private void resetCircuit() {
 
 		List<CircuitComponent> inputs = this.getInputs();
 		List<CircuitComponent> outputs = this.getOutputs();
-		CircuitOutputTree [] circuits = this.getCircuits();
+		CircuitOutputTree[] circuits = this.getCircuits();
 
 		/* Resets the inputs. */
 		for (CircuitComponent input : inputs) {
@@ -227,12 +231,14 @@ public class CircuitTree extends A_Individual {
 			tree.resetTree();
 		}
 	}
+
 	/**
 	 * Returns a List of the inputs of the circuit.
 	 */
 	private List<CircuitComponent> getInputs() {
 		return this.inputs;
 	}
+
 	/**
 	 * Sets a List of the inputs of the circuit.
 	 */
@@ -246,6 +252,7 @@ public class CircuitTree extends A_Individual {
 	private List<CircuitComponent> getOutputs() {
 		return outputs;
 	}
+
 	/**
 	 * Sets a List of the outputs of the circuit.
 	 */
@@ -253,29 +260,30 @@ public class CircuitTree extends A_Individual {
 		this.outputs = outputs;
 	}
 
-	
 	public CircuitOutputTree[] getCircuits() {
 		return circuits;
 	}
 
 	/**
-	 * This method returns a new instance of Circuit that is identical to the given circuit.
-	 *   
+	 * This method returns a new instance of Circuit that is identical to the
+	 * given circuit.
+	 * 
 	 */
 	public CircuitTree clone() {
 		return null;
 	}
 
 	/**
-	 * This method is intended to get an already cloned component from the list of components 
-	 * that were cloned.
-	 * Returns the cloned component or <code>null</code> otherwise.
+	 * This method is intended to get an already cloned component from the list
+	 * of components that were cloned. Returns the cloned component or
+	 * <code>null</code> otherwise.
 	 */
 	private CircuitComponent getCloned(List<CircuitComponent> alreadyCloned,
 			CircuitComponent compN) {
 		boolean found = false;
 		CircuitComponent aux = null;
-		/* Iterates over the list of already cloned components looking for one
+		/*
+		 * Iterates over the list of already cloned components looking for one
 		 * with the same id of the requested component.
 		 */
 		Iterator<CircuitComponent> iter = alreadyCloned.iterator();
@@ -288,28 +296,31 @@ public class CircuitTree extends A_Individual {
 				}
 			}
 		}
-		
+
 		return aux;
 	}
-	
+
 	/**
 	 * Returns the number of inputs of the given circuit.
 	 */
 	public Integer getInputBits() {
 		return inputBits;
 	}
+
 	/**
 	 * Returns the number of outputs of the given circuit.
 	 */
 	public Integer getOutputBits() {
 		return outputBits;
 	}
+
 	/**
 	 * Returns the number of minimun possible gates of the given circuit.
 	 */
 	public Integer getMinGates() {
 		return minGates;
 	}
+
 	/**
 	 * Returns the number of maximun possible gates of the given circuit.
 	 */
