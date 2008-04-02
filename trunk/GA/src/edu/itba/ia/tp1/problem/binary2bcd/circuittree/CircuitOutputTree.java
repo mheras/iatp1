@@ -1,6 +1,7 @@
 package edu.itba.ia.tp1.problem.binary2bcd.circuittree;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -40,6 +41,94 @@ public class CircuitOutputTree {
 		return cTree;
 	}
 
+	public CircuitOutputTree clone(List<CircuitComponent> clonedInputs, List<CircuitComponent>clonedOutputs){
+		
+		CircuitOutputTree newCircuitOutputTree = new CircuitOutputTree();
+		
+		List<CircuitComponent> realComponentList = this.getGates();
+		List<CircuitComponent> clonedComponentList = new ArrayList<CircuitComponent>();
+		
+		CircuitComponent realComponent = realComponentList.get(0);
+		CircuitComponent output = getClonedComponent(((Gate)realComponent).getFather(), clonedOutputs);
+		CircuitComponent clonedComponent = realComponent.clone();
+		((Gate)clonedComponent).setFather(output);
+		clonedComponentList.add(clonedComponent);
+		
+		cloneSons(realComponent, clonedComponent, clonedComponentList, clonedInputs);
+		
+		
+		
+		newCircuitOutputTree.setGates(clonedComponentList);
+		return newCircuitOutputTree;
+		
+	}
+	
+	private void cloneSons(CircuitComponent realComponent, CircuitComponent clonedComponent, List<CircuitComponent> clonedComponentList, List<CircuitComponent> clonedInputs) {
+		
+		if(realComponent instanceof BinaryGate){
+			if(((BinaryGate)realComponent).getLeftSon() instanceof Input){
+				CircuitComponent clonedInput = getClonedComponent(((BinaryGate)realComponent).getLeftSon(), clonedInputs);
+				((BinaryGate)clonedComponent).setLeftSon(clonedInput);
+				clonedInput.addNextComponent(clonedComponent);
+			} 
+			if (((BinaryGate)realComponent).getRightSon() instanceof Input){
+				CircuitComponent clonedInput = getClonedComponent(((BinaryGate)realComponent).getRightSon(), clonedInputs);
+				((BinaryGate)clonedComponent).setRightSon(clonedInput);
+				clonedInput.addNextComponent(clonedComponent);
+			}
+			if(((BinaryGate)realComponent).getLeftSon() instanceof Gate){
+				CircuitComponent newCloned = ((BinaryGate)realComponent).getLeftSon().clone();
+				clonedComponentList.add(newCloned);
+				((BinaryGate)clonedComponent).setLeftSon(newCloned);
+				((Gate)newCloned).setFather(clonedComponent);
+				cloneSons(((BinaryGate)realComponent).getLeftSon(), newCloned, clonedComponentList, clonedInputs);
+			}
+			if(((BinaryGate)realComponent).getRightSon() instanceof Gate){
+				CircuitComponent newCloned = ((BinaryGate)realComponent).getRightSon().clone();
+				clonedComponentList.add(newCloned);
+				((BinaryGate)clonedComponent).setRightSon(newCloned);
+				((Gate)newCloned).setFather(clonedComponent);
+				cloneSons(((BinaryGate)realComponent).getRightSon(), newCloned, clonedComponentList, clonedInputs);
+			}
+		}else{
+			if (((UnaryGate)realComponent).getSon() instanceof Input){
+				CircuitComponent clonedInput = getClonedComponent(((UnaryGate)realComponent).getSon(), clonedInputs);
+				((UnaryGate)clonedComponent).setSon(clonedInput);
+				clonedInput.addNextComponent(clonedComponent);
+			}
+			if(((UnaryGate)realComponent).getSon() instanceof Gate){
+				CircuitComponent newCloned = ((UnaryGate)realComponent).getSon().clone();
+				clonedComponentList.add(newCloned);
+				((UnaryGate)clonedComponent).setSon(newCloned);
+				((Gate)newCloned).setFather(clonedComponent);
+				cloneSons(((UnaryGate)realComponent).getSon(), newCloned, clonedComponentList, clonedInputs);
+			}
+		}
+		
+	}
+
+	private CircuitComponent getClonedComponent(CircuitComponent compN, List<CircuitComponent> alreadyCloned) {
+		boolean found = false;
+		CircuitComponent aux = null;
+		/*
+		 * Iterates over the list of already cloned components looking for one
+		 * with the same id of the requested component.
+		 */
+		Iterator<CircuitComponent> iter = alreadyCloned.iterator();
+		while (iter.hasNext() && !found) {
+			CircuitComponent c = (CircuitComponent) iter.next();
+			if (c.getId().equals(compN.getId())) {
+				if ((c.getClass().equals(compN.getClass()))) {
+					aux = c;
+					found = true;
+				}
+			}
+		}
+
+		return aux;
+
+	}
+
 	private static void generateSons(CircuitOutputTree tree,
 			CircuitComponent component, int nGates) {
 
@@ -53,8 +142,8 @@ public class CircuitOutputTree {
 				tree.addGate(secondComponent);
 				((BinaryGate) component).setRightSon(firstComponent);
 				((BinaryGate) component).setLeftSon(secondComponent);
-				generateSons(tree, firstComponent, nGates - 2);
-				generateSons(tree, secondComponent, nGates - 2);
+				generateSons(tree, firstComponent, nGates -2);
+				generateSons(tree, secondComponent, nGates -2);
 			} else {
 				CircuitComponent newComponent = Gate.randomGate();
 				((Gate) newComponent).setFather(component);
@@ -99,7 +188,7 @@ public class CircuitOutputTree {
 			}
 		}
 
-		return gates;
+		return inputLeafs;
 
 	}
 

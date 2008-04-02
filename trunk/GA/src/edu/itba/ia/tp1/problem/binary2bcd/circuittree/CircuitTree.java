@@ -270,34 +270,34 @@ public class CircuitTree extends A_Individual {
 	 * 
 	 */
 	public CircuitTree clone() {
-		return null;
-	}
-
-	/**
-	 * This method is intended to get an already cloned component from the list
-	 * of components that were cloned. Returns the cloned component or
-	 * <code>null</code> otherwise.
-	 */
-	private CircuitComponent getCloned(List<CircuitComponent> alreadyCloned,
-			CircuitComponent compN) {
-		boolean found = false;
-		CircuitComponent aux = null;
-		/*
-		 * Iterates over the list of already cloned components looking for one
-		 * with the same id of the requested component.
-		 */
-		Iterator<CircuitComponent> iter = alreadyCloned.iterator();
-		while (iter.hasNext() && !found) {
-			CircuitComponent c = (CircuitComponent) iter.next();
-			if (c.getId().equals(compN.getId())) {
-				if ((c.getClass().equals(compN.getClass()))) {
-					aux = c;
-					found = true;
-				}
-			}
+		CircuitTree newCircuitTree = new CircuitTree(this.inputBits, this.outputBits, this.minGates, this.maxGates);
+		
+		List<CircuitComponent> clonedInputs = new ArrayList<CircuitComponent>();
+		
+		List<CircuitComponent> clonedOutputs = new ArrayList<CircuitComponent>();
+		
+		CircuitOutputTree [] clonedTrees = new CircuitOutputTree [this.outputBits];
+		
+		for(CircuitComponent currentInput : this.getInputs()){
+			CircuitComponent cloned = currentInput.clone();
+			clonedInputs.add(cloned);
 		}
-
-		return aux;
+		
+		for(CircuitComponent currentOutput : this.getOutputs()){
+			CircuitComponent cloned = currentOutput.clone();
+			clonedOutputs.add(cloned);
+		}
+		
+		for(int i = 0; i < this.getOutputBits() ; i++){
+			CircuitOutputTree realTree = this.getCircuits()[i];
+			clonedTrees[i] = realTree.clone(clonedInputs, clonedOutputs);
+		}
+		
+		newCircuitTree.setInputs(clonedInputs);
+		newCircuitTree.setOutputs(clonedOutputs);
+		newCircuitTree.setCircuits(clonedTrees);
+		
+		return newCircuitTree;
 	}
 
 	/**

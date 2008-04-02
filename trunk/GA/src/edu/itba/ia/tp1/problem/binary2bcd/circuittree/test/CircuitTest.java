@@ -11,5 +11,10 @@ public class CircuitTest {
 		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 5, 5);
 		circuitA.printCircuit();
 		System.out.println(circuitA.operate(new Integer(4)));
+		CircuitTree circuitClone = circuitA.clone();
+		circuitClone.printCircuit();
+		System.out.println(circuitClone.operate(new Integer(4)));
+		
+		
 	}
 }
