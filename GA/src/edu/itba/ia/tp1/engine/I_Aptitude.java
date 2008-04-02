@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.itba.ia.tp1.engine;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
@@ -20,5 +17,4 @@ public interface I_Aptitude {
 	 * @return a number between 0 and 1 representing how adapted it is.
 	 */
 	public Double evaluate(A_Individual x);
-
 }

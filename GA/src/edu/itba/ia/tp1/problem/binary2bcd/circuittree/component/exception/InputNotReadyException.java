@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.component.exceptions;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.exception;
 
 /**
  * Exception thrown when trying to operate a Gate with not ready inputs.

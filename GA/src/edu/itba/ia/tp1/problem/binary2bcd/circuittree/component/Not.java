@@ -1,12 +1,9 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.component;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.component;
 
-import java.awt.Component;
-import java.util.List;
-
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.exceptions.InputNotReadyException;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOff;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOn;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.exception.InputNotReadyException;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicOff;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicOn;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
 
 /**
  * This class represents a Not Gate.

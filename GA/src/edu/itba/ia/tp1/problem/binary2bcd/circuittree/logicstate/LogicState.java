@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate;
 
 /**
  * This class represents a three-state logic state. Used in circuit inputs and

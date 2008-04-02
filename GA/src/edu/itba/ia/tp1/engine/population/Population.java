@@ -20,25 +20,25 @@ public class Population {
 	/**
 	 * Returns the size of the population.
 	 * 
-	 * @return
+	 * @return The size of the population.
 	 */
 	public int getSize() {
 		return this.individuals.size();
 	}
 
 	/**
-	 * Adds an Individual
+	 * Adds an Individual.
 	 * 
-	 * @param individual
+	 * @param individual An individual.
 	 */
 	public void addIndividual(A_Individual individual) {
 		this.individuals.add(individual);
 	}
 
 	/**
-	 * Removes an Individual
+	 * Removes an Individual.
 	 * 
-	 * @param individual
+	 * @param individual An individual.
 	 */
 	public void removeIndividual(A_Individual individual) {
 		this.individuals.remove(individual);
@@ -47,17 +47,26 @@ public class Population {
 	/**
 	 * Adds an entire Collection.
 	 * 
-	 * @param population
+	 * @param population A population to be added.
 	 */
 	public void addAll(Collection<? extends A_Individual> population) {
 		this.individuals.addAll(population);
 	}
 
 	/* Getters and Setters. */
+	
+	/**
+	 * Gets the individuals.
+	 * @return The individuals.
+	 */
 	public List<A_Individual> getIndividuals() {
 		return individuals;
 	}
 
+	/**
+	 * Sets the individuals.
+	 * @param individuals The individuals.
+	 */
 	public void setIndividuals(List<A_Individual> individuals) {
 		this.individuals = individuals;
 	}

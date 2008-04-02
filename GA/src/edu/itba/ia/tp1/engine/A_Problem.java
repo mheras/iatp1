@@ -30,63 +30,133 @@ public abstract class A_Problem {
 	private ReproductionAlgorithm reproduction;
 	/* The aptitude function to evaluate an individual. */
 	private I_Aptitude aptitude;
+	/* Population size. */
+	private Long populationSize;
 
+	/**
+	 * Creates a new problem.
+	 * 
+	 * @param selection Selection algorithm.
+	 * @param replacement Replacemente algorithm.
+	 * @param reproduction Reproduction algorithm.
+	 * @param aptitude Aptitude function.
+	 * @param populationSize Fixed population size.
+	 */
 	public A_Problem(I_SelectionAlgorithm selection,
 			I_SelectionAlgorithm replacement,
-			ReproductionAlgorithm reproduction, I_Aptitude aptitude) {
+			ReproductionAlgorithm reproduction, I_Aptitude aptitude, Long populationSize) {
 		this.selection = selection;
 		this.replacement = replacement;
 		this.reproduction = reproduction;
 		this.aptitude = aptitude;
-		this.population = this.initPopulation();
+		this.populationSize = populationSize;
+		this.population = this.initPopulation(populationSize);
 	}
 
 	/**
 	 * Inheritance over AProblem should implement the way the population gets
 	 * initially loaded.
 	 * 
+	 * @param populationSize Population size.
 	 * @return an initialized Population
 	 */
-	protected abstract Population initPopulation();
+	protected abstract Population initPopulation(Long populationSize);
 
 	/* Getters and Setters. */
+
+	/**
+	 * Gets the population.
+	 * @return The population.
+	 */
 	public Population getPopulation() {
 		return population;
 	}
 
+	/**
+	 * Sets the population.
+	 * @param population The population.
+	 */
 	public void setPopulation(Population population) {
 		this.population = population;
 	}
 
+	/**
+	 * Gets the selection algorithm.
+	 * @return The selection algorithm.
+	 */
 	public I_SelectionAlgorithm getSelection() {
 		return selection;
 	}
 
+	/**
+	 * Sets the selection algorithm.
+	 * @param selection The selection algorithm.
+	 */
 	public void setSelection(I_SelectionAlgorithm selection) {
 		this.selection = selection;
 	}
 
+	/**
+	 * Gets the replacement algorithm.
+	 * @return The replacement algorithm.
+	 */
 	public I_SelectionAlgorithm getReplacement() {
 		return replacement;
 	}
 
+	/**
+	 * Sets the replacement algorithm.
+	 * @param replacement The replacement algorithm.
+	 */
 	public void setReplacement(I_SelectionAlgorithm replacement) {
 		this.replacement = replacement;
 	}
 
+	/**
+	 * Gets the reproduction algorithm.
+	 * @return The reproduction algorithm.
+	 */
 	public ReproductionAlgorithm getReproduction() {
 		return reproduction;
 	}
 
+	/**
+	 * Sets the reproduction algorithm.
+	 * @param reproduction The reproduction algorithm.
+	 */
 	public void setReproduction(ReproductionAlgorithm reproduction) {
 		this.reproduction = reproduction;
 	}
 
+	/**
+	 * Gets the aptitude function.
+	 * @return The aptitude function.
+	 */
 	public I_Aptitude getAptitude() {
 		return aptitude;
 	}
 
+	/**
+	 * Sets the aptitude function.
+	 * @param aptitude The aptitude function.
+	 */
 	public void setAptitude(I_Aptitude aptitude) {
 		this.aptitude = aptitude;
+	}
+
+	/**
+	 * Gets the population size.
+	 * @return The population size.
+	 */
+	public Long getPopulationSize() {
+		return populationSize;
+	}
+
+	/**
+	 * Sets the population size.
+	 * @param populationSize The population size.
+	 */
+	public void setPopulationSize(Long populationSize) {
+		this.populationSize = populationSize;
 	}
 }

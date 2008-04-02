@@ -3,9 +3,6 @@
  */
 package edu.itba.ia.tp1.engine.population.reproduction;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
@@ -17,10 +14,24 @@ import edu.itba.ia.tp1.engine.population.Population;
  */
 public class ReproductionAlgorithm {
 
-	private List<I_GeneticOperation> operations;
+	/* Crossover algorithm. */
+	private I_GeneticOperation crossover;
+	/* Mutation algorithm. */
+	private I_GeneticOperation mutation;
 
-	public ReproductionAlgorithm() {
-		this.operations = new ArrayList<I_GeneticOperation>();
+	/**
+	 * Creates a new reproduction algorithm, based on crossover and mutation
+	 * algorithms specified.
+	 * 
+	 * @param crossover
+	 *            Crossover algorithm.
+	 * @param mutation
+	 *            Mutation algorithm.
+	 */
+	public ReproductionAlgorithm(I_GeneticOperation crossover,
+			I_GeneticOperation mutation) {
+		this.crossover = crossover;
+		this.mutation = mutation;
 	}
 
 	/**
@@ -32,23 +43,48 @@ public class ReproductionAlgorithm {
 	 * @return The new population, including parents and children.
 	 */
 	public Population reproduce(Population parents) {
-		for (I_GeneticOperation operation : this.operations) {
-			parents = operation.perform(parents);
+
+		Population ret = parents;
+
+		if (this.crossover != null) {
+			ret = this.crossover.perform(ret);
+		}
+		if (this.mutation != null) {
+			ret = this.mutation.perform(ret);
 		}
 
-		return parents;
+		return ret;
 	}
 
-	public void addGeneticOperator(I_GeneticOperation operation) {
-		this.operations.add(operation);
+	/**
+	 * Gets the crossover algorithm.
+	 * @return The crossover algorithm.
+	 */
+	public I_GeneticOperation getCrossover() {
+		return crossover;
 	}
 
-	/* Getters and Setters. */
-	public List<I_GeneticOperation> getOperations() {
-		return this.operations;
+	/**
+	 * Sets the crossover algorithm.
+	 * @param crossover The crossover algorithm.
+	 */
+	public void setCrossover(I_GeneticOperation crossover) {
+		this.crossover = crossover;
 	}
 
-	public void setOperations(List<I_GeneticOperation> operations) {
-		this.operations = operations;
+	/**
+	 * Gets the mutation algorithm.
+	 * @return The mutation algorithm.
+	 */
+	public I_GeneticOperation getMutation() {
+		return mutation;
+	}
+
+	/**
+	 * Sets the mutation algorithm.
+	 * @param mutation The mutation algorithm.
+	 */
+	public void setMutation(I_GeneticOperation mutation) {
+		this.mutation = mutation;
 	}
 }

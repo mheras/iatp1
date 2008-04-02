@@ -77,12 +77,15 @@ public class AptitudeChart {
 		this.splinesRenderer = new XYSplineRenderer(50);
 		((XYLineAndShapeRenderer) this.splinesRenderer).setSeriesShapesVisible(
 				0, false);
+		this.splinesRenderer.setBaseStroke(new BasicStroke(2.0F));
+		this.splinesRenderer.setBasePaint(Color.BLUE);
 		// Init lines renderer.
 		this.linesRenderer = new StandardXYItemRenderer();
+		this.linesRenderer.setBaseStroke(new BasicStroke(2.0F));
+		this.linesRenderer.setBasePaint(Color.BLUE);
 
 		// Default renderer (lines renderer).
 		XYItemRenderer renderer = this.linesRenderer;
-		renderer.setBaseStroke(new BasicStroke(1.0F));
 
 		this.plot = new XYPlot(dataset, this.generationsAxis, aptitudeAxis,
 				renderer);

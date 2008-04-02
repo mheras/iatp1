@@ -53,7 +53,6 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 
 		this.printParameters();
 		AptitudeChart chart = AptitudeChart.getInstance();
-		chart.setSplinesOn(true);
 		chart.reset();
 		chart.setMaxGenerations(this.maximumGenerations);
 
@@ -67,7 +66,7 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 			this.currentGeneration++;
 			// It might be usefull to configure this sleep from the UI, with a
 			// slider.
-			Thread.sleep(150);
+			Thread.sleep(50);
 		}
 
 		return null;
@@ -100,6 +99,8 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		System.out.println("Maximum parents: " + maximumParents);
 		System.out.println("Maximum generations: " + maximumGenerations);
 		System.out.println("Mutation probability: " + mutationProbability);
+		
+		System.out.println("");
 	}
 
 	/* Getters and setters. */

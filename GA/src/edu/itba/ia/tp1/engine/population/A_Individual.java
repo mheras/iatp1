@@ -22,10 +22,19 @@ public abstract class A_Individual {
 	public abstract Object operate(Object input);
 
 	/* Getters and Setters. */
+
+	/**
+	 * Gets the ID.
+	 * @return The ID.
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the ID.
+	 * @param id The ID.
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}

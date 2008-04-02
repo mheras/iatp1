@@ -1,23 +1,17 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuit;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.BinaryGate;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitTree;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.Gate;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.Input;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.Output;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.component.UnaryGate;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOff;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicOn;
-import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.CircuitComponent;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Input;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Output;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicOff;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicOn;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
 
 /**
  * This class implementates a circuit. The main concept behind of this implementation
@@ -27,14 +21,14 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuit.logicstate.LogicState;
  * @author Jorge Goldman & Martín A. Heras
  * 
  */
-public class Circuit extends A_Individual {
+public class CircuitTree extends A_Individual {
 
 	/* Collection of inputs. */
 	private List<CircuitComponent> inputs;
 	/* Collection of outputs. */
 	private List<CircuitComponent> outputs;
 	/* Collection of gates. */
-	private CircuitTree [] circuits;
+	private CircuitOutputTree [] circuits;
 
 	/* Number of input bits. */
 	private Integer inputBits;
@@ -58,7 +52,7 @@ public class Circuit extends A_Individual {
 	 * @param maxGates
 	 *            Maximum gates.
 	 */
-	private Circuit(Integer inputBits, Integer outputBits, Integer minGates,
+	private CircuitTree(Integer inputBits, Integer outputBits, Integer minGates,
 			Integer maxGates) {
 
 		
@@ -69,7 +63,7 @@ public class Circuit extends A_Individual {
 
 		/* Initialize collections. */
 		this.inputs = new ArrayList<CircuitComponent>();
-		this.circuits = new CircuitTree [outputBits];
+		this.circuits = new CircuitOutputTree [outputBits];
 		this.outputs = new ArrayList<CircuitComponent>();
 	}
 	
@@ -86,10 +80,10 @@ public class Circuit extends A_Individual {
 	 * @param maxGates
 	 *            Maximum gates.
 	 */
-	public static Circuit generateRandomCircuit(Integer inputBits,
+	public static CircuitTree generateRandomCircuit(Integer inputBits,
 			Integer outputBits, Integer minGates, Integer maxGates) {
 
-		Circuit circuit = new Circuit(inputBits, outputBits, minGates, maxGates);
+		CircuitTree circuit = new CircuitTree(inputBits, outputBits, minGates, maxGates);
 
 		/* Generate Inputs. */
 		Long n = 0L;
@@ -100,9 +94,9 @@ public class Circuit extends A_Individual {
 		}
 
 		/* Generate the number of gates that will be part of the circuit. */
-		CircuitTree [] circuitTrees = new CircuitTree[outputBits];
+		CircuitOutputTree [] circuitTrees = new CircuitOutputTree[outputBits];
 		for(Integer i = 0; i < circuit.getOutputBits() ; i++){
-			CircuitTree newRandomCircuit = CircuitTree.generateRandomCircuitTree(maxGates);
+			CircuitOutputTree newRandomCircuit = CircuitOutputTree.generateRandomCircuitTree(maxGates);
 			newRandomCircuit.connectInputs(circuit.getInputs());
 			circuitTrees[i] = newRandomCircuit;
 		}
@@ -139,24 +133,10 @@ public class Circuit extends A_Individual {
 	 */
 	public void printCircuit() {
 
-		for(CircuitTree tree: this.getCircuits()){
+		for(CircuitOutputTree tree: this.getCircuits()){
 			System.out.println(tree.toString());
 		}
 		
-	}
-
-	/**
-	 * Prints all the components attached to a certain component. 
-	 */
-	private void printNextComponents(List<CircuitComponent> list,
-			String separator) {
-
-		for (CircuitComponent comp : list) {
-			System.out.println(separator + comp);
-			separator = separator + separator;
-			/* Prints the components attached to this component */
-			printNextComponents(comp.getNextComponents(), separator);
-		}
 	}
 
 	/**
@@ -198,7 +178,7 @@ public class Circuit extends A_Individual {
 			currentInput.operate();
 		}
 		
-		for(CircuitTree currentTree : this.circuits){
+		for(CircuitOutputTree currentTree : this.circuits){
 			currentTree.operate();
 		}
 		
@@ -232,7 +212,7 @@ public class Circuit extends A_Individual {
 
 		List<CircuitComponent> inputs = this.getInputs();
 		List<CircuitComponent> outputs = this.getOutputs();
-		CircuitTree [] circuits = this.getCircuits();
+		CircuitOutputTree [] circuits = this.getCircuits();
 
 		/* Resets the inputs. */
 		for (CircuitComponent input : inputs) {
@@ -243,7 +223,7 @@ public class Circuit extends A_Individual {
 			output.resetComponent();
 		}
 		/* Resets the gates. */
-		for (CircuitTree tree : circuits) {
+		for (CircuitOutputTree tree : circuits) {
 			tree.resetTree();
 		}
 	}
@@ -274,7 +254,7 @@ public class Circuit extends A_Individual {
 	}
 
 	
-	public CircuitTree[] getCircuits() {
+	public CircuitOutputTree[] getCircuits() {
 		return circuits;
 	}
 
@@ -282,7 +262,7 @@ public class Circuit extends A_Individual {
 	 * This method returns a new instance of Circuit that is identical to the given circuit.
 	 *   
 	 */
-	public Circuit clone() {
+	public CircuitTree clone() {
 		return null;
 	}
 
@@ -337,7 +317,7 @@ public class Circuit extends A_Individual {
 		return maxGates;
 	}
 
-	public void setCircuits(CircuitTree[] circuits) {
+	public void setCircuits(CircuitOutputTree[] circuits) {
 		this.circuits = circuits;
 	}
 }

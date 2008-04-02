@@ -21,6 +21,17 @@ public class Engine {
 	/* Specific problem. */
 	private A_Problem problem;
 
+	/**
+	 * Creates a new instance of the engine.
+	 * 
+	 * @param problem
+	 *            The problem that the engine is going to solve.
+	 * @param maxParents
+	 *            Maximum parents going to be selected in order to get their
+	 *            children.
+	 * @param maxGenerations
+	 *            Maximum generations going to be performed by the engine.
+	 */
 	public Engine(A_Problem problem, Long maxParents, Long maxGenerations) {
 		this.maxParents = maxParents;
 		this.maxGenerations = maxGenerations;
@@ -35,7 +46,8 @@ public class Engine {
 	 */
 	public void reset() {
 		/* Reinitialize the population. */
-		this.problem.setPopulation(this.problem.initPopulation());
+		this.problem.setPopulation(this.problem.initPopulation(this.problem
+				.getPopulationSize()));
 		/* Reset current generation counter. */
 		this.currentGeneration = 0L;
 	}
@@ -57,8 +69,10 @@ public class Engine {
 		Population parents = problem.getSelection()
 				.execute(problem.getPopulation(), problem.getAptitude(),
 						this.maxParents);
-		/* Obtain offsprings using reproduction method over their 
-		 * parents (i.e. Crossing and mutation). */
+		/*
+		 * Obtain offsprings using reproduction method over their parents (i.e.
+		 * Crossing and mutation).
+		 */
 		Population offsprings = problem.getReproduction().reproduce(parents);
 		problem.setPopulation(problem.getReplacement().execute(offsprings,
 				problem.getAptitude(), this.maxParents));
