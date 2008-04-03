@@ -105,4 +105,7 @@ public abstract class CircuitComponent implements Cloneable {
 		
 		return newComponent;
 	}
+	public void removeNextComponent(CircuitComponent component){
+		nextComponents.remove(component);
+	}
 }
