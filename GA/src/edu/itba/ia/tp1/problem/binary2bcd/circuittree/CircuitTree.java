@@ -2,7 +2,6 @@ package edu.itba.ia.tp1.problem.binary2bcd.circuittree;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
@@ -14,9 +13,6 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicOn;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
 
 /**
- * This class implementates a circuit. The main concept behind of this
- * implementation is a graph that all of its nodes must be correctly connected,
- * based on the concepts of a circuit.
  * 
  * @author Jorge Goldman & Martín A. Heras
  * 
@@ -156,7 +152,7 @@ public class CircuitTree extends A_Individual {
 	public Object operate(Object input) {
 
 		this.resetCircuit();
-		
+
 		if (!(input instanceof Integer)) {
 			return null;
 		}
@@ -174,7 +170,6 @@ public class CircuitTree extends A_Individual {
 				currentInput.setInput(new LogicOff());
 			}
 			inputValue /= 2;
-			/* Put the inputs in the evaluation queue */
 		}
 		Collections.reverse(inputs);
 
@@ -192,19 +187,15 @@ public class CircuitTree extends A_Individual {
 		int out = 0;
 
 		Collections.reverse(outputs);
-
 		int power = 1;
 		for (CircuitComponent currentOutput : outputs) {
 
 			LogicState state = ((Output) currentOutput).getOutputValue();
 			if (state.isOn()) {
-//				System.out.println(":1");
 				out += 1 * power;
-			}else
-//				System.out.println(":0");
-			power *= 2;
+			} else
+				power *= 2;
 		}
-
 		Collections.reverse(outputs);
 
 		this.resetCircuit();
@@ -264,6 +255,11 @@ public class CircuitTree extends A_Individual {
 		this.outputs = outputs;
 	}
 
+	/**
+	 * Gets circuit output trees.
+	 * 
+	 * @return Array of circuit output trees.
+	 */
 	public CircuitOutputTree[] getCircuits() {
 		return circuits;
 	}
@@ -274,43 +270,48 @@ public class CircuitTree extends A_Individual {
 	 * 
 	 */
 	public CircuitTree clone() {
-		
+
 		this.resetCircuit();
-		
-		CircuitTree newCircuitTree = new CircuitTree(this.inputBits, this.outputBits, this.minGates, this.maxGates);
-		
+
+		CircuitTree newCircuitTree = new CircuitTree(this.inputBits,
+				this.outputBits, this.minGates, this.maxGates);
+
 		List<CircuitComponent> clonedInputs = new ArrayList<CircuitComponent>();
-		
+
 		List<CircuitComponent> clonedOutputs = new ArrayList<CircuitComponent>();
-		
-		CircuitOutputTree [] clonedTrees = new CircuitOutputTree [this.outputBits];
-		
-		for(CircuitComponent currentInput : this.getInputs()){
+
+		CircuitOutputTree[] clonedTrees = new CircuitOutputTree[this.outputBits];
+
+		for (CircuitComponent currentInput : this.getInputs()) {
 			CircuitComponent cloned = currentInput.clone();
 			clonedInputs.add(cloned);
 		}
-		
-		for(CircuitComponent currentOutput : this.getOutputs()){
+
+		for (CircuitComponent currentOutput : this.getOutputs()) {
 			CircuitComponent cloned = currentOutput.clone();
 			clonedOutputs.add(cloned);
 		}
-		
-		for(int i = 0; i < this.getOutputBits() ; i++){
+
+		for (int i = 0; i < this.getOutputBits(); i++) {
 			CircuitOutputTree realTree = this.getCircuits()[i];
 			clonedTrees[i] = realTree.clone(clonedInputs, clonedOutputs);
 		}
-		
+
 		newCircuitTree.setInputs(clonedInputs);
 		newCircuitTree.setOutputs(clonedOutputs);
 		newCircuitTree.setCircuits(clonedTrees);
 		newCircuitTree.resetCircuit();
 		return newCircuitTree;
 	}
-	
-	public void performMutation(double mutationProbability){
-		
-		for(CircuitOutputTree tree: this.getCircuits())
-		{
+
+	/**
+	 * Mutates the current circuit tree.
+	 * 
+	 * @param mutationProbability Mutation probability.
+	 */
+	public void performMutation(double mutationProbability) {
+
+		for (CircuitOutputTree tree : this.getCircuits()) {
 			tree.performMutation(mutationProbability, this.getInputs());
 		}
 	}

@@ -14,7 +14,6 @@ import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYSplineRenderer;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -28,7 +27,9 @@ public class AptitudeChart {
 	private static AptitudeChart instance;
 
 	private JPanel chartPanel;
-	private XYSeries data;
+	private XYSeries aptitudeAvgData;
+	private XYSeries bestAptitudeData;
+	private XYSeries worstAptitudeData;
 	private NumberAxis generationsAxis;
 	private XYPlot plot;
 
@@ -55,8 +56,14 @@ public class AptitudeChart {
 	 */
 	private AptitudeChart() {
 
-		this.data = new XYSeries("Aptitude");
-		XYDataset dataset = new XYSeriesCollection(this.data);
+		this.aptitudeAvgData = new XYSeries("Aptitude Average");
+		this.bestAptitudeData = new XYSeries("Best Aptitude");
+		this.worstAptitudeData = new XYSeries("Worst Aptitude");
+
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(this.aptitudeAvgData);
+		dataset.addSeries(this.bestAptitudeData);
+		dataset.addSeries(this.worstAptitudeData);
 
 		NumberAxis aptitudeAxis = new NumberAxis("Aptitude");
 		aptitudeAxis.setLowerBound(0.0);
@@ -75,8 +82,10 @@ public class AptitudeChart {
 
 		// Init splines renderer.
 		this.splinesRenderer = new XYSplineRenderer(50);
-		((XYLineAndShapeRenderer) this.splinesRenderer).setSeriesShapesVisible(
-				0, false);
+		for (int i = 0; i < dataset.getSeriesCount(); i++) {
+			((XYLineAndShapeRenderer) this.splinesRenderer).setSeriesShapesVisible(
+					i, false);
+		}
 		this.splinesRenderer.setBaseStroke(new BasicStroke(2.0F));
 		this.splinesRenderer.setBasePaint(Color.BLUE);
 		// Init lines renderer.
@@ -104,7 +113,9 @@ public class AptitudeChart {
 
 	public void reset() {
 		this.generation = 0.0;
-		this.data.clear();
+		this.aptitudeAvgData.clear();
+		this.bestAptitudeData.clear();
+		this.worstAptitudeData.clear();
 	}
 
 	public void setMaxGenerations(long maxGenerations) {
@@ -115,8 +126,20 @@ public class AptitudeChart {
 		return chartPanel;
 	}
 
-	public void addGenerationAptitude(double aptitude) {
-		this.data.add(this.generation++, aptitude);
+	public void addGenerationAptitudeAvg(double aptitude) {
+		this.aptitudeAvgData.add(this.generation, aptitude);
+	}
+	
+	public void addGenerationBestAptitude(double aptitude) {
+		this.bestAptitudeData.add(this.generation, aptitude);
+	}
+	
+	public void addGenerationWorstAptitude(double aptitude) {
+		this.worstAptitudeData.add(this.generation, aptitude);
+	}
+	
+	public void incrementGeneration() {
+		this.generation++;
 	}
 
 	public boolean isSplinesOn() {
