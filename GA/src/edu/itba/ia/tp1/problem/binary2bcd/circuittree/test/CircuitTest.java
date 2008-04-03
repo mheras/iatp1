@@ -8,7 +8,7 @@ public class CircuitTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 1, 16);
+		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 5, 8);
 		circuitA.printCircuit();
 		System.out.println(circuitA.operate(new Integer(4)));
 		
