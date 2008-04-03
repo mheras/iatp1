@@ -29,7 +29,9 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 
 	/**
 	 * Creates a new execution thread.
-	 * @param doneCallback Callback used to notify when this thread is done.
+	 * 
+	 * @param doneCallback
+	 *            Callback used to notify when this thread is done.
 	 */
 	public ExecutionThread(IExecutionThreadDone doneCallback) {
 		this();
@@ -42,7 +44,7 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	public ExecutionThread() {
 		// Do nothing.
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -53,6 +55,7 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 
 		this.printParameters();
 		AptitudeChart chart = AptitudeChart.getInstance();
+		// chart.setSplinesOn(true);
 		chart.reset();
 		chart.setMaxGenerations(this.maximumGenerations);
 
@@ -62,7 +65,11 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 			// TODO: Here we have to call engine's step method.
 
 			// We update the aptitude chart.
-			chart.addGenerationAptitude(Math.random());
+			chart.addGenerationAptitudeAvg(Math.random());
+			chart.addGenerationBestAptitude(Math.random());
+			chart.addGenerationWorstAptitude(Math.random());
+			// Increment counters.
+			chart.incrementGeneration();
 			this.currentGeneration++;
 			// It might be usefull to configure this sleep from the UI, with a
 			// slider.
@@ -99,7 +106,7 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		System.out.println("Maximum parents: " + maximumParents);
 		System.out.println("Maximum generations: " + maximumGenerations);
 		System.out.println("Mutation probability: " + mutationProbability);
-		
+
 		System.out.println("");
 	}
 
