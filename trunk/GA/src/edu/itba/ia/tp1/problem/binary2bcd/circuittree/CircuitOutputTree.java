@@ -359,7 +359,6 @@ public class CircuitOutputTree {
 		String operation = "";
 		/* Gets the roor of the tree. */
 		CircuitComponent component = this.getGates().get(0);
-		System.out.println(((Gate)component).getFather());
 		operation = getOperationString(component);
 
 		if (component instanceof BinaryGate) {
