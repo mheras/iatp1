@@ -98,7 +98,7 @@ public class CircuitTree extends A_Individual {
 		CircuitOutputTree[] circuitTrees = new CircuitOutputTree[outputBits];
 		for (Integer i = 0; i < circuit.getOutputBits(); i++) {
 			CircuitOutputTree newRandomCircuit = CircuitOutputTree
-					.generateRandomCircuitTree(maxGates);
+					.generateRandomCircuitTree(maxGates, minGates);
 			newRandomCircuit.connectInputs(circuit.getInputs());
 			circuitTrees[i] = newRandomCircuit;
 		}
@@ -155,6 +155,8 @@ public class CircuitTree extends A_Individual {
 	@Override
 	public Object operate(Object input) {
 
+		this.resetCircuit();
+		
 		if (!(input instanceof Integer)) {
 			return null;
 		}
@@ -196,8 +198,10 @@ public class CircuitTree extends A_Individual {
 
 			LogicState state = ((Output) currentOutput).getOutputValue();
 			if (state.isOn()) {
+//				System.out.println(":1");
 				out += 1 * power;
-			}
+			}else
+//				System.out.println(":0");
 			power *= 2;
 		}
 
@@ -270,6 +274,9 @@ public class CircuitTree extends A_Individual {
 	 * 
 	 */
 	public CircuitTree clone() {
+		
+		this.resetCircuit();
+		
 		CircuitTree newCircuitTree = new CircuitTree(this.inputBits, this.outputBits, this.minGates, this.maxGates);
 		
 		List<CircuitComponent> clonedInputs = new ArrayList<CircuitComponent>();
@@ -296,8 +303,16 @@ public class CircuitTree extends A_Individual {
 		newCircuitTree.setInputs(clonedInputs);
 		newCircuitTree.setOutputs(clonedOutputs);
 		newCircuitTree.setCircuits(clonedTrees);
-		
+		newCircuitTree.resetCircuit();
 		return newCircuitTree;
+	}
+	
+	public void performMutation(double mutationProbability){
+		
+		for(CircuitOutputTree tree: this.getCircuits())
+		{
+			tree.performMutation(mutationProbability, this.getInputs());
+		}
 	}
 
 	/**
