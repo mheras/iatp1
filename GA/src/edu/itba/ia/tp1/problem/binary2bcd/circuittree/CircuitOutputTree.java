@@ -178,6 +178,46 @@ public class CircuitOutputTree {
 	private static void generateChildren(CircuitOutputTree tree,
 			CircuitComponent component, int nGates) {
 
+		// Random rand = new Random();
+		//
+		// if (component instanceof BinaryGate) {
+		// if (nGates >= 2) {
+		// CircuitComponent firstComponent = Gate.randomGate();
+		// ((Gate) firstComponent).setParent(component);
+		// CircuitComponent secondComponent = Gate.randomGate();
+		// ((Gate) secondComponent).setParent(component);
+		// tree.addGate(firstComponent);
+		// tree.addGate(secondComponent);
+		// ((BinaryGate) component).setRightSon(firstComponent);
+		// ((BinaryGate) component).setLeftSon(secondComponent);
+		//
+		// int nChildrenTotal = nGates - 2;
+		// if (nChildrenTotal > 0) {
+		// int nFirstComponentChildren = rand.nextInt(nChildrenTotal);
+		// int nSecondComponentChildren = nGates
+		// - nFirstComponentChildren;
+		//
+		// generateChildren(tree, firstComponent,
+		// nFirstComponentChildren);
+		// generateChildren(tree, secondComponent,
+		// nSecondComponentChildren);
+		// }
+		// } else if (nGates == 1) {
+		// CircuitComponent newComponent = Gate.randomGate();
+		// ((Gate) newComponent).setParent(component);
+		// tree.addGate(newComponent);
+		// ((BinaryGate) component).setRightSon(newComponent);
+		// }
+		// } else {
+		// if (nGates > 0) {
+		// CircuitComponent newComponent = Gate.randomGate();
+		// ((Gate) newComponent).setParent(component);
+		// tree.addGate(newComponent);
+		// ((UnaryGate) component).setSon(newComponent);
+		// generateChildren(tree, newComponent, nGates - 1);
+		// }
+		// }
+
 		if (nGates > 0) {
 			if (component instanceof BinaryGate) {
 				CircuitComponent firstComponent = Gate.randomGate();
@@ -188,8 +228,12 @@ public class CircuitOutputTree {
 				tree.addGate(secondComponent);
 				((BinaryGate) component).setRightSon(firstComponent);
 				((BinaryGate) component).setLeftSon(secondComponent);
-				generateChildren(tree, firstComponent, nGates - 2);
-				generateChildren(tree, secondComponent, nGates - 2);
+
+				// TODO: FIX MEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				int nFirstChildren = nGates / 2;
+
+				generateChildren(tree, firstComponent, nFirstChildren);
+				generateChildren(tree, secondComponent, nGates - nFirstChildren);
 			} else {
 				CircuitComponent newComponent = Gate.randomGate();
 				((Gate) newComponent).setParent(component);
@@ -198,6 +242,7 @@ public class CircuitOutputTree {
 				generateChildren(tree, newComponent, nGates - 1);
 			}
 		}
+
 	}
 
 	public void operate() {
