@@ -22,7 +22,6 @@ public class PopulationSortComparatorImpl implements Comparator<A_Individual> {
 		this.aptitude = aptitude;
 	}
 
-	@Override
 	public int compare(A_Individual individual1, A_Individual individual2) {
 		Double ap1 = aptitude.evaluate(individual1);
 		Double ap2 = aptitude.evaluate(individual2);

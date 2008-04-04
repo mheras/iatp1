@@ -62,6 +62,20 @@ public class CircuitTree extends A_Individual {
 		this.outputs = new ArrayList<CircuitComponent>();
 	}
 
+	public static void performCrossover(CircuitTree circuit1,
+			CircuitTree circuit2) {
+		CircuitOutputTree tree1;
+		CircuitOutputTree tree2;
+
+		for (int i = 0; i < circuit1.getCircuits().length; i++) {
+			tree1 = circuit1.getCircuits()[i];
+			tree2 = circuit2.getCircuits()[i];
+
+			CircuitOutputTree.performCrossover(tree1, tree2, circuit1.getInputs(), circuit2.getInputs());
+
+		}
+	}
+
 	/**
 	 * Returns a new circuit instance, fully conected. In which the connections
 	 * and the gates between the inputs and the outputs of the circuit are
@@ -307,7 +321,8 @@ public class CircuitTree extends A_Individual {
 	/**
 	 * Mutates the current circuit tree.
 	 * 
-	 * @param mutationProbability Mutation probability.
+	 * @param mutationProbability
+	 *            Mutation probability.
 	 * @return Itself (mutated).
 	 */
 	public CircuitTree performMutation(double mutationProbability) {
@@ -315,7 +330,7 @@ public class CircuitTree extends A_Individual {
 		for (CircuitOutputTree tree : this.getCircuits()) {
 			tree.performMutation(mutationProbability, this.getInputs());
 		}
-		
+
 		return this;
 	}
 

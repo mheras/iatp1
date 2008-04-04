@@ -30,7 +30,7 @@ public class Or extends BinaryGate {
 			output = new LogicOff();
 		}
 
-		CircuitComponent component = this.setParent();
+		CircuitComponent component = this.getParent();
 		component.setInput(output);
 	}
 	public String getOperationString(){

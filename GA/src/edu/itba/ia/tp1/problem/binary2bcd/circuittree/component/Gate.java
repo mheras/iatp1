@@ -47,7 +47,7 @@ public abstract class Gate extends CircuitComponent{
 		return gate;
 	}
 	
-	public CircuitComponent setParent() {
+	public CircuitComponent getParent() {
 		return parent;
 	}
 
