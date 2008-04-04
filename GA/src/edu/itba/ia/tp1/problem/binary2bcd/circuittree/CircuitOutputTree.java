@@ -236,31 +236,37 @@ public class CircuitOutputTree {
 
 	}
 
-	public void performMutation(double mutationProbability,
+	public synchronized void performMutation(double mutationProbability,
 			List<CircuitComponent> inputsList) {
 		List<CircuitComponent> componentList = this.getGates();
+		List<CircuitComponent> newList = new ArrayList<CircuitComponent>();
 		Random rand = new Random();
 
 		int size = componentList.size();
 		for (int i = 0; i < size; i++) {
 			double mutateP = rand.nextDouble();
+			CircuitComponent chosenComponent = componentList
+			.get(i);
 			if (mutateP < mutationProbability) {
-				CircuitComponent chosenComponent = componentList
-				.get(i);
 				CircuitComponent componentX = mutateComponent(chosenComponent,
 						inputsList, componentList);
-				componentList.remove(chosenComponent);
-				componentList.add(i, componentX);
+				newList.add(componentX);
+			}else{
+				newList.add(chosenComponent);
 			}
+				
 		}
-		this.setGates(componentList);
+		this.setGates(newList);
 	}
 
-	private CircuitComponent mutateComponent(CircuitComponent component,
+	private synchronized CircuitComponent mutateComponent(CircuitComponent component,
 			List<CircuitComponent> inputsList, List<CircuitComponent> componentList) {
+		
 		CircuitComponent componentX = Gate.randomGate();
+		
 		((Gate) componentX).setFather(((Gate) component).getFather());
 		CircuitComponent parent = ((Gate) component).getFather();
+		
 		/* Sets the component's father child. */
 		if(parent != null){
 			if (parent instanceof BinaryGate) {
@@ -269,7 +275,7 @@ public class CircuitOutputTree {
 				} else {
 					((BinaryGate) parent).setRightSon(componentX);
 				}
-			} else if (!(parent instanceof Wire)) {
+			} else if (!(parent instanceof Wire) && (parent instanceof UnaryGate)) {
 				((UnaryGate) parent).setSon(componentX);
 			}
 		}
@@ -281,6 +287,7 @@ public class CircuitOutputTree {
 
 			CircuitComponent leftSon = ((BinaryGate) component).getLeftSon();
 			CircuitComponent rightSon = ((BinaryGate) component).getRightSon();
+
 			((BinaryGate) componentX).setLeftSon(leftSon);
 			((BinaryGate) componentX).setRightSon(rightSon);
 
@@ -299,26 +306,27 @@ public class CircuitOutputTree {
 			} else {
 				((Gate) rightSon).setFather(componentX);
 			}
+			
 		} else if ((componentX instanceof UnaryGate)
 				&& (component instanceof BinaryGate)) {
 
 			/* Sets the mutated component's childs. */
 			Random rand = new Random();
 			int chosenBit = rand.nextInt(2);
-			CircuitComponent son;
 			CircuitComponent rejected;
+			
+			CircuitComponent son;
 			if (chosenBit == 0) {
-				((UnaryGate) componentX).setSon(((BinaryGate) component)
-						.getLeftSon());
+				 son = ((BinaryGate) component).getLeftSon();
 				rejected = ((BinaryGate) component).getRightSon();
-				son = ((BinaryGate) component).getLeftSon();
 			} else {
-				((UnaryGate) componentX).setSon(((BinaryGate) component)
-						.getRightSon());
-				rejected = ((BinaryGate) component).getLeftSon();
 				son = ((BinaryGate) component).getRightSon();
+				rejected = ((BinaryGate) component).getLeftSon();
+				
 			}
 
+			((UnaryGate) componentX).setSon(son);
+			
 			if (rejected instanceof Input) {
 				((Input) rejected).removeNextComponent(component);
 			} else {
@@ -341,14 +349,16 @@ public class CircuitOutputTree {
 
 			Random rand = new Random();
 			int chosenInput = rand.nextInt(inputsList.size());
-			((BinaryGate) componentX).setLeftSon(((UnaryGate) component)
-					.getSon());
+			CircuitComponent son = ((UnaryGate) component)
+			.getSon();
+	
+			((BinaryGate) componentX).setLeftSon(son);
 			CircuitComponent input = inputsList.get(chosenInput);
 			((BinaryGate) componentX).setRightSon(input);
 			input.addNextComponent(componentX);
 
 			/* Set the child's parent. */
-			CircuitComponent son = ((UnaryGate) component).getSon();
+			son = ((UnaryGate) component).getSon();
 			if (son instanceof Input) {
 				((Input) son).addNextComponent(componentX);
 				((Input) son).removeNextComponent(component);
@@ -356,7 +366,21 @@ public class CircuitOutputTree {
 				((Gate) son).setFather(componentX);
 			}
 		} else {
-			componentX = component;
+			/* Sets the mutated component's childs. */
+
+			CircuitComponent son = ((UnaryGate) component).getSon();
+			
+			((UnaryGate) componentX).setSon(son);
+			
+			/* Set the child's parent. */
+			
+			if (son instanceof Input) {
+				((Input) son).addNextComponent(componentX);
+				((Input) son).removeNextComponent(component);
+			} else {
+				((Gate) son).setFather(componentX);
+			}
+
 		}
 		return componentX;
 
