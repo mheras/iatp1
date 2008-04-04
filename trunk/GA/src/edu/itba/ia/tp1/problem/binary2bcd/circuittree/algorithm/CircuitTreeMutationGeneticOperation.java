@@ -34,19 +34,18 @@ public class CircuitTreeMutationGeneticOperation implements I_GeneticOperation {
 	 * 
 	 * @see edu.itba.ia.tp1.motor.reproduction.IReproductionAlgorithm#perform()
 	 */
-	public Population perform(Population notMutatedChildren) {
+	public Population perform(Population children) {
 
-		// TODO: A este metodo le llegan los hijos no mutados aún. Lo que debe
+		// A este metodo le llegan los hijos no mutados aún. Lo que debe
 		// hacer es mutar cada uno de los miembros de la poblacion, devolviendo
 		// esa poblacion mutada.
 
-		for (A_Individual individual : notMutatedChildren.getIndividuals()) {
+		for (A_Individual individual : children.getIndividuals()) {
 			CircuitTree circuitChild = (CircuitTree) individual;
-			
-			// TODO: Mutar circuitChild.
+			circuitChild.performMutation(mutationProbability);
 		}
 
-		return null;
+		return children;
 	}
 
 	/**

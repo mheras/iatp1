@@ -308,12 +308,15 @@ public class CircuitTree extends A_Individual {
 	 * Mutates the current circuit tree.
 	 * 
 	 * @param mutationProbability Mutation probability.
+	 * @return Itself (mutated).
 	 */
-	public void performMutation(double mutationProbability) {
+	public CircuitTree performMutation(double mutationProbability) {
 
 		for (CircuitOutputTree tree : this.getCircuits()) {
 			tree.performMutation(mutationProbability, this.getInputs());
 		}
+		
+		return this;
 	}
 
 	/**

@@ -16,14 +16,23 @@ public class CircuitTest {
 	 * @param args Unused.
 	 */
 	public static void main(String[] args) {
+		
+		Integer input = new Integer(4);
+		Double mutationProbability = 0.2;
+		
+		System.out.println("Randomly generated circuit:");
 		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 2, 5);
 		circuitA.printCircuit();
-		System.out.println(circuitA.operate(new Integer(4)));
-		
+		System.out.println("Input: " + input);
+		System.out.println("Output: " + circuitA.operate(input));
+		System.out.println("");
+	
+		System.out.println("Mutated circuit (p = " + mutationProbability +  "):");
 		CircuitTree circuitClone = circuitA.clone();
-		circuitClone.performMutation(0.5);
+		circuitClone.performMutation(mutationProbability);
 		circuitClone.printCircuit();
-		System.out.println(circuitClone.operate(new Integer(4)));
-//		System.out.println(circuitClone.operate(new Integer(4)));
+		System.out.println("Input: " + input);
+		System.out.println("Output: " + circuitClone.operate(input));
+		System.out.println("");
 	}
 }
