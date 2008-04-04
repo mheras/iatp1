@@ -30,7 +30,7 @@ public class Not extends UnaryGate {
 			output = new LogicOff();
 		}
 
-		CircuitComponent component = this.getFather();
+		CircuitComponent component = this.setParent();
 		component.setInput(output);
 		
 	}	
