@@ -148,6 +148,7 @@ public class CircuitTree extends A_Individual {
 	public void printCircuit() {
 
 		for (CircuitOutputTree tree : this.getCircuits()) {
+			System.out.println("Number of gates: " + tree.getGates().size());
 			System.out.println(tree.toString());
 		}
 
