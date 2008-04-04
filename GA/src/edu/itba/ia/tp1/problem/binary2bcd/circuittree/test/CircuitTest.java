@@ -22,7 +22,8 @@ public class CircuitTest {
 		
 		CircuitTree circuitClone = circuitA.clone();
 		circuitClone.performMutation(0.5);
-		System.out.println(circuitClone.operate(new Integer(4)));
+		circuitClone.printCircuit();
+		//System.out.println(circuitClone.operate(new Integer(4)));
 //		System.out.println(circuitClone.operate(new Integer(4)));
 	}
 }
