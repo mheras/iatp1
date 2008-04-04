@@ -10,7 +10,7 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
  * @author Jorge Goldman
  *
  */
-public class CircuitTest {
+public class CircuitMutateTest {
 
 	/**
 	 * Entry point for the circuit tree test.

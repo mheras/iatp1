@@ -27,7 +27,6 @@ public class EliteImpl implements I_SelectionAlgorithm {
 	 * Sorts the population by descending order by the aptitude function and
 	 * returns a new Population with these Individuals.
 	 */
-	@Override
 	public Population execute(Population population, I_Aptitude aptitude,
 			Long nIndividuals) {
 		Collections.sort(population.getIndividuals(), new PopulationSortComparatorImpl(aptitude));
