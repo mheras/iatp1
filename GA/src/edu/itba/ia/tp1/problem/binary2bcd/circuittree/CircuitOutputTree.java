@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
-
-
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.BinaryGate;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.CircuitComponent;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Gate;
