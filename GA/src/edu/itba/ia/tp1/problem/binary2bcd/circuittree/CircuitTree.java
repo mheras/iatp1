@@ -207,7 +207,7 @@ public class CircuitTree extends A_Individual {
 			LogicState state = ((Output) currentOutput).getOutputValue();
 			if (state.isOn()) {
 				out += 1 * power;
-			} else
+			} 
 				power *= 2;
 		}
 		Collections.reverse(outputs);
