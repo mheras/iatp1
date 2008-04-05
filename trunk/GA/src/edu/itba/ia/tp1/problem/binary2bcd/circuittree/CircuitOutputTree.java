@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import sun.misc.Cleaner;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.BinaryGate;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.CircuitComponent;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Gate;
@@ -61,7 +63,7 @@ public class CircuitOutputTree {
 	}
 
 	private static void generateOutputTree(CircuitOutputTree tree, int gates) {
-		
+
 		if (gates > 0) {
 			CircuitComponent newComponent = Gate.randomGate();
 			tree.addGate(newComponent);
@@ -204,7 +206,7 @@ public class CircuitOutputTree {
 					nFirstChildren = rand.nextInt(nGates - 2);
 					generateChildren(tree, firstComponent, nFirstChildren);
 					generateChildren(tree, secondComponent, nGates
-							- nFirstChildren -2);
+							- nFirstChildren - 2);
 				} else if (nGates == 2) {
 					((Gate) firstComponent).setParent(component);
 					((Gate) secondComponent).setParent(component);
@@ -285,12 +287,15 @@ public class CircuitOutputTree {
 		/* Starting Point for the crossover for Tree2. */
 		CircuitComponent root2 = gates2.get(crossPointTree2);
 
+		/* Get the parent of the root crossing point for each Tree. */
 		CircuitComponent parent1 = ((Gate) root1).getParent();
 		CircuitComponent parent2 = ((Gate) root2).getParent();
 
+		/* Cross the parents of each root. */
 		((Gate) root2).setParent(parent1);
 		((Gate) root1).setParent(parent2);
 
+		/* Sets the parent's child. */
 		if (parent1 instanceof BinaryGate) {
 			if (((BinaryGate) parent1).getLeftSon() == root1) {
 				((BinaryGate) parent1).setLeftSon(root2);
@@ -311,24 +316,33 @@ public class CircuitOutputTree {
 			((UnaryGate) parent2).setSon(root1);
 		}
 
+		/* Gets the children nodes of each root. */
 		getChildren(root1, crossedNodesTree1List);
 		getChildren(root2, crossedNodesTree2List);
 
+		/* Get the leaves of each tree that is going to be crossed. */
 		List<CircuitComponent> crossedInputsComponent1 = getInputLeaves(crossedNodesTree1List);
 		List<CircuitComponent> crossedInputsComponent2 = getInputLeaves(crossedNodesTree2List);
-
-		gates1.removeAll(crossedNodesTree1List);
-		gates2.removeAll(crossedNodesTree2List);
 
 		connectCrossedInputs(crossedInputsComponent1, inputList2);
 		connectCrossedInputs(crossedInputsComponent2, inputList);
 
+		/* Adds the gates to the other Tree. */
+		gates1.addAll(crossedNodesTree2List);
+		gates2.addAll(crossedNodesTree1List);
+		
+		circuitTree1.cleanUnusedGates(circuitTree1.getGates());
+		circuitTree2.cleanUnusedGates(circuitTree2.getGates());
+
 		/* Do not cross this. */
 		removeNextComponent(inputList, crossedInputsComponent1);
 		removeNextComponent(inputList2, crossedInputsComponent2);
+		
+		/* Removes the crossed gates from each tree. */
+		gates1.removeAll(crossedNodesTree1List);
+		gates2.removeAll(crossedNodesTree2List);
 
-		gates1.addAll(crossedNodesTree2List);
-		gates2.addAll(crossedNodesTree1List);
+		
 
 	}
 
@@ -342,12 +356,17 @@ public class CircuitOutputTree {
 				BinaryGate binaryComponent = (BinaryGate) currentComponent;
 				CircuitComponent leftInput = binaryComponent.getLeftSon();
 				CircuitComponent rightInput = binaryComponent.getRightSon();
-				CircuitComponent realInput = findRealInput(leftInput, inputList);
-				((Input) realInput).addNextComponent(binaryComponent);
-				binaryComponent.setLeftSon(realInput);
-				realInput = findRealInput(rightInput, inputList);
-				((Input) realInput).addNextComponent(binaryComponent);
-				binaryComponent.setRightSon(realInput);
+				CircuitComponent realInput;
+				if(leftInput instanceof Input){
+					realInput = findRealInput(leftInput, inputList);
+					((Input) realInput).addNextComponent(binaryComponent);
+					binaryComponent.setLeftSon(realInput);
+				}
+				if(rightInput instanceof Input){
+					realInput = findRealInput(rightInput, inputList);
+					((Input) realInput).addNextComponent(binaryComponent);
+					binaryComponent.setRightSon(realInput);
+				}
 			} else {
 				UnaryGate unaryComponent = (UnaryGate) currentComponent;
 				CircuitComponent input = unaryComponent.getSon();
@@ -358,11 +377,11 @@ public class CircuitOutputTree {
 		}
 	}
 
-	private static CircuitComponent findRealInput(CircuitComponent leftInput,
+	private static CircuitComponent findRealInput(CircuitComponent fakeInput,
 			List<CircuitComponent> inputList) {
 		CircuitComponent result = null;
 		for (CircuitComponent currentInput : inputList) {
-			if (currentInput.getId() == leftInput.getId()) {
+			if (currentInput.getId() == fakeInput.getId()) {
 				result = currentInput;
 			}
 		}
@@ -413,7 +432,38 @@ public class CircuitOutputTree {
 			}
 
 		}
+		cleanUnusedGates(newList);
 		this.setGates(newList);
+	}
+
+	private void cleanUnusedGates(List<CircuitComponent> newList) {
+		List<CircuitComponent> unusedList = new ArrayList<CircuitComponent>();
+		
+		for(CircuitComponent currentComponent: newList){
+			if(((Gate)currentComponent).getParent() == null){
+				unusedList.add(currentComponent);
+				getChildren(currentComponent, unusedList);
+			}
+		}
+		
+		List<CircuitComponent> inputLeaves = getInputLeaves(unusedList);
+		
+		for(CircuitComponent currentGate: inputLeaves){
+			if(currentGate instanceof BinaryGate){
+				BinaryGate currentBinary = (BinaryGate)currentGate;
+				if(currentBinary.getLeftSon() instanceof Input){
+					currentBinary.getLeftSon().removeNextComponent(currentGate);
+				}else if (currentBinary.getRightSon() instanceof Input){
+					currentBinary.getLeftSon().removeNextComponent(currentGate);
+				}
+			}else{
+				UnaryGate currentUnary = (UnaryGate)currentGate;
+				currentUnary.getSon().removeNextComponent(currentGate);
+			}
+		}
+		
+		newList.removeAll(unusedList);
+		
 	}
 
 	private CircuitComponent mutateComponent(CircuitComponent component,
