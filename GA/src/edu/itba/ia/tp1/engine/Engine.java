@@ -3,6 +3,7 @@
  */
 package edu.itba.ia.tp1.engine;
 
+import edu.itba.ia.tp1.engine.population.A_Individual;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
@@ -64,20 +65,35 @@ public class Engine {
 		if (this.currentGeneration.equals(this.maxGenerations)) {
 			return false;
 		}
-		
+
 		Long populationSize = problem.getPopulationSize();
+
+//		System.out.println("**********************************************");
+//		System.out.println("GENERACION " + this.currentGeneration);
+//		for (A_Individual circuit : problem.getPopulation().getIndividuals()) {
+//			if (circuit.getAptitude().compareTo(new Double(0.0)) > 0) {
+//				System.out.println(circuit.getAptitude());
+//			}
+//		}
 
 		/* Select parents based on the selection method attached to the problem. */
 		Population parents = problem.getSelection().execute(
 				problem.getPopulation(), this.maxParents);
+		
+//		System.out.println("**********************************************");
+//		System.out.println("GENERACION " + this.currentGeneration);
+//		for (A_Individual circuit : parents.getIndividuals()) {
+//			System.out.println(circuit.getAptitude());
+//		}
+		
 		/*
 		 * Obtain offsprings using reproduction method over their parents (i.e.
 		 * Crossing and mutation).
 		 */
 		Population offsprings = problem.getReproduction().reproduce(parents);
 		problem.getPopulation().addAll(offsprings.getIndividuals());
-		problem.setPopulation(problem.getReplacement().execute(problem.getPopulation(),
-				populationSize));
+		problem.setPopulation(problem.getReplacement().execute(
+				problem.getPopulation(), populationSize));
 		/* Increment current generation counter. */
 		this.currentGeneration++;
 
