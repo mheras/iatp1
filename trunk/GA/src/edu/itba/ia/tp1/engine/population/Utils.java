@@ -37,11 +37,11 @@ public class Utils {
 		
 		for (A_Individual individual : population.getIndividuals()) {
 			currentApt = individual.getAptitude();
-			if (currentApt > best) {
+			if (currentApt.compareTo(best) > 0) {
 				best = currentApt;
 			}
 		}
-
+		
 		return best;
 	}
 }

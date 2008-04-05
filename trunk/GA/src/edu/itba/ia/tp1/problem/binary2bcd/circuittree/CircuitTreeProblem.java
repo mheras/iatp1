@@ -43,9 +43,10 @@ public class CircuitTreeProblem extends A_Problem {
 		
 		for (long i = 0; i < individuals; i++) {
 			/* Generates a random circuit. */
-			A_Individual circuit =	CircuitTree.generateRandomCircuit(4, 8, 20, 40);
+			A_Individual circuit =	CircuitTree.generateRandomCircuit(4, 8, 4, 8);
 			/* Sets its own aptitude. */
 			circuit.setAptitude(this.getAptitude().evaluate(circuit));
+			
 			/* Adds it to the population. */
 			population.addIndividual(circuit);
 		}
