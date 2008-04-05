@@ -64,18 +64,20 @@ public class Engine {
 		if (this.currentGeneration.equals(this.maxGenerations)) {
 			return false;
 		}
+		
+		Long populationSize = problem.getPopulationSize();
 
 		/* Select parents based on the selection method attached to the problem. */
-		Population parents = problem.getSelection()
-				.execute(problem.getPopulation(), problem.getAptitude(),
-						this.maxParents);
+		Population parents = problem.getSelection().execute(
+				problem.getPopulation(), this.maxParents);
 		/*
 		 * Obtain offsprings using reproduction method over their parents (i.e.
 		 * Crossing and mutation).
 		 */
 		Population offsprings = problem.getReproduction().reproduce(parents);
-		problem.setPopulation(problem.getReplacement().execute(offsprings,
-				problem.getAptitude(), this.maxParents));
+		problem.getPopulation().addAll(offsprings.getIndividuals());
+		problem.setPopulation(problem.getReplacement().execute(problem.getPopulation(),
+				populationSize));
 		/* Increment current generation counter. */
 		this.currentGeneration++;
 
