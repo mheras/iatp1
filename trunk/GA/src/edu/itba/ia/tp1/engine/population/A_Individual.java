@@ -12,6 +12,25 @@ public abstract class A_Individual {
 
 	/* Individual identification. */
 	private Long id;
+	/* Aptitude. */
+	private Double aptitude;
+
+	/**
+	 * Gets individual's aptitude.
+	 * 
+	 * @return Individual's aptitude.
+	 */
+	public Double getAptitude() {
+		return aptitude;
+	}
+
+	/**
+	 * Sets individual's aptitude.
+	 * @param aptitude Individual's aptitude.
+	 */
+	public void setAptitude(Double aptitude) {
+		this.aptitude = aptitude;
+	}
 
 	/**
 	 * A_Individual doesn't know what to do when input comes and what to return.
