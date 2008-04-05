@@ -23,7 +23,8 @@ public class EliteImpl implements I_SelectionAlgorithm {
 				new PopulationSortComparatorImpl());
 
 		List<A_Individual> sorted = population.getIndividuals();
-		List<A_Individual> elite = sorted.subList(0, nIndividuals.intValue());
+		List<A_Individual> elite = sorted.subList(sorted.size()
+				- nIndividuals.intValue(), sorted.size());
 
 		Population newPopulation = new Population();
 		newPopulation.addAll(elite);
