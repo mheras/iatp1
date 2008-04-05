@@ -1,9 +1,5 @@
-/**
- * 
- */
 package edu.itba.ia.tp1.engine.population.selection;
 
-import edu.itba.ia.tp1.engine.I_Aptitude;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
@@ -18,7 +14,7 @@ public class RouletteImpl implements I_SelectionAlgorithm {
 	 * 
 	 * @see edu.itba.ia.tp1.motor.population.IPopulationAlgorithm#execute()
 	 */
-	public Population execute(Population population, I_Aptitude aptitude, Long nIndividuals) {
+	public Population execute(Population population, Long nIndividuals) {
 		return null;
 	}
 

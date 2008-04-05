@@ -2,6 +2,17 @@ package edu.itba.ia.tp1.ui.thread;
 
 import javax.swing.SwingWorker;
 
+import edu.itba.ia.tp1.engine.A_Problem;
+import edu.itba.ia.tp1.engine.Engine;
+import edu.itba.ia.tp1.engine.I_Aptitude;
+import edu.itba.ia.tp1.engine.population.Population;
+import edu.itba.ia.tp1.engine.population.Utils;
+import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.EliteImpl;
+import edu.itba.ia.tp1.problem.binary2bcd.AptitudeImpl;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeProblem;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeCrossGeneticOperation;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeMutationGeneticOperation;
 import edu.itba.ia.tp1.ui.AptitudeChart;
 
 /**
@@ -59,21 +70,36 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		chart.reset();
 		chart.setMaxGenerations(this.maximumGenerations);
 
+		I_Aptitude aptitudeAlg = new AptitudeImpl();
+
+		ReproductionAlgorithm reproductionAlg = new ReproductionAlgorithm(
+				new CircuitTreeCrossGeneticOperation(),
+				new CircuitTreeMutationGeneticOperation(this.mutationProbability),
+				aptitudeAlg);
+		A_Problem circuitTreeProblem = new CircuitTreeProblem(new EliteImpl(),
+				new EliteImpl(), reproductionAlg, aptitudeAlg,
+				this.populationSize);
+		Engine engine = new Engine(circuitTreeProblem, this.maximumParents,
+				this.maximumGenerations);
+
+		Population currentPopulation = null;
 		this.currentGeneration = 0L;
 		while (!this.isCancelled()
 				&& this.currentGeneration <= this.maximumGenerations) {
-			// TODO: Here we have to call engine's step method.
+			
+			engine.step();
+			currentPopulation = engine.getPopulation();
 
 			// We update the aptitude chart.
-			chart.addGenerationAptitudeAvg(Math.random());
-			chart.addGenerationBestAptitude(Math.random());
-			chart.addGenerationWorstAptitude(Math.random());
+			chart.addGenerationAptitudeAvg(Utils.getAptitudeAvg(currentPopulation));
+			chart.addGenerationBestAptitude(Utils.getBestAptitude(currentPopulation));
+			chart.addGenerationWorstAptitude(0.5);
 			// Increment counters.
 			chart.incrementGeneration();
 			this.currentGeneration++;
 			// It might be usefull to configure this sleep from the UI, with a
 			// slider.
-			Thread.sleep(50);
+			//Thread.sleep(50);
 		}
 
 		return null;
