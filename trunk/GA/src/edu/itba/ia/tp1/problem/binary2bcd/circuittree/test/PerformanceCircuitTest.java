@@ -19,7 +19,7 @@ public class PerformanceCircuitTest {
 		Integer input = new Integer(4);
 		
 		System.out.println("Randomly generated circuit:");
-		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 500, 600);
+		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 400, 500);
 		circuitA.printCircuit();
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + circuitA.operate(input));
