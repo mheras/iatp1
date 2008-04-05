@@ -93,7 +93,7 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 			// We update the aptitude chart.
 			chart.addGenerationAptitudeAvg(Utils.getAptitudeAvg(currentPopulation));
 			chart.addGenerationBestAptitude(Utils.getBestAptitude(currentPopulation));
-			chart.addGenerationWorstAptitude(0.5);
+			chart.addGenerationWorstAptitude(Utils.getWorstAptitude(currentPopulation));
 			// Increment counters.
 			chart.incrementGeneration();
 			this.currentGeneration++;

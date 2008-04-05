@@ -44,4 +44,24 @@ public class Utils {
 		
 		return best;
 	}
+	
+	/**
+	 * Gets the worst aptitude over the population.
+	 * @param population The population.
+	 * @return The worst aptitude over the population.
+	 */
+	public static Double getWorstAptitude(Population population) {
+
+		Double worst = 1.0;
+		Double currentApt;
+		
+		for (A_Individual individual : population.getIndividuals()) {
+			currentApt = individual.getAptitude();
+			if (currentApt.compareTo(worst) < 0) {
+				worst = currentApt;
+			}
+		}
+		
+		return worst;
+	}
 }
