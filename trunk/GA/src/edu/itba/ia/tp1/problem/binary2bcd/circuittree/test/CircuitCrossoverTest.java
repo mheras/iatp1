@@ -16,7 +16,7 @@ public class CircuitCrossoverTest {
 		I_Aptitude aptitudeAlgorithm = new AptitudeImpl();
 		
 		System.out.println("Randomly generated circuit A:");
-		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 500, 600);
+		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 4, 5);
 		circuitA.printCircuit();
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + circuitA.operate(input));
@@ -24,7 +24,7 @@ public class CircuitCrossoverTest {
 		System.out.println("");
 	
 		System.out.println("Randomly generated circuit B:");
-		CircuitTree circuitB = CircuitTree.generateRandomCircuit(4, 8, 500, 600);
+		CircuitTree circuitB = CircuitTree.generateRandomCircuit(4, 8, 2, 4);
 		circuitB.printCircuit();
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + circuitB.operate(input));
