@@ -1,5 +1,8 @@
 package edu.itba.ia.tp1.engine.population;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Utilities for population.
  * 
@@ -63,5 +66,59 @@ public class Utils {
 		}
 		
 		return worst;
+	}
+	
+	/**
+	 * Returns the cumulative frequency for a whole population.
+	 * 
+	 * @param population The population.
+	 * @return A list containing the cumulative frequency for every
+	 * individual, in the same order as they have in the population.
+	 */
+	public static List<Double> getCumulativeFrequencies(Population population) {
+		List<Double> relativeFrequencies = getRelativeFrequencies(population);
+		List<Double> cumulativeFrequencies = new ArrayList<Double>();
+		Double step = 0.0;
+		
+		for (int i = 0; i < population.getSize(); i++) {
+			step += relativeFrequencies.get(i);
+			cumulativeFrequencies.add(new Double(step));
+		}
+		
+		return cumulativeFrequencies;
+	}
+
+	/**
+	 * Returns the relative frequency for a whole population.
+	 * 
+	 * @param population The population.
+	 * @return A list containing the relative frequency for every
+	 * individual, in the same order as they have in the population.
+	 */
+	public static List<Double> getRelativeFrequencies(Population population) {
+		List<Double> relativeFrequencies = new ArrayList<Double>();
+		Double accumulatedAptitude = getAccumulatedAptitude(population);
+		
+		for (int i = 0; i < population.getSize(); i++) {
+			relativeFrequencies.add(new Double(population.getIndividualByPosition(i).getAptitude() / accumulatedAptitude));
+		}
+		
+		return relativeFrequencies;
+	}
+
+	/**
+	 * Returns the accumulated aptitude of a whole population.
+	 * 
+	 * @param population The population.
+	 * @return The accumulated aptitude.
+	 */
+	public static Double getAccumulatedAptitude(Population population) {
+		Double ret = 0.0;
+		
+		for (int i = 0; i < population.getSize(); i++) {
+			ret += population.getIndividualByPosition(i).getAptitude();
+		}
+		
+		return ret;
 	}
 }
