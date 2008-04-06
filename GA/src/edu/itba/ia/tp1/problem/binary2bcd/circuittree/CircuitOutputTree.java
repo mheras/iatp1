@@ -413,10 +413,6 @@ public class CircuitOutputTree {
 		gates1.addAll(crossedNodesTree2List);
 		gates2.addAll(crossedNodesTree1List);
 
-		/* Clean unused gates. */
-		circuitTree1.cleanUnusedGates(circuitTree1.getGates());
-		circuitTree2.cleanUnusedGates(circuitTree2.getGates());
-
 		/* Do not cross this. */
 		removeNextComponent(inputList, crossedInputsComponent1);
 		removeNextComponent(inputList2, crossedInputsComponent2);

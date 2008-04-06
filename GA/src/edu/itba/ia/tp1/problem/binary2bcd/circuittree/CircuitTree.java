@@ -209,7 +209,7 @@ public class CircuitTree extends A_Individual {
 			if (state.isOn()) {
 				out += 1 * power;
 			} 
-				power *= 2;
+			power *= 2;
 		}
 		Collections.reverse(outputs);
 
