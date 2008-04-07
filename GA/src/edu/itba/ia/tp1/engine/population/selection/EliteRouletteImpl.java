@@ -40,5 +40,12 @@ public class EliteRouletteImpl implements I_SelectionAlgorithm {
 		
 		return ret;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return "Elite Roulette";
+	}
 
 }
