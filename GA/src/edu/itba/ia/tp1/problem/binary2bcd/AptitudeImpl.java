@@ -30,6 +30,8 @@ public class AptitudeImpl implements I_Aptitude {
 	public Double evaluate(A_Individual individual) {
 
 		int size = this.inputOutputMap.size();
+		Double aptitude = new Double(0);
+		
 		Double matches = 0.0;
 
 		for (Integer input : this.inputOutputMap.keySet()) {
@@ -38,8 +40,10 @@ public class AptitudeImpl implements I_Aptitude {
 				matches++;
 			}
 		}
-
-		return matches / size;
+		
+		aptitude = new Double(matches / size);
+		
+		return aptitude;
 	}
 
 	/**
