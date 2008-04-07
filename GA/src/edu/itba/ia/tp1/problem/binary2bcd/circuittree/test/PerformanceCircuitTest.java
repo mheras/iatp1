@@ -20,11 +20,11 @@ public class PerformanceCircuitTest {
 		
 		System.out.println("Randomly generated circuit:");
 		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 4, 8);
-		circuitA.printCircuit();
+		System.out.println(circuitA.toString());
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + circuitA.operate(input));
 		
 		circuitA.performMutation(0.9);
-		circuitA.printCircuit();
+		System.out.println(circuitA.toString());
 	}
 }
