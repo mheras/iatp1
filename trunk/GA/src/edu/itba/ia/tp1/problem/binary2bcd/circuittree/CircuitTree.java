@@ -159,6 +159,21 @@ public class CircuitTree extends A_Individual {
 	}
 
 	/**
+	 * @return 
+	 * 		The number of gates that are part of the circuit.
+	 */
+	public Long getGatesLength() {
+		
+		Long length = 0L;
+		
+		for (CircuitOutputTree tree : this.circuits) {
+			length += tree.getGates().size();
+		}
+		
+		return length;
+	}
+
+	/**
 	 * This method receives an input for a certain Circuit instance and
 	 * evaluates the circuit depending on the given input.
 	 * 
