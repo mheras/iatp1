@@ -17,7 +17,7 @@ public class CircuitCrossoverTest {
 		
 		System.out.println("Randomly generated circuit A:");
 		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 4, 5);
-		circuitA.printCircuit();
+		System.out.println(circuitA.toString());
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + circuitA.operate(input));
 		System.out.println("Aptitude: " + aptitudeAlgorithm.evaluate(circuitA));
@@ -25,7 +25,7 @@ public class CircuitCrossoverTest {
 	
 		System.out.println("Randomly generated circuit B:");
 		CircuitTree circuitB = CircuitTree.generateRandomCircuit(4, 8, 2, 4);
-		circuitB.printCircuit();
+		System.out.println(circuitB.toString());
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + circuitB.operate(input));
 		System.out.println("Aptitude: " + aptitudeAlgorithm.evaluate(circuitB));
@@ -36,14 +36,14 @@ public class CircuitCrossoverTest {
 		CircuitTree.performCrossover(childA, childB);
 		
 		System.out.println("Child A:");
-		childA.printCircuit();
+		System.out.println(childA.toString());
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + childA.operate(input));
 		System.out.println("Aptitude: " + aptitudeAlgorithm.evaluate(childA));
 		System.out.println("");
 		
 		System.out.println("Child B:");
-		childB.printCircuit();
+		System.out.println(childB.toString());
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + childB.operate(input));
 		System.out.println("Aptitude: " + aptitudeAlgorithm.evaluate(childB));

@@ -25,7 +25,7 @@ public class CircuitMutateTest {
 		
 		System.out.println("Randomly generated circuit:");
 		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 2, 5);
-		circuitA.printCircuit();
+		System.out.println(circuitA.toString());
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + circuitA.operate(input));
 		System.out.println("Aptitude: " + aptitudeAlgorithm.evaluate(circuitA));
@@ -34,7 +34,7 @@ public class CircuitMutateTest {
 		System.out.println("Mutated circuit (p = " + mutationProbability +  "):");
 		CircuitTree circuitClone = circuitA.clone();
 		circuitClone.performMutation(mutationProbability);
-		circuitClone.printCircuit();
+		System.out.println(circuitClone.toString());
 		System.out.println("Input: " + input);
 		System.out.println("Output: " + circuitClone.operate(input));
 		System.out.println("Aptitude: " + aptitudeAlgorithm.evaluate(circuitClone));

@@ -71,7 +71,8 @@ public class CircuitTree extends A_Individual {
 			tree1 = circuit1.getCircuits()[i];
 			tree2 = circuit2.getCircuits()[i];
 
-			CircuitOutputTree.performCrossover(tree1, tree2, circuit1.getInputs(), circuit2.getInputs());
+			CircuitOutputTree.performCrossover(tree1, tree2, circuit1
+					.getInputs(), circuit2.getInputs());
 
 		}
 	}
@@ -141,17 +142,20 @@ public class CircuitTree extends A_Individual {
 	}
 
 	/**
-	 * Prints a circuit recursively. The output of this method could be a bit
-	 * confusing in the way that prints the circuit. It might print the same
-	 * gate twice.
+	 * Gets a circuit string representation.
+	 * 
+	 * @return A <code>String</code>, which represents the circuit.
 	 */
-	public void printCircuit() {
+	public String toString() {
+
+		StringBuffer buffer = new StringBuffer("");
 
 		for (CircuitOutputTree tree : this.getCircuits()) {
-			System.out.println("Number of gates: " + tree.getGates().size());
-			System.out.println(tree.toString());
+			buffer.append("Number of gates: " + tree.getGates().size() + "\n");
+			buffer.append(tree.toString() + "\n");
 		}
 
+		return buffer.toString();
 	}
 
 	/**
@@ -208,7 +212,7 @@ public class CircuitTree extends A_Individual {
 			LogicState state = ((Output) currentOutput).getOutputValue();
 			if (state.isOn()) {
 				out += 1 * power;
-			} 
+			}
 			power *= 2;
 		}
 		Collections.reverse(outputs);
