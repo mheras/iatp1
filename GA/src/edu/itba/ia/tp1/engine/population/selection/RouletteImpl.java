@@ -22,10 +22,12 @@ public class RouletteImpl implements I_SelectionAlgorithm {
 		Random random = new Random();
 		Population ret = new Population();
 		List<Double> cumulativeFrequencies = Utils.getCumulativeFrequencies(population);
+		/* Add 0.0 in the first position to enable the first individual to be picked */
+		cumulativeFrequencies.add(0, 0.0);
 		
 		for (int i = 0; i < nIndividuals; i++) {
 			Double randomNumber = random.nextDouble();
-			for (int j = 1; j < population.getSize(); j++) {
+			for (int j = 1; j < cumulativeFrequencies.size(); j++) {
 				Double cumFreq1 = cumulativeFrequencies.get(j - 1);
 				Double cumFreq2 = cumulativeFrequencies.get(j);
 				Boolean capable = ((cumFreq1 < randomNumber) &&
