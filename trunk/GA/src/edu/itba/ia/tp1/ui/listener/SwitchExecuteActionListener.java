@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
 import edu.itba.ia.tp1.ui.MainFrame;
 import edu.itba.ia.tp1.ui.thread.ExecutionThread;
 import edu.itba.ia.tp1.ui.thread.IExecutionThreadDone;
@@ -20,20 +21,21 @@ import edu.itba.ia.tp1.ui.thread.ThreadsBag;
  * @author Martín A. Heras
  * 
  */
-public class SwitchExecuteActionListener implements ActionListener, IExecutionThreadDone {
+public class SwitchExecuteActionListener implements ActionListener,
+		IExecutionThreadDone {
 
 	private final String EXECUTE = "Execute";
 	private final String CANCEL = "Cancel";
 	/* Main frame. */
 	private MainFrame mainFrame;
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	public void actionPerformed(ActionEvent event) {
-		
+
 		JButton source = (JButton) event.getSource();
 
 		/*
@@ -59,6 +61,10 @@ public class SwitchExecuteActionListener implements ActionListener, IExecutionTh
 				.getSpinnerMaximumGenerations().getValue();
 		Double mutationProbability = (Double) this.mainFrame
 				.getSpinnerMutationProbability().getValue();
+		I_SelectionAlgorithm selection = (I_SelectionAlgorithm) this.mainFrame
+				.getComboSelectionMethod().getSelectedItem();
+		I_SelectionAlgorithm replacement = (I_SelectionAlgorithm) this.mainFrame
+				.getComboReplacementMethod().getSelectedItem();
 
 		/* Creates a worker thread, configures it and executes it. */
 		ExecutionThread thread = new ExecutionThread(this);
@@ -66,6 +72,8 @@ public class SwitchExecuteActionListener implements ActionListener, IExecutionTh
 		thread.setMaximumParents(maximumParents);
 		thread.setMutationProbability(mutationProbability);
 		thread.setPopulationSize(populationSize);
+		thread.setSelectionAlgorithm(selection);
+		thread.setReplacementAlgorithm(replacement);
 		thread.execute();
 		ThreadsBag.getInstance().setExecutionThread(thread);
 
@@ -95,10 +103,12 @@ public class SwitchExecuteActionListener implements ActionListener, IExecutionTh
 		return (JFrame) container;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see edu.itba.ia.tp1.ui.threads.IExecutionThreadDone#onExecutionThreadDone(edu.itba.ia.tp1.ui.threads.ExecutionThread)
 	 */
-	
+
 	public void onExecutionThreadDone(ExecutionThread executionThread) {
 		if (this.mainFrame != null) {
 			this.mainFrame.getButtonSwitchExecution().setText(EXECUTE);

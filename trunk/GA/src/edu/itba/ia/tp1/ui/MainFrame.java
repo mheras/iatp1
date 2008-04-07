@@ -103,10 +103,10 @@ public class MainFrame extends javax.swing.JFrame {
         labelSelectionMethod.setText("Selection method:"); 
         labelSelectionMethod.setName("labelSelectionMethod"); 
 
-        comboSelectionMethod.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elite", "Universal", "Roulette", "Elite and universal", "Elite and roulette" }));
+        comboSelectionMethod.setModel(new MethodComboBoxModel());
         comboSelectionMethod.setName("comboSelectionMethod"); 
 
-        comboReplacementMethod.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elite", "Universal", "Roulette", "Elite and universal", "Elite and roulette" }));
+        comboReplacementMethod.setModel(new MethodComboBoxModel());
         comboReplacementMethod.setName("comboReplacementMethod"); 
 
         labelReplacementMethod.setText("Replacement method:"); 

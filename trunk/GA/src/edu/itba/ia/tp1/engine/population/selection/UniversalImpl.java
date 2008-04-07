@@ -44,4 +44,10 @@ public class UniversalImpl implements I_SelectionAlgorithm {
 		return (seed + i - 1) / nIndividuals;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return "Universal";
+	}
 }

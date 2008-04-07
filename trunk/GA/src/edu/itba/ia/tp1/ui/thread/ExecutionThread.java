@@ -8,7 +8,7 @@ import edu.itba.ia.tp1.engine.I_Aptitude;
 import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.Utils;
 import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
-import edu.itba.ia.tp1.engine.population.selection.EliteImpl;
+import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
 import edu.itba.ia.tp1.problem.binary2bcd.AptitudeImpl;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeCrossGeneticOperation;
@@ -35,6 +35,10 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	private Long maximumGenerations;
 	/* Mutation probability. */
 	private Double mutationProbability;
+	/* Selection algorithm. */
+	private I_SelectionAlgorithm selectionAlgorithm;
+	/* Replacement algorithm. */
+	private I_SelectionAlgorithm replacementAlgorithm;
 	/* Current generation. */
 	private long currentGeneration;
 
@@ -70,14 +74,17 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		chart.reset();
 		chart.setMaxGenerations(this.maximumGenerations);
 
+		/* Aptitude function. */
 		I_Aptitude aptitudeAlg = new AptitudeImpl();
 
+		/* Reproduction: Crossover & mutation. */
 		ReproductionAlgorithm reproductionAlg = new ReproductionAlgorithm(
 				new CircuitTreeCrossGeneticOperation(),
-				new CircuitTreeMutationGeneticOperation(this.mutationProbability),
-				aptitudeAlg);
-		A_Problem circuitTreeProblem = new CircuitTreeProblem(new EliteImpl(),
-				new EliteImpl(), reproductionAlg, aptitudeAlg,
+				new CircuitTreeMutationGeneticOperation(
+						this.mutationProbability), aptitudeAlg);
+		
+		A_Problem circuitTreeProblem = new CircuitTreeProblem(this.selectionAlgorithm,
+				this.replacementAlgorithm, reproductionAlg, aptitudeAlg,
 				this.populationSize);
 		Engine engine = new Engine(circuitTreeProblem, this.maximumParents,
 				this.maximumGenerations);
@@ -86,20 +93,22 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		this.currentGeneration = 0L;
 		while (!this.isCancelled()
 				&& this.currentGeneration <= this.maximumGenerations) {
-			
+
 			engine.step();
 			currentPopulation = engine.getPopulation();
 
 			// We update the aptitude chart.
-			chart.addGenerationAptitudeAvg(Utils.getAptitudeAvg(currentPopulation));
-			chart.addGenerationBestAptitude(Utils.getBestAptitude(currentPopulation));
-			chart.addGenerationWorstAptitude(Utils.getWorstAptitude(currentPopulation));
+			chart.addGenerationAptitudeAvg(Utils
+					.getAptitudeAvg(currentPopulation));
+			chart.addGenerationBestAptitude(Utils
+					.getBestAptitude(currentPopulation));
+			chart.addGenerationWorstAptitude(Utils
+					.getWorstAptitude(currentPopulation));
 			// Increment counters.
 			chart.incrementGeneration();
 			this.currentGeneration++;
-			// It might be usefull to configure this sleep from the UI, with a
-			// slider.
-			//Thread.sleep(50);
+			// Let other processes use CPU time.
+			Thread.yield();
 		}
 
 		return null;
@@ -212,5 +221,44 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	 */
 	public void setMutationProbability(Double mutationProbability) {
 		this.mutationProbability = mutationProbability;
+	}
+
+	/**
+	 * Gets the selection algorithm.
+	 * 
+	 * @return The selection algorithm.
+	 */
+	public I_SelectionAlgorithm getSelectionAlgorithm() {
+		return selectionAlgorithm;
+	}
+
+	/**
+	 * Sets the selection algorithm.
+	 * 
+	 * @param selectionAlgorithm
+	 *            The selection algorithm.
+	 */
+	public void setSelectionAlgorithm(I_SelectionAlgorithm selectionAlgorithm) {
+		this.selectionAlgorithm = selectionAlgorithm;
+	}
+
+	/**
+	 * Gets the replacement algorithm.
+	 * 
+	 * @return The replacement algorithm.
+	 */
+	public I_SelectionAlgorithm getReplacementAlgorithm() {
+		return replacementAlgorithm;
+	}
+
+	/**
+	 * Sets the replacement algorithm.
+	 * 
+	 * @param replacementAlgorithm
+	 *            The replacement algorithm.
+	 */
+	public void setReplacementAlgorithm(
+			I_SelectionAlgorithm replacementAlgorithm) {
+		this.replacementAlgorithm = replacementAlgorithm;
 	}
 }
