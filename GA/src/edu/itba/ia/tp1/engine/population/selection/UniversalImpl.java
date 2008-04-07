@@ -23,6 +23,8 @@ public class UniversalImpl implements I_SelectionAlgorithm {
 		Population ret = new Population();
 		List<Double> cumulativeFrequencies = Utils.getCumulativeFrequencies(population);
 		Double seed = random.nextDouble();
+		/* Add 0.0 in the first position to enable the first individual to be picked */
+		cumulativeFrequencies.add(0, 0.0);
 		
 		for (int i = 0; i < nIndividuals; i++) {
 			Double randomNumber = this.getUniversalRandom(seed, i, nIndividuals);
@@ -32,7 +34,7 @@ public class UniversalImpl implements I_SelectionAlgorithm {
 				Boolean capable = ((cumFreq1 < randomNumber) &&
 								   (randomNumber < cumFreq2));
 				if (capable) {
-					ret.addIndividual(population.getIndividualByPosition(i));
+					ret.addIndividual(population.getIndividualByPosition(j));
 				}
 			} 
 		}
