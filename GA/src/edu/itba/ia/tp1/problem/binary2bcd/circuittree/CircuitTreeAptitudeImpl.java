@@ -40,7 +40,7 @@ public class CircuitTreeAptitudeImpl implements I_Aptitude {
 		// many outputs matches the real solution.
 		double totalMatchesAmount = 0.0;
 		// Amount to be incremented when a single output bit matches.
-		double bitMatchAmount = (1.0 / nOutputs) / 2;
+		double bitMatchAmount = (1.0 / (nOutputs * size)) / 2;
 		int realOutput;
 		int output;
 
