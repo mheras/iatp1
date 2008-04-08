@@ -26,27 +26,48 @@ public class CircuitTreeAptitudeImpl implements I_Aptitude {
 	 * 
 	 * @see edu.itba.ia.tp1.engine.IAptitude#evaluate(edu.itba.ia.tp1.engine.population.Individual)
 	 */
-	
 	public Double evaluate(A_Individual individual) {
 
+		// Aptitude to return.
+		Double aptitude = new Double(0.0);
+		// IO map size.
 		int size = this.inputOutputMap.size();
-		Double aptitude = new Double(0);
-		
-		Double matches = 0.0;
+		// Number of output bits.
+		int nOutputs = ((CircuitTree) individual).getOutputBits();
+		// Holds the matches amount. If all output bits matches are solution for
+		// the input given, this variable will be incremented by 1. Otherwise,
+		// it will be incremented by a proportional amount, depending on how
+		// many outputs matches the real solution.
+		double totalMatchesAmount = 0.0;
+		// Amount to be incremented when a single output bit matches.
+		double bitMatchAmount = 1.0 / nOutputs;
+		int realOutput;
+		int output;
 
 		for (Integer input : this.inputOutputMap.keySet()) {
 			
-//			Integer currentOutput = (Integer) individual.operate(input);
-			
-			if (individual.operate(input)
-					.equals(this.inputOutputMap.get(input))) {
-				
-				matches++;
+			output = (Integer) individual.operate(input);
+			realOutput = this.inputOutputMap.get(input).intValue();
+
+			// Watches every bit in order to increment the aptitude.
+			for (int i = 0; i < nOutputs; i++) {
+				if ((output % 2) == 1 && (realOutput % 2) == 1) {
+					totalMatchesAmount += bitMatchAmount;
+				} else if ((output % 2) == 0 && (realOutput % 2) == 0) {
+					totalMatchesAmount += bitMatchAmount;
+				}
+				output /= 2;
+				realOutput /= 2;
 			}
+			// if (individual.operate(input)
+			// .equals(this.inputOutputMap.get(input))) {
+			//
+			// totalMatchesAmount++;
+			// }
 		}
-		
-		aptitude = new Double(matches / size);
-		
+
+		aptitude = new Double(totalMatchesAmount / size);
+
 		return aptitude;
 	}
 
