@@ -9,7 +9,7 @@ import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.Utils;
 import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
-import edu.itba.ia.tp1.problem.binary2bcd.AptitudeImpl;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeAptitudeImpl;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeCrossGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeMutationGeneticOperation;
@@ -75,7 +75,7 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		chart.setMaxGenerations(this.maximumGenerations);
 
 		/* Aptitude function. */
-		I_Aptitude aptitudeAlg = new AptitudeImpl();
+		I_Aptitude aptitudeAlg = new CircuitTreeAptitudeImpl();
 
 		/* Reproduction: Crossover & mutation. */
 		ReproductionAlgorithm reproductionAlg = new ReproductionAlgorithm(

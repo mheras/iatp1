@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.problem.binary2bcd;
+package edu.itba.ia.tp1.problem.binary2bcd.circuittree;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,14 +10,14 @@ import edu.itba.ia.tp1.engine.population.A_Individual;
  * 
  * @author Martín A. Heras
  */
-public class AptitudeImpl implements I_Aptitude {
+public class CircuitTreeAptitudeImpl implements I_Aptitude {
 
 	private Map<Integer, Integer> inputOutputMap;
 
 	/**
 	 * Creates a new instance of <code>AptitudeImpl</code>.
 	 */
-	public AptitudeImpl() {
+	public CircuitTreeAptitudeImpl() {
 		this.initInputOutputMap();
 	}
 
@@ -35,8 +35,12 @@ public class AptitudeImpl implements I_Aptitude {
 		Double matches = 0.0;
 
 		for (Integer input : this.inputOutputMap.keySet()) {
+			
+//			Integer currentOutput = (Integer) individual.operate(input);
+			
 			if (individual.operate(input)
 					.equals(this.inputOutputMap.get(input))) {
+				
 				matches++;
 			}
 		}
