@@ -122,21 +122,21 @@ public class MainFrame extends javax.swing.JFrame {
         labelPopulationSize.setText("Population size:"); 
         labelPopulationSize.setName("labelPopulationSize"); 
 
-        spinnerPopulationSize.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(200L), Long.valueOf(0L), null, Long.valueOf(1L)));
+        spinnerPopulationSize.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(800L), Long.valueOf(0L), null, Long.valueOf(1L)));
         spinnerPopulationSize.setToolTipText(""); 
         spinnerPopulationSize.setName("spinnerPopulationSize"); 
 
         labelMaximumParents.setText("Maximum parents:"); 
         labelMaximumParents.setName("labelMaximumParents"); 
 
-        spinnerMaximumParents.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(25L), Long.valueOf(0L), null, Long.valueOf(1L)));
+        spinnerMaximumParents.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(180L), Long.valueOf(0L), null, Long.valueOf(1L)));
         spinnerMaximumParents.setToolTipText(""); 
         spinnerMaximumParents.setName("spinnerMaximumParents"); 
 
         labelMaximumParents1.setText("Maximum generations:"); 
         labelMaximumParents1.setName("labelMaximumParents1"); 
 
-        spinnerMaximumGenerations.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(300L), Long.valueOf(0L), null, Long.valueOf(1L)));
+        spinnerMaximumGenerations.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(10000L), Long.valueOf(0L), null, Long.valueOf(1L)));
         spinnerMaximumGenerations.setToolTipText(""); 
         spinnerMaximumGenerations.setName("spinnerMaximumGenerations"); 
 
