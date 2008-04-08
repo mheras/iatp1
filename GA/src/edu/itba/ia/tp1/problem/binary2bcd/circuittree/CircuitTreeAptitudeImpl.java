@@ -40,30 +40,30 @@ public class CircuitTreeAptitudeImpl implements I_Aptitude {
 		// many outputs matches the real solution.
 		double totalMatchesAmount = 0.0;
 		// Amount to be incremented when a single output bit matches.
-		double bitMatchAmount = 1.0 / nOutputs;
+		double bitMatchAmount = (1.0 / nOutputs) / 2;
 		int realOutput;
 		int output;
 
 		for (Integer input : this.inputOutputMap.keySet()) {
-			
+
 			output = (Integer) individual.operate(input);
 			realOutput = this.inputOutputMap.get(input).intValue();
 
-			// Watches every bit in order to increment the aptitude.
-			for (int i = 0; i < nOutputs; i++) {
-				if ((output % 2) == 1 && (realOutput % 2) == 1) {
-					totalMatchesAmount += bitMatchAmount;
-				} else if ((output % 2) == 0 && (realOutput % 2) == 0) {
-					totalMatchesAmount += bitMatchAmount;
+			if (output == realOutput) {
+				totalMatchesAmount++;
+			} else {
+
+				// Watches every bit in order to increment the aptitude.
+				for (int i = 0; i < nOutputs; i++) {
+					if ((output % 2) == 1 && (realOutput % 2) == 1) {
+						totalMatchesAmount += bitMatchAmount;
+					} else if ((output % 2) == 0 && (realOutput % 2) == 0) {
+						totalMatchesAmount += bitMatchAmount;
+					}
+					output /= 2;
+					realOutput /= 2;
 				}
-				output /= 2;
-				realOutput /= 2;
 			}
-			// if (individual.operate(input)
-			// .equals(this.inputOutputMap.get(input))) {
-			//
-			// totalMatchesAmount++;
-			// }
 		}
 
 		aptitude = new Double(totalMatchesAmount / size);
