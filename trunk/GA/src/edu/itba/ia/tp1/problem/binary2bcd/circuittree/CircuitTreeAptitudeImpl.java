@@ -21,6 +21,35 @@ public class CircuitTreeAptitudeImpl implements I_Aptitude {
 		this.initInputOutputMap();
 	}
 
+
+	/**
+	 * Naif approach to get individual aptitude.
+	 * 
+	 * @deprecated
+	 * @param individual The individual.
+	 * @return The individual aptitude.
+	 */
+	public Double evaluate2(A_Individual individual) {
+
+		int size = this.inputOutputMap.size();
+		Double aptitude = new Double(0);
+		
+		Double matches = 0.0;
+
+		for (Integer input : this.inputOutputMap.keySet()) {
+
+			if (individual.operate(input)
+					.equals(this.inputOutputMap.get(input))) {
+				
+				matches++;
+			}
+		}
+		
+		aptitude = new Double(matches / size);
+		
+		return aptitude;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
