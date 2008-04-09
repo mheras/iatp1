@@ -1,31 +1,33 @@
 package edu.itba.ia.tp1.main;
 
+import javax.swing.UIManager;
+
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
+import com.jgoodies.looks.plastic.theme.ExperienceBlue;
+
+import edu.itba.ia.tp1.ui.MainFrame;
+
 
 /**
  * Entry point to the application.
  * 
- * @author Pablo F. Siviero
+ * @author Martín A. Heras
  */
 public class Main {
 
-	public static void main(String args[]) {
-
-//		Long populationSize = 100L;
-//		
-//		A_Problem bin2Bcd = new CircuitTreeProblem(new EliteImpl(), new EliteImpl(),
-//				new ReproductionAlgorithm(), new AptitudeImpl(), populationSize);
-//		Engine engine = new Engine(bin2Bcd, 20L, 20L);
-//
-//		/* Temporal annotation. */
-//		@SuppressWarnings("unused")
-//		Population currentPopulation;
-//
-//		while (engine.step()) {
-//			currentPopulation = engine.getPopulation();
-//			/*
-//			 * Do something with this population (i.e. make statistics to show
-//			 * them in a chart).
-//			 */
-//		}
-	}
+    public static void main(String args[]) {
+    	
+    	try {
+    		Plastic3DLookAndFeel.setCurrentTheme(new ExperienceBlue());
+			UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
+		} catch (Exception e) {
+			System.err.println("Could not apply jgoodies plastic look and feel. Applying default one.");
+		}
+    	
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
+    }   
 }
