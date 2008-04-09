@@ -56,7 +56,7 @@ public class AptitudeChart {
 	 */
 	private AptitudeChart() {
 
-		this.aptitudeAvgData = new XYSeries("Aptitude Average");
+		this.aptitudeAvgData = new XYSeries("Average Aptitude");
 		this.bestAptitudeData = new XYSeries("Best Aptitude");
 		this.worstAptitudeData = new XYSeries("Worst Aptitude");
 
@@ -68,12 +68,14 @@ public class AptitudeChart {
 		NumberAxis aptitudeAxis = new NumberAxis("Aptitude");
 		aptitudeAxis.setLowerBound(0.0);
 		aptitudeAxis.setUpperBound(1.0);
+		aptitudeAxis.setAutoRange(true);
 
 		TickUnitSource units = NumberAxis.createIntegerTickUnits();
 
 		this.generationsAxis = new NumberAxis("Generation");
 		this.generationsAxis.setStandardTickUnits(units);
 		this.generationsAxis.setLowerBound(0.0);
+		this.generationsAxis.setAutoRange(true);
 		// This must be changed with public setter every time a new execution is
 		// performed.
 		this.generationsAxis.setUpperBound(200.0);
@@ -120,6 +122,7 @@ public class AptitudeChart {
 
 	public void setMaxGenerations(long maxGenerations) {
 		this.generationsAxis.setUpperBound(maxGenerations);
+		this.generationsAxis.setAutoRange(true);
 	}
 
 	public JPanel getChartPanel() {

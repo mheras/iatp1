@@ -27,6 +27,8 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 
 	/* Done callback. */
 	private IExecutionThreadDone doneCallback;
+	/* Engine info callback. */
+	private IEngineInfo engineInfoCallback;
 	/* Population size. */
 	private Long populationSize;
 	/* Maximum parents. */
@@ -48,9 +50,11 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	 * @param doneCallback
 	 *            Callback used to notify when this thread is done.
 	 */
-	public ExecutionThread(IExecutionThreadDone doneCallback) {
+	public ExecutionThread(IExecutionThreadDone doneCallback,
+			IEngineInfo engineInfoCallback) {
 		this();
 		this.doneCallback = doneCallback;
+		this.engineInfoCallback = engineInfoCallback;
 	}
 
 	/**
@@ -82,12 +86,16 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 				new CircuitTreeCrossGeneticOperation(),
 				new CircuitTreeMutationGeneticOperation(
 						this.mutationProbability), aptitudeAlg);
-		
-		A_Problem circuitTreeProblem = new CircuitTreeProblem(this.selectionAlgorithm,
-				this.replacementAlgorithm, reproductionAlg, aptitudeAlg,
-				this.populationSize);
+
+		A_Problem circuitTreeProblem = new CircuitTreeProblem(
+				this.selectionAlgorithm, this.replacementAlgorithm,
+				reproductionAlg, aptitudeAlg, this.populationSize);
 		Engine engine = new Engine(circuitTreeProblem, this.maximumParents,
 				this.maximumGenerations);
+		
+		if (this.engineInfoCallback != null) {
+			this.engineInfoCallback.onInitPopulationDone();
+		}
 
 		Population currentPopulation = null;
 		this.currentGeneration = 0L;
@@ -97,17 +105,24 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 			engine.step();
 			currentPopulation = engine.getPopulation();
 
+			// Gathers population statistics.
+			Double avgAptitude = Utils.getAptitudeAvg(currentPopulation);
+			Double bestAptitude = Utils.getBestAptitude(currentPopulation);
+			Double worstAptitude = Utils.getWorstAptitude(currentPopulation);
+
+			if (this.engineInfoCallback != null) {
+				this.engineInfoCallback.onEngineStep(avgAptitude, bestAptitude,
+						worstAptitude);
+			}
+
 			// We update the aptitude chart.
-			chart.addGenerationAptitudeAvg(Utils
-					.getAptitudeAvg(currentPopulation));
-			chart.addGenerationBestAptitude(Utils
-					.getBestAptitude(currentPopulation));
-			chart.addGenerationWorstAptitude(Utils
-					.getWorstAptitude(currentPopulation));
-			// Increment counters.
+			chart.addGenerationAptitudeAvg(avgAptitude);
+			chart.addGenerationBestAptitude(bestAptitude);
+			chart.addGenerationWorstAptitude(worstAptitude);
+			// Increments counters.
 			chart.incrementGeneration();
 			this.currentGeneration++;
-			// Let other processes use CPU time.
+			// Lets other processes use CPU time.
 			Thread.yield();
 		}
 

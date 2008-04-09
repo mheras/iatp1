@@ -3,6 +3,7 @@ package edu.itba.ia.tp1.ui.listener;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -11,6 +12,7 @@ import javax.swing.JFrame;
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
 import edu.itba.ia.tp1.ui.MainFrame;
 import edu.itba.ia.tp1.ui.thread.ExecutionThread;
+import edu.itba.ia.tp1.ui.thread.IEngineInfo;
 import edu.itba.ia.tp1.ui.thread.IExecutionThreadDone;
 import edu.itba.ia.tp1.ui.thread.ThreadsBag;
 
@@ -22,7 +24,7 @@ import edu.itba.ia.tp1.ui.thread.ThreadsBag;
  * 
  */
 public class SwitchExecuteActionListener implements ActionListener,
-		IExecutionThreadDone {
+		IExecutionThreadDone, IEngineInfo {
 
 	private final String EXECUTE = "Execute";
 	private final String CANCEL = "Cancel";
@@ -46,12 +48,15 @@ public class SwitchExecuteActionListener implements ActionListener,
 					.getExecutionThread();
 			if (thread != null) {
 				thread.cancel(true);
+				this.mainFrame.getLabelInfo().setText("");
 			}
 			return;
 		}
 
 		this.mainFrame = (MainFrame) this.getParentFrame(source);
 
+		this.mainFrame.getLabelInfo().setText("Initializing population...");
+		
 		/* Retrieves parameters from UI components. */
 		Long populationSize = (Long) this.mainFrame.getSpinnerPopulationSize()
 				.getValue();
@@ -67,15 +72,16 @@ public class SwitchExecuteActionListener implements ActionListener,
 				.getComboReplacementMethod().getSelectedItem();
 
 		/* Creates a worker thread, configures it and executes it. */
-		ExecutionThread thread = new ExecutionThread(this);
+		ExecutionThread thread = new ExecutionThread(this, this);
 		thread.setMaximumGenerations(maximumGenerations);
 		thread.setMaximumParents(maximumParents);
 		thread.setMutationProbability(mutationProbability);
 		thread.setPopulationSize(populationSize);
 		thread.setSelectionAlgorithm(selection);
 		thread.setReplacementAlgorithm(replacement);
-		thread.execute();
+		
 		ThreadsBag.getInstance().setExecutionThread(thread);
+		thread.execute();
 
 		source.setText(CANCEL);
 	}
@@ -108,10 +114,29 @@ public class SwitchExecuteActionListener implements ActionListener,
 	 * 
 	 * @see edu.itba.ia.tp1.ui.threads.IExecutionThreadDone#onExecutionThreadDone(edu.itba.ia.tp1.ui.threads.ExecutionThread)
 	 */
-
 	public void onExecutionThreadDone(ExecutionThread executionThread) {
 		if (this.mainFrame != null) {
 			this.mainFrame.getButtonSwitchExecution().setText(EXECUTE);
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.itba.ia.tp1.ui.thread.IEngineInfo#onEngineStep(double, double, double)
+	 */
+	public void onEngineStep(double avgAptitude, double bestAptitude,
+			double worstAptitude) {
+		
+		DecimalFormat fmt = (DecimalFormat) DecimalFormat.getInstance();
+		
+		this.mainFrame.getLabelAvgAptitude().setText(String.valueOf(fmt.format(avgAptitude)));
+		this.mainFrame.getLabelBestAptitude().setText(String.valueOf(fmt.format(bestAptitude)));
+		this.mainFrame.getLabelWorstAptitude().setText(String.valueOf(fmt.format(worstAptitude)));		
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.itba.ia.tp1.ui.thread.IEngineInfo#onInitPopulationDone()
+	 */
+	public void onInitPopulationDone() {
+		this.mainFrame.getLabelInfo().setText("Executing...");
 	}
 }
