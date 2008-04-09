@@ -48,7 +48,7 @@ public class SwitchExecuteActionListener implements ActionListener,
 					.getExecutionThread();
 			if (thread != null) {
 				thread.cancel(true);
-				this.mainFrame.getLabelInfo().setText("");
+				this.mainFrame.getLabelInfo().setText("Execution cancelled");
 			}
 			return;
 		}
@@ -117,6 +117,7 @@ public class SwitchExecuteActionListener implements ActionListener,
 	public void onExecutionThreadDone(ExecutionThread executionThread) {
 		if (this.mainFrame != null) {
 			this.mainFrame.getButtonSwitchExecution().setText(EXECUTE);
+			this.mainFrame.getLabelInfo().setText("Execution finalized");
 		}
 	}
 
