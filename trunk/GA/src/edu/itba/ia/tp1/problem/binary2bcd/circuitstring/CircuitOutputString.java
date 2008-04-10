@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuitStringo;
+package edu.itba.ia.tp1.problem.binary2bcd.circuitstring;
 
 import java.util.ArrayList;
 import java.util.List;
