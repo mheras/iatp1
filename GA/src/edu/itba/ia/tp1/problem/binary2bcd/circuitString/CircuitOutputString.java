@@ -1,6 +1,5 @@
 package edu.itba.ia.tp1.problem.binary2bcd.circuitString;
 
-import java.awt.image.CropImageFilter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
