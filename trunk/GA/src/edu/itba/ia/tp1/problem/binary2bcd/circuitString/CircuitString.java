@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
-import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
 
 
 
