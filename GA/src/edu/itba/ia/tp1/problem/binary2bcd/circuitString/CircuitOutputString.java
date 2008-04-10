@@ -27,6 +27,7 @@ public class CircuitOutputString {
 	public CircuitOutputString clone() {
 		CircuitOutputString result = new CircuitOutputString();
 		result.setOuputString(this.getOuputString());
+		result.setCantGates(this.getCantGates());
 		return result;
 
 	}
