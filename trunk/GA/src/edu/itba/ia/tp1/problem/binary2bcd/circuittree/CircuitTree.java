@@ -92,7 +92,7 @@ public class CircuitTree extends A_Individual {
 	 *            Maximum gates.
 	 */
 	public static CircuitTree generateRandomCircuit(Integer inputBits,
-			Integer outputBits, Integer maxGates, Integer minGates) {
+			Integer outputBits, Integer minGates, Integer maxGates) {
 
 		CircuitTree circuit = new CircuitTree(inputBits, outputBits, minGates,
 				maxGates);

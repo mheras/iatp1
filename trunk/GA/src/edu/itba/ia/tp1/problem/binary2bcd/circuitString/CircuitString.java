@@ -6,9 +6,6 @@ import java.util.List;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
 
-
-
-
 public class CircuitString extends A_Individual{
 	
 	/* Collection of inputs. */
