@@ -1,7 +1,7 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuitString.test;
+package edu.itba.ia.tp1.problem.binary2bcd.circuitStringo.test;
 
 
-import edu.itba.ia.tp1.problem.binary2bcd.circuitString.CircuitString;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitStringo.CircuitString;
 
 public class CircuitOuputStringTest {
 
