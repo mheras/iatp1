@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
 
 
 
@@ -78,6 +79,56 @@ public class CircuitString extends A_Individual{
 		}
 
 		return buffer.toString();
+	}
+	
+	
+
+	/**
+	 * This method returns a new instance of Circuit that is identical to the
+	 * given circuit.
+	 * 
+	 */
+	public CircuitString clone() {
+		CircuitString result = new CircuitString(this.getInputBits(), this.getOutputBits(),this.getMinGates(),this.getMaxGates());
+		CircuitOutputString[] circuitStrings = new CircuitOutputString[outputBits];
+		
+		for(int i = 0; i< this.getOutputBits(); i++){
+			circuitStrings[i] = (CircuitOutputString) this.getCircuits()[i].clone(); 
+		}
+		result.setCircuits(circuitStrings);
+		result.setInputs(this.getInputs());
+		return result;
+		
+	}
+	
+	/**
+	 * Mutates the current circuit tree.
+	 * 
+	 * @param mutationProbability
+	 *            Mutation probability.
+	 * @return Itself (mutated).
+	 */
+	public CircuitString performMutation(double mutationProbability) {
+		
+		for(CircuitOutputString currentOutputString : this.getCircuits()){
+			currentOutputString.performMutation(mutationProbability);
+		}
+		
+		return this;
+		
+	}
+	
+	
+	public static void performCrossover(CircuitString circuit1,
+			CircuitString circuit2) {
+		
+		CircuitOutputString [] circuits1 = circuit1.getCircuits();
+		CircuitOutputString [] circuits2 = circuit2.getCircuits();
+		
+		for(int i = 0; i < circuits1.length; i++){
+			CircuitOutputString.performCrossover(circuits1[i], circuits2[i]);
+		}
+		
 	}
 	
 	public Object operate(Object input) {
@@ -168,9 +219,11 @@ public class CircuitString extends A_Individual{
 		this.outputBits = outputBits;
 	}
 
-	
+	private List<Boolean> getInputs() {
+		return inputs;
+	}
 
-	
+
 
 
 
