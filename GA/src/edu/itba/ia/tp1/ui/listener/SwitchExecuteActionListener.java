@@ -56,7 +56,7 @@ public class SwitchExecuteActionListener implements ActionListener,
 		this.mainFrame = (MainFrame) this.getParentFrame(source);
 
 		this.mainFrame.getLabelInfo().setText("Initializing population...");
-		
+
 		/* Retrieves parameters from UI components. */
 		Long populationSize = (Long) this.mainFrame.getSpinnerPopulationSize()
 				.getValue();
@@ -70,6 +70,8 @@ public class SwitchExecuteActionListener implements ActionListener,
 				.getComboSelectionMethod().getSelectedItem();
 		I_SelectionAlgorithm replacement = (I_SelectionAlgorithm) this.mainFrame
 				.getComboReplacementMethod().getSelectedItem();
+		String problemDesc = (String) this.mainFrame.getComboProblemImpl()
+				.getSelectedItem();	
 
 		/* Creates a worker thread, configures it and executes it. */
 		ExecutionThread thread = new ExecutionThread(this, this);
@@ -79,7 +81,8 @@ public class SwitchExecuteActionListener implements ActionListener,
 		thread.setPopulationSize(populationSize);
 		thread.setSelectionAlgorithm(selection);
 		thread.setReplacementAlgorithm(replacement);
-		
+		thread.setProblemDesc(problemDesc);
+
 		ThreadsBag.getInstance().setExecutionThread(thread);
 		thread.execute();
 
@@ -121,20 +124,28 @@ public class SwitchExecuteActionListener implements ActionListener,
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.itba.ia.tp1.ui.thread.IEngineInfo#onEngineStep(double, double, double)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.itba.ia.tp1.ui.thread.IEngineInfo#onEngineStep(double, double,
+	 *      double)
 	 */
 	public void onEngineStep(double avgAptitude, double bestAptitude,
 			double worstAptitude) {
-		
+
 		DecimalFormat fmt = (DecimalFormat) DecimalFormat.getInstance();
-		
-		this.mainFrame.getLabelAvgAptitude().setText(String.valueOf(fmt.format(avgAptitude)));
-		this.mainFrame.getLabelBestAptitude().setText(String.valueOf(fmt.format(bestAptitude)));
-		this.mainFrame.getLabelWorstAptitude().setText(String.valueOf(fmt.format(worstAptitude)));		
+
+		this.mainFrame.getLabelAvgAptitude().setText(
+				String.valueOf(fmt.format(avgAptitude)));
+		this.mainFrame.getLabelBestAptitude().setText(
+				String.valueOf(fmt.format(bestAptitude)));
+		this.mainFrame.getLabelWorstAptitude().setText(
+				String.valueOf(fmt.format(worstAptitude)));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see edu.itba.ia.tp1.ui.thread.IEngineInfo#onInitPopulationDone()
 	 */
 	public void onInitPopulationDone() {

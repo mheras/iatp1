@@ -9,6 +9,10 @@ import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.Utils;
 import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitStringAptitudeImpl;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitStringProblem;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm.CircuitStringCrossGeneticOperation;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm.CircuitStringMutationGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeAptitudeImpl;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeCrossGeneticOperation;
@@ -24,6 +28,9 @@ import edu.itba.ia.tp1.ui.AptitudeChart;
  * 
  */
 public class ExecutionThread extends SwingWorker<Void, Void> {
+
+	private final String CIRCUIT_TREE = "Circuit Tree";
+	// private final String CIRCUIT_STRING = "Circuit String";
 
 	/* Done callback. */
 	private IExecutionThreadDone doneCallback;
@@ -41,6 +48,8 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	private I_SelectionAlgorithm selectionAlgorithm;
 	/* Replacement algorithm. */
 	private I_SelectionAlgorithm replacementAlgorithm;
+	/* Problem description string. */
+	private String problemDesc;
 	/* Current generation. */
 	private long currentGeneration;
 
@@ -64,6 +73,50 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		// Do nothing.
 	}
 
+	private Engine createAppropiateEngine() {
+
+		I_Aptitude aptitudeAlg;
+		ReproductionAlgorithm reproductionAlg;
+		A_Problem circuitProblem = null;
+		
+		if (this.problemDesc.equalsIgnoreCase(CIRCUIT_TREE)) {
+			
+			/* IMPLEMENTACION CIRCUITTREE */
+
+			/* Aptitude function. */
+			aptitudeAlg = new CircuitTreeAptitudeImpl();
+
+			/* Reproduction: Crossover & mutation. */
+			reproductionAlg = new ReproductionAlgorithm(
+					new CircuitTreeCrossGeneticOperation(),
+					new CircuitTreeMutationGeneticOperation(
+							this.mutationProbability), aptitudeAlg);
+
+			circuitProblem = new CircuitTreeProblem(
+					this.selectionAlgorithm, this.replacementAlgorithm,
+					reproductionAlg, aptitudeAlg, this.populationSize);
+		} else {
+
+			/* IMPLEMENTACION CIRCUITSTRING */
+			
+			/* Aptitude function. */
+			aptitudeAlg = new CircuitStringAptitudeImpl();
+
+			/* Reproduction: Crossover & mutation. */
+			reproductionAlg = new ReproductionAlgorithm(
+					new CircuitStringCrossGeneticOperation(),
+					new CircuitStringMutationGeneticOperation(
+							this.mutationProbability), aptitudeAlg);
+
+			circuitProblem = new CircuitStringProblem(
+					this.selectionAlgorithm, this.replacementAlgorithm,
+					reproductionAlg, aptitudeAlg, this.populationSize);
+		}
+		
+		return new Engine(circuitProblem, this.maximumParents,
+				this.maximumGenerations);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -78,21 +131,9 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		chart.reset();
 		chart.setMaxGenerations(this.maximumGenerations);
 
-		/* Aptitude function. */
-		I_Aptitude aptitudeAlg = new CircuitTreeAptitudeImpl();
+		// Creates the engine based on UI parameters.
+		Engine engine = createAppropiateEngine();
 
-		/* Reproduction: Crossover & mutation. */
-		ReproductionAlgorithm reproductionAlg = new ReproductionAlgorithm(
-				new CircuitTreeCrossGeneticOperation(),
-				new CircuitTreeMutationGeneticOperation(
-						this.mutationProbability), aptitudeAlg);
-
-		A_Problem circuitTreeProblem = new CircuitTreeProblem(
-				this.selectionAlgorithm, this.replacementAlgorithm,
-				reproductionAlg, aptitudeAlg, this.populationSize);
-		Engine engine = new Engine(circuitTreeProblem, this.maximumParents,
-				this.maximumGenerations);
-		
 		if (this.engineInfoCallback != null) {
 			this.engineInfoCallback.onInitPopulationDone();
 		}
@@ -275,5 +316,13 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	public void setReplacementAlgorithm(
 			I_SelectionAlgorithm replacementAlgorithm) {
 		this.replacementAlgorithm = replacementAlgorithm;
+	}
+
+	public String getProblemDesc() {
+		return problemDesc;
+	}
+
+	public void setProblemDesc(String problemDesc) {
+		this.problemDesc = problemDesc;
 	}
 }

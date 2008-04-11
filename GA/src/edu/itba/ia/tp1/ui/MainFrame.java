@@ -13,7 +13,7 @@ public class MainFrame extends javax.swing.JFrame {
 	
     private javax.swing.JButton buttonSwitchExecution;
     private javax.swing.JComboBox comboReplacementMethod;
-    private javax.swing.JComboBox comboReplacementMethod1;
+    private javax.swing.JComboBox comboProblemImpl;
     private javax.swing.JComboBox comboSelectionMethod;
     private javax.swing.JLabel labelAvgAptitude;
     private javax.swing.JLabel labelAvgAptitudeTitle;
@@ -43,10 +43,6 @@ public class MainFrame extends javax.swing.JFrame {
 
 	public javax.swing.JComboBox getComboReplacementMethod() {
 		return comboReplacementMethod;
-	}
-
-	public javax.swing.JComboBox getComboReplacementMethod1() {
-		return comboReplacementMethod1;
 	}
 
 	public javax.swing.JComboBox getComboSelectionMethod() {
@@ -171,7 +167,7 @@ public class MainFrame extends javax.swing.JFrame {
         spinnerMaximumGenerations = new javax.swing.JSpinner();
         buttonSwitchExecution = new javax.swing.JButton();
         labelMutationProbability1 = new javax.swing.JLabel();
-        comboReplacementMethod1 = new javax.swing.JComboBox();
+        comboProblemImpl = new javax.swing.JComboBox();
         panelChart = AptitudeChart.getInstance().getChartPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -288,8 +284,8 @@ public class MainFrame extends javax.swing.JFrame {
         labelMutationProbability1.setText("Problem representation:"); 
         labelMutationProbability1.setName("labelMutationProbability1"); 
 
-        comboReplacementMethod1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Circuit Tree", "Circuit String" }));
-        comboReplacementMethod1.setName("comboReplacementMethod1"); 
+        comboProblemImpl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Circuit Tree", "Circuit String" }));
+        comboProblemImpl.setName("comboProblemImpl"); 
 
         javax.swing.GroupLayout panelExecutionParametersLayout = new javax.swing.GroupLayout(panelExecutionParameters);
         panelExecutionParameters.setLayout(panelExecutionParametersLayout);
@@ -327,7 +323,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelExecutionParametersLayout.createSequentialGroup()
                                 .addComponent(labelMutationProbability1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboReplacementMethod1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(comboProblemImpl, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(buttonSwitchExecution, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -363,7 +359,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelMutationProbability1)
-                            .addComponent(comboReplacementMethod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(comboProblemImpl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(buttonSwitchExecution)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -410,5 +406,9 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         pack();
-    } 
+    }
+
+	public javax.swing.JComboBox getComboProblemImpl() {
+		return comboProblemImpl;
+	} 
 }
