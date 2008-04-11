@@ -1,38 +1,36 @@
-/**
- * 
- */
-package edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm;
+package edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
 import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.reproduction.I_GeneticOperation;
-import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitString;
 
 /**
- * Circuit tree implementation of Mutation algorithm.
+ * Circuit string implementation of Mutation algorithm.
  * 
- * @author Jorge Goldman
+ * @author Martín A. Heras
  */
-public class CircuitTreeMutationGeneticOperation implements I_GeneticOperation {
+public class CircuitStringMutationGeneticOperation implements
+		I_GeneticOperation {
 
 	/* Probability of mutation. */
 	private Double mutationProbability;
 
 	/**
-	 * Creates a circuit tree mutation algorithm specifying the mutation
+	 * Creates a circuit string mutation algorithm specifying the mutation
 	 * probability.
 	 * 
 	 * @param mutationProbability
 	 *            Mutation probability.
 	 */
-	public CircuitTreeMutationGeneticOperation(Double mutationProbability) {
+	public CircuitStringMutationGeneticOperation(Double mutationProbability) {
 		this.mutationProbability = mutationProbability;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.itba.ia.tp1.motor.reproduction.IReproductionAlgorithm#perform()
+	 * @see edu.itba.ia.tp1.engine.population.reproduction.I_GeneticOperation#perform(edu.itba.ia.tp1.engine.population.Population)
 	 */
 	public Population perform(Population children) {
 
@@ -41,7 +39,7 @@ public class CircuitTreeMutationGeneticOperation implements I_GeneticOperation {
 		// esa poblacion mutada.
 
 		for (A_Individual individual : children.getIndividuals()) {
-			CircuitTree circuitChild = (CircuitTree) individual;
+			CircuitString circuitChild = (CircuitString) individual;
 			circuitChild.performMutation(mutationProbability);
 		}
 

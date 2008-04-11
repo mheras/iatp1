@@ -1,20 +1,18 @@
-/**
- * 
- */
-package edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm;
+package edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm;
 
 import java.util.Random;
 
 import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.reproduction.I_GeneticOperation;
-import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitString;
 
 /**
- * Circuit tree implementation of Cross algorithm.
+ * Circuit string implementation of Cross algorithm.
  * 
- * @author Jorge Goldman
+ * @author Martín A. Heras
+ *
  */
-public class CircuitTreeCrossGeneticOperation implements I_GeneticOperation {
+public class CircuitStringCrossGeneticOperation implements I_GeneticOperation {
 
 	/*
 	 * (non-Javadoc)
@@ -23,10 +21,10 @@ public class CircuitTreeCrossGeneticOperation implements I_GeneticOperation {
 	 */
 	public Population perform(Population parents) {
 
-		// Por parametro llegan la poblacion de CircuitTree
+		// Por parametro llegan la poblacion de CircuitString
 		// correspondiente a los padres que deben ser cruzados. Este metodo debe
 		// crear una nueva poblacion, producto de cruzar la poblacion de
-		// CircuitTree padres que llegan por parametro.
+		// CircuitString padres que llegan por parametro.
 
 		Population children = new Population();
 		Random rand = new Random();
@@ -36,30 +34,29 @@ public class CircuitTreeCrossGeneticOperation implements I_GeneticOperation {
 			if (parents.getSize() >= 2) {
 				// Selects parents randomly.
 				position = rand.nextInt(parents.getSize());
-				CircuitTree parent1 = (CircuitTree) parents
+				CircuitString parent1 = (CircuitString) parents
 						.getIndividualByPosition(position);
 				parents.removeByPosition(position);
 				position = rand.nextInt(parents.getSize());
-				CircuitTree parent2 = (CircuitTree) parents
+				CircuitString parent2 = (CircuitString) parents
 						.getIndividualByPosition(position);
 				parents.removeByPosition(position);
 				// Let's them have sex and get children.
-				CircuitTree child1 = parent1.clone();
-				CircuitTree child2 = parent2.clone();
-				CircuitTree.performCrossover(child1, child2);
+				CircuitString child1 = parent1.clone();
+				CircuitString child2 = parent2.clone();
+				CircuitString.performCrossover(child1, child2);
 				children.addIndividual(child1);
 				children.addIndividual(child2);
 			} else if (parents.getSize() == 1) {
 				// Rare case...
-				CircuitTree hermaphroditeParent = (CircuitTree) parents
+				CircuitString hermaphroditeParent = (CircuitString) parents
 						.getIndividualByPosition(0);
 				parents.removeByPosition(0);
-				CircuitTree rareChild = hermaphroditeParent.clone();
+				CircuitString rareChild = hermaphroditeParent.clone();
 				children.addIndividual(rareChild);
 			}
 		}
 
 		return children;
 	}
-
 }
