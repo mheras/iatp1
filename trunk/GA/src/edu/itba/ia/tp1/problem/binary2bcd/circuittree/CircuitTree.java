@@ -385,4 +385,19 @@ public class CircuitTree extends A_Individual {
 	public void setCircuits(CircuitOutputTree[] circuits) {
 		this.circuits = circuits;
 	}
+
+	/* (non-Javadoc)
+	 * @see edu.itba.ia.tp1.engine.population.A_Individual#dispose()
+	 */
+	public void dispose() {
+		
+		for (CircuitOutputTree tree : this.circuits) {
+			tree.dispose();
+		}
+		this.circuits = null;
+		this.inputs.clear();
+		this.inputs = null;
+		this.outputs.clear();
+		this.outputs = null;
+	}
 }

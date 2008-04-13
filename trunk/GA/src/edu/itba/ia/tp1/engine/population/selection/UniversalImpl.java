@@ -26,15 +26,15 @@ public class UniversalImpl implements I_SelectionAlgorithm {
 		/* Add 0.0 in the first position to enable the first individual to be picked */
 		cumulativeFrequencies.add(0, 0.0);
 		
-		for (int i = 0; i < nIndividuals; i++) {
+		for (int i = 1; i <= nIndividuals; i++) {
 			Double randomNumber = this.getUniversalRandom(seed, i, nIndividuals);
 			for (int j = 1; j < population.getSize(); j++) {
 				Double cumFreq1 = cumulativeFrequencies.get(j - 1);
 				Double cumFreq2 = cumulativeFrequencies.get(j);
-				Boolean capable = ((cumFreq1 < randomNumber) &&
-								   (randomNumber < cumFreq2));
+				Boolean capable = ((cumFreq1.compareTo(randomNumber) < 0) &&
+								   (randomNumber.compareTo(cumFreq2) < 0));
 				if (capable) {
-					ret.addIndividual(population.getIndividualByPosition(j));
+					ret.addIndividual(population.getIndividualByPosition(j - 1));
 				}
 			} 
 		}

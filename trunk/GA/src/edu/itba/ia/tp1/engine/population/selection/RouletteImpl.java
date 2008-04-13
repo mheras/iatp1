@@ -30,10 +30,10 @@ public class RouletteImpl implements I_SelectionAlgorithm {
 			for (int j = 1; j < cumulativeFrequencies.size(); j++) {
 				Double cumFreq1 = cumulativeFrequencies.get(j - 1);
 				Double cumFreq2 = cumulativeFrequencies.get(j);
-				Boolean capable = ((cumFreq1 < randomNumber) &&
-								   (randomNumber < cumFreq2));
+				Boolean capable = ((cumFreq1.compareTo(randomNumber)) < 0 &&
+								   (randomNumber.compareTo(cumFreq2) < 0));
 				if (capable) {
-					ret.addIndividual(population.getIndividualByPosition(i));
+					ret.addIndividual(population.getIndividualByPosition(j - 1));
 				}
 			} 
 		}

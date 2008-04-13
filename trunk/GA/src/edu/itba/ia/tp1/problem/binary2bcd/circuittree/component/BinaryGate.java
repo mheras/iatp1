@@ -20,9 +20,17 @@ public abstract class BinaryGate extends Gate {
 			new LogicNotReady() };
 
 	/* (non-Javadoc)
+	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Gate#dispose()
+	 */
+	public void dispose() {
+		super.dispose();
+		this.sons = null;
+		this.inputs = null;
+	}
+	
+	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent#isReady()
 	 */
-	@Override
 	public boolean isReady() {
 		return !(inputs[0].isNotReady()) && !(inputs[1].isNotReady());
 	}
@@ -30,7 +38,6 @@ public abstract class BinaryGate extends Gate {
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent#resetComponent()
 	 */
-	@Override
 	public void resetComponent() {
 		inputs = new LogicState[] { new LogicNotReady(),
 				new LogicNotReady() };
@@ -39,7 +46,6 @@ public abstract class BinaryGate extends Gate {
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent#setInput(int)
 	 */
-	@Override
 	public void setInput(LogicState state) {
 		if (inputs[0].isNotReady()) {
 			inputs[0] = state;

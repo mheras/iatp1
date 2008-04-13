@@ -16,6 +16,14 @@ public abstract class Gate extends CircuitComponent{
 	/* Father Component. */ 
 	private CircuitComponent parent;
 	
+	/* (non-Javadoc)
+	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.CircuitComponent#dispose()
+	 */
+	public void dispose() {
+		super.dispose();
+		this.parent = null;		
+	}
+	
 	/**
 	 * This method generates a random gate and returns its instance.
 	 * 

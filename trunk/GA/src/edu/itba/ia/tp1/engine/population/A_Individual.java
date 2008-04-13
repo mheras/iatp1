@@ -57,4 +57,9 @@ public abstract class A_Individual {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	/**
+	 * Disposes the individual.
+	 */
+	public abstract void dispose();
 }

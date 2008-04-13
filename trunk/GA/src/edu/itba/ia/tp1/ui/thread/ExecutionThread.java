@@ -1,5 +1,7 @@
 package edu.itba.ia.tp1.ui.thread;
 
+import java.util.concurrent.ExecutionException;
+
 import javax.swing.SwingWorker;
 
 import edu.itba.ia.tp1.engine.A_Problem;
@@ -78,9 +80,9 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		I_Aptitude aptitudeAlg;
 		ReproductionAlgorithm reproductionAlg;
 		A_Problem circuitProblem = null;
-		
+
 		if (this.problemDesc.equalsIgnoreCase(CIRCUIT_TREE)) {
-			
+
 			/* IMPLEMENTACION CIRCUITTREE */
 
 			/* Aptitude function. */
@@ -92,13 +94,13 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 					new CircuitTreeMutationGeneticOperation(
 							this.mutationProbability), aptitudeAlg);
 
-			circuitProblem = new CircuitTreeProblem(
-					this.selectionAlgorithm, this.replacementAlgorithm,
-					reproductionAlg, aptitudeAlg, this.populationSize);
+			circuitProblem = new CircuitTreeProblem(this.selectionAlgorithm,
+					this.replacementAlgorithm, reproductionAlg, aptitudeAlg,
+					this.populationSize);
 		} else {
 
 			/* IMPLEMENTACION CIRCUITSTRING */
-			
+
 			/* Aptitude function. */
 			aptitudeAlg = new CircuitStringAptitudeImpl();
 
@@ -108,11 +110,11 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 					new CircuitStringMutationGeneticOperation(
 							this.mutationProbability), aptitudeAlg);
 
-			circuitProblem = new CircuitStringProblem(
-					this.selectionAlgorithm, this.replacementAlgorithm,
-					reproductionAlg, aptitudeAlg, this.populationSize);
+			circuitProblem = new CircuitStringProblem(this.selectionAlgorithm,
+					this.replacementAlgorithm, reproductionAlg, aptitudeAlg,
+					this.populationSize);
 		}
-		
+
 		return new Engine(circuitProblem, this.maximumParents,
 				this.maximumGenerations);
 	}
@@ -140,6 +142,7 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 
 		Population currentPopulation = null;
 		this.currentGeneration = 0L;
+
 		while (!this.isCancelled()
 				&& this.currentGeneration <= this.maximumGenerations) {
 
@@ -177,9 +180,15 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	 */
 	@Override
 	protected void done() {
-		super.done();
-		if (this.doneCallback != null) {
-			this.doneCallback.onExecutionThreadDone(this);
+		try {
+			super.done();
+			this.get();
+			if (this.doneCallback != null) {
+				this.doneCallback.onExecutionThreadDone(this);
+			}
+		} catch (InterruptedException e) {
+		} catch (ExecutionException e) {
+			e.printStackTrace();
 		}
 	}
 

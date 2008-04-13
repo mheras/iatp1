@@ -93,7 +93,53 @@ public class CircuitTreeAptitudeImpl extends AbstractAptitude {
 		}
 
 		aptitude = new Double(totalMatchesAmount / size);
+		if (aptitude.compareTo(new Double(0.9)) < 0) {
+			Long nGates = ((CircuitTree) individual).getGatesLength();
+			aptitude -= penalize(aptitude, nGates);
+		}
 
 		return aptitude;
+	}
+
+	/**
+	 * Penalize aptitude, depending on the number of gates.
+	 * 
+	 * @param aptitude
+	 *            Aptitude to be penalized.
+	 * @param nGates
+	 *            Number of gates.
+	 * @return Penalization.
+	 */
+	private Double penalize(Double aptitude, Long nGates) {
+
+		Double penalization = 0.0;
+
+		if (nGates > 1000) {
+			penalization = aptitude * 0.5;
+		} else if (nGates > 750) {
+			penalization = aptitude * 0.4;
+		} else if (nGates > 500) {
+			penalization = aptitude * 0.3;
+		} else if (nGates > 400) {
+			penalization = aptitude * 0.25;
+		} else if (nGates > 300) {
+			penalization = aptitude * 0.2;
+		} else if (nGates > 250) {
+			penalization = aptitude * 0.15;
+		} else if (nGates > 200) {
+			penalization = aptitude * 0.1;
+		} else if (nGates > 150) {
+			penalization = aptitude * 0.05;
+		} else if (nGates > 100) {
+			penalization = aptitude * 0.025;
+		} else if (nGates > 80) {
+			penalization = aptitude * 0.02;
+		} else if (nGates > 50) {
+			penalization = aptitude * 0.015;
+		} else if (nGates > 25) {
+			penalization = aptitude * 0.007;
+		}
+
+		return penalization;
 	}
 }
