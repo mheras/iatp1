@@ -1,9 +1,8 @@
 package edu.itba.ia.tp1.engine.population.selection;
 
-import java.util.List;
+import java.util.Random;
 
 import edu.itba.ia.tp1.engine.population.Population;
-import edu.itba.ia.tp1.engine.population.Utils;
 
 /**
  * Implementation of EliteRoulette Algorithm; in which Elite is applied first,
@@ -21,20 +20,33 @@ public class EliteRouletteImpl implements I_SelectionAlgorithm {
 	 */
 	public Population execute(Population population, Long nIndividuals) {
 		Population ret = new Population();
-		RouletteImpl roulette = new RouletteImpl();
-		List<Double> relativeFrequencies = Utils.getRelativeFrequencies(population);
+		Population shallowCopy = new Population();
 		
-		for (int i = 0; i < relativeFrequencies.size(); i++) {
-			int nSelected = (int) Math.floor(relativeFrequencies.get(i) * nIndividuals);
-			
-			while (nSelected-- != 0) {
-				ret.addIndividual(population.getIndividualByPosition(i));
-			}
-		}
+		shallowCopy.addAll(population.getIndividuals());
+		Random random = new Random();
+		Long eliteCount = (long) Math.floor(random.nextDouble() * nIndividuals);
+		
+		EliteImpl elite = new EliteImpl();
+		Population elitePopulation = elite.execute(shallowCopy, eliteCount);
+		ret.addAll(elitePopulation.getIndividuals());
+		shallowCopy.getIndividuals().removeAll(elitePopulation.getIndividuals());
+		
+		
+		RouletteImpl roulette = new RouletteImpl();
+		
+//		List<Double> relativeFrequencies = Utils.getRelativeFrequencies(population);
+//		
+//		for (int i = 0; i < relativeFrequencies.size(); i++) {
+//			int nSelected = (int) Math.floor(relativeFrequencies.get(i) * nIndividuals);
+//			
+//			while (nSelected-- != 0) {
+//				ret.addIndividual(population.getIndividualByPosition(i));
+//			}
+//		}
 		
 		/* Si todavia no se completo la poblacion, se obtiene por ruleta el resto. */
-		if (ret.getSize() < nIndividuals.intValue()) {
-			Population roulettePopulation = roulette.execute(population, new Long(nIndividuals.intValue() - ret.getSize()));
+		if (ret.getSize() < nIndividuals.longValue()) {
+			Population roulettePopulation = roulette.execute(shallowCopy, new Long(nIndividuals.intValue() - ret.getSize()));
 			ret.addAll(roulettePopulation.getIndividuals());
 		}
 		

@@ -9,6 +9,10 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
  * @author Martín A. Heras
  * 
  */
+/**
+ * @author Martín A. Heras
+ *
+ */
 public abstract class UnaryGate extends Gate {
 
 	/* Son component of this component. */
@@ -19,9 +23,17 @@ public abstract class UnaryGate extends Gate {
 	protected LogicState input = new LogicNotReady();
 
 	/* (non-Javadoc)
+	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Gate#dispose()
+	 */
+	public void dispose() {
+		super.dispose();
+		this.son = null;
+		this.input = null;
+	}
+	
+	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent#isReady()
 	 */
-	@Override
 	public boolean isReady() {
 		return !input.isNotReady();
 	}
@@ -29,7 +41,6 @@ public abstract class UnaryGate extends Gate {
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent#resetComponent()
 	 */
-	@Override
 	public void resetComponent() {
 		input = new LogicNotReady();
 	}
@@ -37,7 +48,6 @@ public abstract class UnaryGate extends Gate {
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent#setInput(int)
 	 */
-	@Override
 	public void setInput(LogicState state) {
 		if (input.isNotReady()) {
 			input = state;

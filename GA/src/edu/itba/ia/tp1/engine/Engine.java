@@ -77,14 +77,33 @@ public class Engine {
 		 */
 		Population offsprings = problem.getReproduction().reproduce(parents);
 		problem.getPopulation().addAll(offsprings.getIndividuals());
-		problem.setPopulation(problem.getReplacement().execute(
-				problem.getPopulation(), populationSize));
+		
+		Population replacement = problem.getReplacement().execute(
+				problem.getPopulation(), populationSize);
+		
+		/* We dispose every killed individual in order to free resources. */
+		Population killedPopulation = new Population();
+		killedPopulation.addAll(problem.getPopulation().getIndividuals());
+		killedPopulation.getIndividuals().removeAll(replacement.getIndividuals());
+		disposeKilledPopulation(killedPopulation);
+		
+		problem.setPopulation(replacement);
 		/* Increment current generation counter. */
 		this.currentGeneration++;
 
 		return true;
 	}
 
+	
+	/**
+	 * Disposes killed population.
+	 * 
+	 * @param killedPopulation Killed population.
+	 */
+	private void disposeKilledPopulation(Population killedPopulation) {
+		
+	}
+	
 	/* Getters and Setters. */
 
 	/**

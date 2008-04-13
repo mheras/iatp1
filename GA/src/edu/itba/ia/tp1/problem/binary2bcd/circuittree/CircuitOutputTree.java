@@ -868,4 +868,17 @@ public class CircuitOutputTree {
 		this.gates = gates;
 	}
 
+	/**
+	 * Diposes this Circuit Output Tree.
+	 */
+	public void dispose() {
+		
+		for (CircuitComponent comp : this.gates) {
+			comp.dispose();
+		}
+		
+		this.gates.clear();
+		this.gates = null;
+		
+	}
 }

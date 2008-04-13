@@ -219,8 +219,9 @@ public class CircuitString extends A_Individual{
 		return inputs;
 	}
 
-
-
-
-
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
 }

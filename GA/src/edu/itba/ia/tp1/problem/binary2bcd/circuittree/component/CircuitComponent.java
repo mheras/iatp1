@@ -27,6 +27,15 @@ public abstract class CircuitComponent implements Cloneable {
 	public CircuitComponent() {
 		nextComponents = new ArrayList<CircuitComponent>();
 	}
+	
+	/**
+	 * Disposes this component.
+	 */
+	public void dispose() {
+		this.nextComponents.clear();
+		this.nextComponents = null;
+		this.id = null;
+	}
 
 	/**
 	 * Evaluates the circuit component based on its inputs and propagates its
