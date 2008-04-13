@@ -20,7 +20,7 @@ public abstract class UnaryGate extends Gate {
 	
 	
 	/* Input. */
-	protected LogicState input = new LogicNotReady();
+	protected LogicState input = LogicNotReady.getInstance();
 
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Gate#dispose()
@@ -42,7 +42,7 @@ public abstract class UnaryGate extends Gate {
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent#resetComponent()
 	 */
 	public void resetComponent() {
-		input = new LogicNotReady();
+		input = LogicNotReady.getInstance();
 	}
 
 	/* (non-Javadoc)

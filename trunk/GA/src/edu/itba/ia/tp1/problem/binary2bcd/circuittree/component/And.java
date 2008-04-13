@@ -28,9 +28,9 @@ public class And extends BinaryGate {
 		/* Evaluates if the component on a given certain logic. 
 		 */
 		if (this.inputs[0].isOn() && this.inputs[1].isOn()) {
-			output = new LogicOn();
+			output = LogicOn.getInstance();
 		} else {
-			output = new LogicOff();
+			output = LogicOff.getInstance();
 		}
 		
 		CircuitComponent component = this.getParent();

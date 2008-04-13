@@ -16,8 +16,8 @@ public abstract class BinaryGate extends Gate {
 	private CircuitComponent [] sons = new CircuitComponent [] {null, null};
 	
 	/* Inputs. */
-	protected LogicState[] inputs = new LogicState[] { new LogicNotReady(),
-			new LogicNotReady() };
+	protected LogicState[] inputs = new LogicState[] { LogicNotReady.getInstance(),
+			LogicNotReady.getInstance() };
 
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Gate#dispose()
@@ -39,8 +39,8 @@ public abstract class BinaryGate extends Gate {
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent#resetComponent()
 	 */
 	public void resetComponent() {
-		inputs = new LogicState[] { new LogicNotReady(),
-				new LogicNotReady() };
+		inputs = new LogicState[] { LogicNotReady.getInstance(),
+				LogicNotReady.getInstance() };
 	}
 
 	/* (non-Javadoc)
