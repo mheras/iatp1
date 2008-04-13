@@ -8,10 +8,23 @@ package edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate;
  */
 public class LogicOn extends LogicState {
 
+	protected static LogicOn instance = null;
+	
+	public static LogicOn getInstance() {
+		if (instance == null) {
+			instance = new LogicOn();
+		}
+		
+		return instance;
+	}
+	
+	private LogicOn() {
+		// Do nothing.
+	}
+	
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicState#isNotReady()
 	 */
-	@Override
 	public boolean isNotReady() {
 		return false;
 	}
@@ -19,7 +32,6 @@ public class LogicOn extends LogicState {
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicState#isOff()
 	 */
-	@Override
 	public boolean isOff() {
 		return false;
 	}
@@ -27,7 +39,6 @@ public class LogicOn extends LogicState {
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.LogicState.LogicState#isOn()
 	 */
-	@Override
 	public boolean isOn() {
 		return true;
 	}
@@ -35,7 +46,6 @@ public class LogicOn extends LogicState {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	@Override
 	public boolean equals(Object obj) {
 		return (obj instanceof LogicOn);		
 	}

@@ -199,9 +199,9 @@ public class CircuitTree extends A_Individual {
 		Collections.reverse(inputs);
 		for (CircuitComponent currentInput : inputs) {
 			if ((inputValue % 2) == 1) {
-				currentInput.setInput(new LogicOn());
+				currentInput.setInput(LogicOn.getInstance());
 			} else {
-				currentInput.setInput(new LogicOff());
+				currentInput.setInput(LogicOff.getInstance());
 			}
 			inputValue /= 2;
 		}

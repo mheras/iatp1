@@ -28,9 +28,9 @@ public class Input extends Wire {
 		}
 		
 		if (this.input.isOn()) {
-			output = new LogicOn();
+			output = LogicOn.getInstance();
 		} else {
-			output = new LogicOff();
+			output = LogicOff.getInstance();
 		}
 
 		for (CircuitComponent component : nexts) {

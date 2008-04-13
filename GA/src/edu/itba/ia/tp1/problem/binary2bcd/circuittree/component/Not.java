@@ -25,9 +25,9 @@ public class Not extends UnaryGate {
 		}
 		
 		if (this.input.isOff()) {
-			output = new LogicOn();
+			output = LogicOn.getInstance();
 		} else {
-			output = new LogicOff();
+			output = LogicOff.getInstance();
 		}
 
 		CircuitComponent component = this.getParent();
