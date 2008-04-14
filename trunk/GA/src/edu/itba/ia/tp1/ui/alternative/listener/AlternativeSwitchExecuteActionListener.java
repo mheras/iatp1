@@ -49,20 +49,22 @@ public class AlternativeSwitchExecuteActionListener implements ActionListener,
 					.getAlternativeExecutionThread();
 			if (thread != null) {
 				thread.cancel(true);
-				this.alternativeFrame.getLabelInfo().setText("Execution cancelled");
+				this.alternativeFrame.getLabelInfo().setText(
+						"Execution cancelled");
 			}
 			return;
 		}
 
 		this.alternativeFrame = (AlternativeFrame) this.getParentFrame(source);
 
-		this.alternativeFrame.getLabelInfo().setText("Initializing population...");
+		this.alternativeFrame.getLabelInfo().setText(
+				"Initializing population...");
 
 		/* Retrieves parameters from UI components. */
-		Long populationSize = (Long) this.alternativeFrame.getSpinnerPopulationSize()
-				.getValue();
-		Long maximumParents = (Long) this.alternativeFrame.getSpinnerMaximumParents()
-				.getValue();
+		Long populationSize = (Long) this.alternativeFrame
+				.getSpinnerPopulationSize().getValue();
+		Long maximumParents = (Long) this.alternativeFrame
+				.getSpinnerMaximumParents().getValue();
 		Long maximumGenerations = (Long) this.alternativeFrame
 				.getSpinnerMaximumGenerations().getValue();
 		Double mutationProbability = (Double) this.alternativeFrame
@@ -71,11 +73,12 @@ public class AlternativeSwitchExecuteActionListener implements ActionListener,
 				.getComboSelectionMethod().getSelectedItem();
 		I_SelectionAlgorithm replacement = (I_SelectionAlgorithm) this.alternativeFrame
 				.getComboReplacementMethod().getSelectedItem();
-		String problemDesc = (String) this.alternativeFrame.getComboProblemImpl()
-				.getSelectedItem();	
+		String problemDesc = (String) this.alternativeFrame
+				.getComboProblemImpl().getSelectedItem();
 
 		/* Creates a worker thread, configures it and executes it. */
-		AlternativeExecutionThread thread = new AlternativeExecutionThread(this, this);
+		AlternativeExecutionThread thread = new AlternativeExecutionThread(
+				this, this);
 		thread.setMaximumGenerations(maximumGenerations);
 		thread.setMaximumParents(maximumParents);
 		thread.setMutationProbability(mutationProbability);
@@ -123,37 +126,66 @@ public class AlternativeSwitchExecuteActionListener implements ActionListener,
 			this.alternativeFrame.getButtonSwitchExecution().setText(EXECUTE);
 			this.alternativeFrame.getLabelInfo().setText("Execution finalized");
 		}
-		
-		
-		
-		System.out.println("BIT 4:");
-		System.out.println("Aptitude: "+ executionThread.getBestBit4().getAptitude());
-		printInputOutput(executionThread.getBestBit4());
-		System.out.println(executionThread.getBestBit4().toString());
-		
-		
-		System.out.println("BIT 3:");
-		System.out.println("Aptitude: "+ executionThread.getBestBit3().getAptitude());
-		printInputOutput(executionThread.getBestBit3());
-		System.out.println(executionThread.getBestBit3().toString());
 
-		System.out.println("BIT 2:");
-		System.out.println("Aptitude: "+ executionThread.getBestBit2().getAptitude());
-		printInputOutput(executionThread.getBestBit2());
-		System.out.println(executionThread.getBestBit2().toString());
+		if (executionThread.getBestBit4() != null) {
+			System.out.println("BIT 4:");
+			System.out.println("Aptitude: "
+					+ executionThread.getBestBit4().getAptitude());
+			printInputOutput(executionThread.getBestBit4());
+			System.out.println(executionThread.getBestBit4().toString());
+		}
 
-		System.out.println("BIT 1:");
-		System.out.println("Aptitude: "+ executionThread.getBestBit1().getAptitude());
-		printInputOutput(executionThread.getBestBit1());
-		System.out.println(executionThread.getBestBit1().toString());
+		if (executionThread.getBestBit3() != null) {
+			System.out.println("BIT 3:");
+			System.out.println("Aptitude: "
+					+ executionThread.getBestBit3().getAptitude());
+			printInputOutput(executionThread.getBestBit3());
+			System.out.println(executionThread.getBestBit3().toString());
+		}
 
-		System.out.println("BIT 0:");
-		System.out.println("Aptitude: "+ executionThread.getBestBit0().getAptitude());
-		printInputOutput(executionThread.getBestBit0());
-		System.out.println(executionThread.getBestBit0().toString());
+		if (executionThread.getBestBit2() != null) {
+			System.out.println("BIT 2:");
+			System.out.println("Aptitude: "
+					+ executionThread.getBestBit2().getAptitude());
+			printInputOutput(executionThread.getBestBit2());
+			System.out.println(executionThread.getBestBit2().toString());
+		}
+
+		if (executionThread.getBestBit1() != null) {
+			System.out.println("BIT 1:");
+			System.out.println("Aptitude: "
+					+ executionThread.getBestBit1().getAptitude());
+			printInputOutput(executionThread.getBestBit1());
+			System.out.println(executionThread.getBestBit1().toString());
+		}
+
+		if (executionThread.getBestBit0() != null) {
+			System.out.println("BIT 0:");
+			System.out.println("Aptitude: "
+					+ executionThread.getBestBit0().getAptitude());
+			printInputOutput(executionThread.getBestBit0());
+			System.out.println(executionThread.getBestBit0().toString());
+		}
+		
+		executionThread.getBestBit0().operate(0);
+		executionThread.getBestBit0().operate(1);
+		executionThread.getBestBit0().operate(2);
+		executionThread.getBestBit0().operate(3);
+		executionThread.getBestBit0().operate(4);
+		executionThread.getBestBit0().operate(5);
+		executionThread.getBestBit0().operate(6);
+		executionThread.getBestBit0().operate(7);
+		executionThread.getBestBit0().operate(8);
+		executionThread.getBestBit0().operate(9);
+		executionThread.getBestBit0().operate(10);
+		executionThread.getBestBit0().operate(11);
+		executionThread.getBestBit0().operate(12);
+		executionThread.getBestBit0().operate(13);
+		executionThread.getBestBit0().operate(14);
+		executionThread.getBestBit0().operate(15);
 
 	}
-	
+
 	private void printInputOutput(A_Individual ind) {
 		System.out.println("0: " + ind.operate(0));
 		System.out.println("1: " + ind.operate(1));
@@ -171,8 +203,7 @@ public class AlternativeSwitchExecuteActionListener implements ActionListener,
 		System.out.println("13: " + ind.operate(13));
 		System.out.println("14: " + ind.operate(14));
 		System.out.println("15: " + ind.operate(15));
-		
-		
+
 	}
 
 	/*
@@ -181,9 +212,9 @@ public class AlternativeSwitchExecuteActionListener implements ActionListener,
 	 * @see edu.itba.ia.tp1.ui.thread.IEngineInfo#onEngineStep(double, double,
 	 *      double)
 	 */
-	public void onEngineStep(Engine source, double avgAptitude, double bestAptitude,
-			double worstAptitude) {
-		
+	public void onEngineStep(Engine source, double avgAptitude,
+			double bestAptitude, double worstAptitude) {
+
 		// Do nothing because multiple engines are being used...
 	}
 
