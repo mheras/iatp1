@@ -5,29 +5,29 @@ import javax.swing.UIManager;
 import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 import com.jgoodies.looks.plastic.theme.ExperienceBlue;
 
-import edu.itba.ia.tp1.ui.main.MainFrame;
-
+import edu.itba.ia.tp1.ui.alternative.AlternativeFrame;
 
 /**
  * Entry point to the application.
  * 
  * @author Martín A. Heras
  */
-public class Main {
+public class AlternativeMain {
 
-    public static void main(String args[]) {
-    	
-    	try {
-    		Plastic3DLookAndFeel.setCurrentTheme(new ExperienceBlue());
+	public static void main(String args[]) {
+
+		try {
+			Plastic3DLookAndFeel.setCurrentTheme(new ExperienceBlue());
 			UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
 		} catch (Exception e) {
 			System.err.println("Could not apply jgoodies plastic look and feel. Applying default one.");
 		}
-    	
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
-        });
-    }   
+
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new AlternativeFrame().setVisible(true);
+			}
+		});
+	}
+
 }

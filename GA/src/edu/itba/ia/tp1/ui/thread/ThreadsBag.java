@@ -1,5 +1,8 @@
 package edu.itba.ia.tp1.ui.thread;
 
+import edu.itba.ia.tp1.ui.alternative.thread.AlternativeExecutionThread;
+import edu.itba.ia.tp1.ui.main.thread.MainExecutionThread;
+
 /**
  * @author Martín A. Heras
  *
@@ -8,14 +11,15 @@ public class ThreadsBag {
 	
 	private static ThreadsBag instance;
 	
-	private ExecutionThread executionThread;
+	private MainExecutionThread mainExecutionThread;
+	private AlternativeExecutionThread alternativeExecutionThread;
 	
-	public ExecutionThread getExecutionThread() {
-		return executionThread;
+	public MainExecutionThread getMainExecutionThread() {
+		return mainExecutionThread;
 	}
 
-	public void setExecutionThread(ExecutionThread executionThread) {
-		this.executionThread = executionThread;
+	public void setMainExecutionThread(MainExecutionThread executionThread) {
+		this.mainExecutionThread = executionThread;
 	}
 
 	private ThreadsBag() {
@@ -27,5 +31,14 @@ public class ThreadsBag {
 			instance = new ThreadsBag();
 		}
 		return instance;
+	}
+
+	public AlternativeExecutionThread getAlternativeExecutionThread() {
+		return alternativeExecutionThread;
+	}
+
+	public void setAlternativeExecutionThread(
+			AlternativeExecutionThread alternativeExecutionThread) {
+		this.alternativeExecutionThread = alternativeExecutionThread;
 	}
 }

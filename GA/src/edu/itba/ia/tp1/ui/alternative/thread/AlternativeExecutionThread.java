@@ -1,5 +1,6 @@
-package edu.itba.ia.tp1.ui.thread;
+package edu.itba.ia.tp1.ui.alternative.thread;
 
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingWorker;
@@ -7,19 +8,25 @@ import javax.swing.SwingWorker;
 import edu.itba.ia.tp1.engine.A_Problem;
 import edu.itba.ia.tp1.engine.Engine;
 import edu.itba.ia.tp1.engine.I_Aptitude;
+import edu.itba.ia.tp1.engine.population.A_Individual;
 import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.Utils;
 import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
-import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitStringAptitudeImpl;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitStringProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm.CircuitStringCrossGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm.CircuitStringMutationGeneticOperation;
-import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeAptitudeImpl;
-import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeProblem;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.aptitude.CircuitStringAptitudeImpl;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.AlternativeCircuitTreeProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeCrossGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeMutationGeneticOperation;
-import edu.itba.ia.tp1.ui.AptitudeChart;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.aptitude.AlternativeCircuitTreeAptitudeImpl;
+import edu.itba.ia.tp1.ui.alternative.AbstractAlternativeAptitudeChart;
+import edu.itba.ia.tp1.ui.alternative.AlternativeAptitudeBit0Chart;
+import edu.itba.ia.tp1.ui.alternative.AlternativeAptitudeBit1Chart;
+import edu.itba.ia.tp1.ui.alternative.AlternativeAptitudeBit2Chart;
+import edu.itba.ia.tp1.ui.alternative.AlternativeAptitudeBit3Chart;
+import edu.itba.ia.tp1.ui.alternative.AlternativeAptitudeBit4Chart;
 
 /**
  * This is the background Swing worker thread implementation to execute and run
@@ -29,15 +36,15 @@ import edu.itba.ia.tp1.ui.AptitudeChart;
  * @author Martín A. Heras
  * 
  */
-public class ExecutionThread extends SwingWorker<Void, Void> {
+public class AlternativeExecutionThread extends SwingWorker<Void, Void> {
 
 	private final String CIRCUIT_TREE = "Circuit Tree";
 	// private final String CIRCUIT_STRING = "Circuit String";
 
 	/* Done callback. */
-	private IExecutionThreadDone doneCallback;
+	private IAlternativeExecutionThreadDone doneCallback;
 	/* Engine info callback. */
-	private IEngineInfo engineInfoCallback;
+	private IAlternativeEngineInfo engineInfoCallback;
 	/* Population size. */
 	private Long populationSize;
 	/* Maximum parents. */
@@ -54,6 +61,12 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	private String problemDesc;
 	/* Current generation. */
 	private long currentGeneration;
+	/* Best individual for each output bit. */
+	private A_Individual bestBit4;
+	private A_Individual bestBit3;
+	private A_Individual bestBit2;
+	private A_Individual bestBit1;
+	private A_Individual bestBit0;
 
 	/**
 	 * Creates a new execution thread.
@@ -61,8 +74,9 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	 * @param doneCallback
 	 *            Callback used to notify when this thread is done.
 	 */
-	public ExecutionThread(IExecutionThreadDone doneCallback,
-			IEngineInfo engineInfoCallback) {
+	public AlternativeExecutionThread(
+			IAlternativeExecutionThreadDone doneCallback,
+			IAlternativeEngineInfo engineInfoCallback) {
 		this();
 		this.doneCallback = doneCallback;
 		this.engineInfoCallback = engineInfoCallback;
@@ -71,11 +85,11 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 	/**
 	 * Creates a new execution thread.
 	 */
-	public ExecutionThread() {
+	public AlternativeExecutionThread() {
 		// Do nothing.
 	}
 
-	private Engine createAppropiateEngine() {
+	private Engine createAppropiateEngine(int bitNumber) {
 
 		I_Aptitude aptitudeAlg;
 		ReproductionAlgorithm reproductionAlg;
@@ -86,7 +100,7 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 			/* IMPLEMENTACION CIRCUITTREE */
 
 			/* Aptitude function. */
-			aptitudeAlg = new CircuitTreeAptitudeImpl();
+			aptitudeAlg = new AlternativeCircuitTreeAptitudeImpl(bitNumber);
 
 			/* Reproduction: Crossover & mutation. */
 			reproductionAlg = new ReproductionAlgorithm(
@@ -94,9 +108,9 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 					new CircuitTreeMutationGeneticOperation(
 							this.mutationProbability), aptitudeAlg);
 
-			circuitProblem = new CircuitTreeProblem(this.selectionAlgorithm,
-					this.replacementAlgorithm, reproductionAlg, aptitudeAlg,
-					this.populationSize);
+			circuitProblem = new AlternativeCircuitTreeProblem(
+					this.selectionAlgorithm, this.replacementAlgorithm,
+					reproductionAlg, aptitudeAlg, this.populationSize);
 		} else {
 
 			/* IMPLEMENTACION CIRCUITSTRING */
@@ -119,58 +133,150 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 				this.maximumGenerations);
 	}
 
+	/**
+	 * Returns alternative chart to be painted.
+	 * 
+	 * @param bitNumber
+	 *            Number of the chart.
+	 * @return Alternative chart.
+	 */
+	private AbstractAlternativeAptitudeChart getCurrentChart(int bitNumber) {
+		switch (bitNumber) {
+		case 0:
+			return AlternativeAptitudeBit0Chart.getInstance();
+		case 1:
+			return AlternativeAptitudeBit1Chart.getInstance();
+		case 2:
+			return AlternativeAptitudeBit2Chart.getInstance();
+		case 3:
+			return AlternativeAptitudeBit3Chart.getInstance();
+		case 4:
+			return AlternativeAptitudeBit4Chart.getInstance();
+		default:
+			return null;
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see javax.swing.SwingWorker#doInBackground()
 	 */
-	@Override
 	protected Void doInBackground() throws Exception {
 
 		this.printParameters();
-		AptitudeChart chart = AptitudeChart.getInstance();
-		// chart.setSplinesOn(true);
-		chart.reset();
-		chart.setMaxGenerations(this.maximumGenerations);
 
-		// Creates the engine based on UI parameters.
-		Engine engine = createAppropiateEngine();
+		for (int bit = 4; bit >= 0; bit--) {
 
-		if (this.engineInfoCallback != null) {
-			this.engineInfoCallback.onInitPopulationDone();
-		}
-
-		Population currentPopulation = null;
-		this.currentGeneration = 0L;
-
-		while (!this.isCancelled()
-				&& this.currentGeneration <= this.maximumGenerations) {
-
-			engine.step();
-			currentPopulation = engine.getPopulation();
-
-			// Gathers population statistics.
-			Double avgAptitude = Utils.getAptitudeAvg(currentPopulation);
-			Double bestAptitude = Utils.getBestAptitude(currentPopulation);
-			Double worstAptitude = Utils.getWorstAptitude(currentPopulation);
-
-			if (this.engineInfoCallback != null) {
-				this.engineInfoCallback.onEngineStep(avgAptitude, bestAptitude,
-						worstAptitude);
+			if (this.isCancelled()) {
+				break;
 			}
 
-			// We update the aptitude chart.
-			chart.addGenerationAptitudeAvg(avgAptitude);
-			chart.addGenerationBestAptitude(bestAptitude);
-			chart.addGenerationWorstAptitude(worstAptitude);
-			// Increments counters.
-			chart.incrementGeneration();
-			this.currentGeneration++;
-			// Lets other processes use CPU time.
-			Thread.yield();
+			// Gets the chart.
+			AbstractAlternativeAptitudeChart chart = getCurrentChart(bit);
+			chart.reset();
+			chart.setMaxGenerations(this.maximumGenerations);
+
+			// Creates the engine based on UI parameters.
+			Engine engine = createAppropiateEngine(bit);
+			if (this.engineInfoCallback != null) {
+				this.engineInfoCallback.onInitPopulationDone(engine);
+			}
+
+			Population currentPopulation = null;
+			this.currentGeneration = 0L;
+
+			while (!this.isCancelled()
+					&& this.currentGeneration <= this.maximumGenerations) {
+
+				engine.step();
+				currentPopulation = engine.getPopulation();
+
+				// Gathers population statistics.
+				Double avgAptitude = Utils.getAptitudeAvg(currentPopulation);
+				Double bestAptitude = Utils.getBestAptitude(currentPopulation);
+				Double worstAptitude = Utils
+						.getWorstAptitude(currentPopulation);
+
+				assignBestIndividual(bit, currentPopulation);
+
+				if (this.engineInfoCallback != null) {
+					this.engineInfoCallback.onEngineStep(engine, avgAptitude,
+							bestAptitude, worstAptitude);
+				}
+
+				// We update the aptitude chart.
+				chart.addGenerationAptitudeAvg(avgAptitude);
+				chart.addGenerationBestAptitude(bestAptitude);
+				chart.addGenerationWorstAptitude(worstAptitude);
+				// Increments counters.
+				chart.incrementGeneration();
+				this.currentGeneration++;
+				// Lets other processes use CPU time.
+				Thread.yield();
+			}
 		}
 
 		return null;
+	}
+
+	/**
+	 * Assigns the best individual per output bit, which is notified when
+	 * execution is finalized.
+	 * 
+	 * @param bit
+	 *            Output bit.
+	 * @param currentPopulation
+	 *            The population.
+	 */
+	private void assignBestIndividual(int bit, Population currentPopulation) {
+		A_Individual currentBest = Utils.getBestIndividual(currentPopulation);
+		if (bit == 0) {
+			if (this.bestBit0 == null) {
+				this.bestBit0 = currentBest;
+			} else {
+				if (this.bestBit0.getAptitude().compareTo(
+						currentBest.getAptitude()) <= 0) {
+					this.bestBit0 = currentBest;
+				}
+			}
+		} else if (bit == 1) {
+			if (this.bestBit1 == null) {
+				this.bestBit1 = currentBest;
+			} else {
+				if (this.bestBit1.getAptitude().compareTo(
+						currentBest.getAptitude()) <= 0) {
+					this.bestBit1 = currentBest;
+				}
+			}
+		} else if (bit == 2) {
+			if (this.bestBit2 == null) {
+				this.bestBit2 = currentBest;
+			} else {
+				if (this.bestBit2.getAptitude().compareTo(
+						currentBest.getAptitude()) <= 0) {
+					this.bestBit2 = currentBest;
+				}
+			}
+		} else if (bit == 3) {
+			if (this.bestBit3 == null) {
+				this.bestBit3 = currentBest;
+			} else {
+				if (this.bestBit3.getAptitude().compareTo(
+						currentBest.getAptitude()) <= 0) {
+					this.bestBit3 = currentBest;
+				}
+			}
+		} else {
+			if (this.bestBit4 == null) {
+				this.bestBit4 = currentBest;
+			} else {
+				if (this.bestBit4.getAptitude().compareTo(
+						currentBest.getAptitude()) <= 0) {
+					this.bestBit4 = currentBest;
+				}
+			}
+		}
 	}
 
 	/*
@@ -183,12 +289,16 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 		try {
 			super.done();
 			this.get();
+		} catch (InterruptedException e) {
+		} catch (CancellationException ce) {
+		} catch (ExecutionException ee) {
+			ee.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			if (this.doneCallback != null) {
 				this.doneCallback.onExecutionThreadDone(this);
 			}
-		} catch (InterruptedException e) {
-		} catch (ExecutionException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -333,5 +443,29 @@ public class ExecutionThread extends SwingWorker<Void, Void> {
 
 	public void setProblemDesc(String problemDesc) {
 		this.problemDesc = problemDesc;
+	}
+
+	public String getCIRCUIT_TREE() {
+		return CIRCUIT_TREE;
+	}
+
+	public A_Individual getBestBit4() {
+		return bestBit4;
+	}
+
+	public A_Individual getBestBit3() {
+		return bestBit3;
+	}
+
+	public A_Individual getBestBit2() {
+		return bestBit2;
+	}
+
+	public A_Individual getBestBit1() {
+		return bestBit1;
+	}
+
+	public A_Individual getBestBit0() {
+		return bestBit0;
 	}
 }

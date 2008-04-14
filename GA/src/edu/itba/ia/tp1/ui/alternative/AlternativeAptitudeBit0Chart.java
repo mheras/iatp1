@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.ui;
+package edu.itba.ia.tp1.ui.alternative;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -21,10 +21,11 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author Martín A. Heras
  * 
  */
-public class AptitudeChart {
+public class AlternativeAptitudeBit0Chart extends
+		AbstractAlternativeAptitudeChart {
 
 	/* Singleton instance. */
-	private static AptitudeChart instance;
+	private static AlternativeAptitudeBit0Chart instance;
 
 	private JPanel chartPanel;
 	private XYSeries aptitudeAvgData;
@@ -44,9 +45,9 @@ public class AptitudeChart {
 	 * 
 	 * @return Singleton instance of the aptitude chart.
 	 */
-	public static AptitudeChart getInstance() {
+	public static AlternativeAptitudeBit0Chart getInstance() {
 		if (instance == null) {
-			instance = new AptitudeChart();
+			instance = new AlternativeAptitudeBit0Chart();
 		}
 		return instance;
 	}
@@ -54,7 +55,7 @@ public class AptitudeChart {
 	/**
 	 * Private constructor. Used by getInstance method.
 	 */
-	private AptitudeChart() {
+	private AlternativeAptitudeBit0Chart() {
 
 		this.aptitudeAvgData = new XYSeries("Average Aptitude");
 		this.bestAptitudeData = new XYSeries("Best Aptitude");
@@ -68,7 +69,7 @@ public class AptitudeChart {
 		NumberAxis aptitudeAxis = new NumberAxis("Aptitude");
 		aptitudeAxis.setLowerBound(0.0);
 		aptitudeAxis.setUpperBound(1.0);
-		aptitudeAxis.setAutoRange(true);
+		aptitudeAxis.setAutoRange(false);
 
 		TickUnitSource units = NumberAxis.createIntegerTickUnits();
 
@@ -106,7 +107,7 @@ public class AptitudeChart {
 		this.plot.setOutlineVisible(false);
 
 		JFreeChart chart = new JFreeChart(
-				"Population aptitude over generations", this.plot);
+				"Bit 0", this.plot);
 		chart.setBackgroundPaint(Color.white);
 
 		this.reset();

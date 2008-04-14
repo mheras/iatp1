@@ -3,6 +3,7 @@
  */
 package edu.itba.ia.tp1.engine;
 
+import edu.itba.ia.tp1.engine.population.A_Individual;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
@@ -70,23 +71,24 @@ public class Engine {
 		/* Select parents based on the selection method attached to the problem. */
 		Population parents = problem.getSelection().execute(
 				problem.getPopulation(), this.maxParents);
-		
+
 		/*
 		 * Obtain offsprings using reproduction method over their parents (i.e.
 		 * Crossing and mutation).
 		 */
 		Population offsprings = problem.getReproduction().reproduce(parents);
 		problem.getPopulation().addAll(offsprings.getIndividuals());
-		
+
 		Population replacement = problem.getReplacement().execute(
 				problem.getPopulation(), populationSize);
-		
+
 		/* We dispose every killed individual in order to free resources. */
 		Population killedPopulation = new Population();
 		killedPopulation.addAll(problem.getPopulation().getIndividuals());
-		killedPopulation.getIndividuals().removeAll(replacement.getIndividuals());
+		killedPopulation.getIndividuals().removeAll(
+				replacement.getIndividuals());
 		disposeKilledPopulation(killedPopulation);
-		
+
 		problem.setPopulation(replacement);
 		/* Increment current generation counter. */
 		this.currentGeneration++;
@@ -94,16 +96,18 @@ public class Engine {
 		return true;
 	}
 
-	
 	/**
 	 * Disposes killed population.
 	 * 
-	 * @param killedPopulation Killed population.
+	 * @param killedPopulation
+	 *            Killed population.
 	 */
 	private void disposeKilledPopulation(Population killedPopulation) {
-		
+		for (A_Individual individual : killedPopulation.getIndividuals()) {
+			individual.dispose();
+		}
 	}
-	
+
 	/* Getters and Setters. */
 
 	/**

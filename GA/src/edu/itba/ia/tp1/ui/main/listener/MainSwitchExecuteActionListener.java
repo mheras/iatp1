@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.ui.listener;
+package edu.itba.ia.tp1.ui.main.listener;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -10,10 +10,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
-import edu.itba.ia.tp1.ui.MainFrame;
-import edu.itba.ia.tp1.ui.thread.ExecutionThread;
-import edu.itba.ia.tp1.ui.thread.IEngineInfo;
-import edu.itba.ia.tp1.ui.thread.IExecutionThreadDone;
+import edu.itba.ia.tp1.ui.main.MainFrame;
+import edu.itba.ia.tp1.ui.main.thread.IMainEngineInfo;
+import edu.itba.ia.tp1.ui.main.thread.IMainExecutionThreadDone;
+import edu.itba.ia.tp1.ui.main.thread.MainExecutionThread;
 import edu.itba.ia.tp1.ui.thread.ThreadsBag;
 
 /**
@@ -23,8 +23,8 @@ import edu.itba.ia.tp1.ui.thread.ThreadsBag;
  * @author Martín A. Heras
  * 
  */
-public class SwitchExecuteActionListener implements ActionListener,
-		IExecutionThreadDone, IEngineInfo {
+public class MainSwitchExecuteActionListener implements ActionListener,
+		IMainExecutionThreadDone, IMainEngineInfo {
 
 	private final String EXECUTE = "Execute";
 	private final String CANCEL = "Cancel";
@@ -44,8 +44,8 @@ public class SwitchExecuteActionListener implements ActionListener,
 		 * If button says cancel, just cancel the active worker thread.
 		 */
 		if (source.getText().equalsIgnoreCase(CANCEL)) {
-			ExecutionThread thread = ThreadsBag.getInstance()
-					.getExecutionThread();
+			MainExecutionThread thread = ThreadsBag.getInstance()
+					.getMainExecutionThread();
 			if (thread != null) {
 				thread.cancel(true);
 				this.mainFrame.getLabelInfo().setText("Execution cancelled");
@@ -74,7 +74,7 @@ public class SwitchExecuteActionListener implements ActionListener,
 				.getSelectedItem();	
 
 		/* Creates a worker thread, configures it and executes it. */
-		ExecutionThread thread = new ExecutionThread(this, this);
+		MainExecutionThread thread = new MainExecutionThread(this, this);
 		thread.setMaximumGenerations(maximumGenerations);
 		thread.setMaximumParents(maximumParents);
 		thread.setMutationProbability(mutationProbability);
@@ -83,7 +83,7 @@ public class SwitchExecuteActionListener implements ActionListener,
 		thread.setReplacementAlgorithm(replacement);
 		thread.setProblemDesc(problemDesc);
 
-		ThreadsBag.getInstance().setExecutionThread(thread);
+		ThreadsBag.getInstance().setMainExecutionThread(thread);
 		thread.execute();
 
 		source.setText(CANCEL);
@@ -117,7 +117,7 @@ public class SwitchExecuteActionListener implements ActionListener,
 	 * 
 	 * @see edu.itba.ia.tp1.ui.threads.IExecutionThreadDone#onExecutionThreadDone(edu.itba.ia.tp1.ui.threads.ExecutionThread)
 	 */
-	public void onExecutionThreadDone(ExecutionThread executionThread) {
+	public void onExecutionThreadDone(MainExecutionThread executionThread) {
 		if (this.mainFrame != null) {
 			this.mainFrame.getButtonSwitchExecution().setText(EXECUTE);
 			this.mainFrame.getLabelInfo().setText("Execution finalized");
