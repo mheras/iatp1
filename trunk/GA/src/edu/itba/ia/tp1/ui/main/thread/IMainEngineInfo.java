@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.ui.thread;
+package edu.itba.ia.tp1.ui.main.thread;
 
 /**
  * Callback used to notify engine's events information.
@@ -6,7 +6,7 @@ package edu.itba.ia.tp1.ui.thread;
  * @author Martín A. Heras
  * 
  */
-public interface IEngineInfo {
+public interface IMainEngineInfo {
 
 	/**
 	 * Called on every engine step.

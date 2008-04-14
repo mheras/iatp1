@@ -1,4 +1,5 @@
-package edu.itba.ia.tp1.ui.thread;
+package edu.itba.ia.tp1.ui.alternative.thread;
+
 
 /**
  * Callback used to notify that the execution thread is done with his job.
@@ -6,10 +7,10 @@ package edu.itba.ia.tp1.ui.thread;
  * @author Martín A. Heras
  * 
  */
-public interface IExecutionThreadDone {
+public interface IAlternativeExecutionThreadDone {
 
 	/**
 	 * This method will be called once the active execution thread is done.
 	 */
-	public void onExecutionThreadDone(ExecutionThread executionThread);
+	public void onExecutionThreadDone(AlternativeExecutionThread executionThread);
 }

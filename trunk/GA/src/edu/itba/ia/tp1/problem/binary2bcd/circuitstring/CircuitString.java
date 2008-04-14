@@ -6,11 +6,11 @@ import java.util.List;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
 
-public class CircuitString extends A_Individual{
-	
+public class CircuitString extends A_Individual {
+
 	/* Collection of inputs. */
 	private List<Boolean> inputs;
-	
+
 	/* Collection of gates. */
 	private CircuitOutputString[] circuits;
 	/* Number of input bits. */
@@ -21,6 +21,7 @@ public class CircuitString extends A_Individual{
 	private Integer minGates;
 	/* Maximum number of gates. */
 	private Integer maxGates;
+
 	/**
 	 * Returns a new circuit instance, not constructed. Private constructor, to
 	 * be used in factory method.
@@ -45,27 +46,58 @@ public class CircuitString extends A_Individual{
 		/* Initialize collections. */
 		this.inputs = new ArrayList<Boolean>();
 		this.circuits = new CircuitOutputString[outputBits];
+
+	}
+
+	public void dispose() {
+
+		if (this.circuits == null) {
+			return;
+		}
 		
+		for (CircuitOutputString string : this.circuits) {
+			string.dispose();
+		}
+
+		this.circuits = null;
+		this.inputBits = null;
+		this.outputBits = null;
+		this.inputs.clear();
+		this.inputs = null;
+		this.maxGates = null;
+		this.minGates = null;
+	}
+
+	public Long getGatesLength() {
+
+		Long ret = 0L;
+
+		for (CircuitOutputString string : this.circuits) {
+			ret += string.getCantGates();
+		}
+
+		return ret;
 	}
 
 	public static CircuitString generateRandomCircuit(Integer inputBits,
 			Integer outputBits, Integer minGates, Integer maxGates) {
-		
-		CircuitString circuit = new CircuitString(inputBits, outputBits, minGates,
-				maxGates);
-		
+
+		CircuitString circuit = new CircuitString(inputBits, outputBits,
+				minGates, maxGates);
+
 		CircuitOutputString[] circuitStrings = new CircuitOutputString[outputBits];
 		for (Integer i = 0; i < circuit.getOutputBits(); i++) {
 			CircuitOutputString newRandomCircuit = CircuitOutputString
-					.generateRandomCircuitString(circuit.getInputBits(), minGates, maxGates);
+					.generateRandomCircuitString(circuit.getInputBits(),
+							minGates, maxGates);
 			circuitStrings[i] = newRandomCircuit;
 		}
-		
+
 		circuit.setCircuits(circuitStrings);
 		return circuit;
-		
+
 	}
-	
+
 	public String toString() {
 
 		StringBuffer buffer = new StringBuffer("");
@@ -76,8 +108,6 @@ public class CircuitString extends A_Individual{
 
 		return buffer.toString();
 	}
-	
-	
 
 	/**
 	 * This method returns a new instance of Circuit that is identical to the
@@ -85,18 +115,20 @@ public class CircuitString extends A_Individual{
 	 * 
 	 */
 	public CircuitString clone() {
-		CircuitString result = new CircuitString(this.getInputBits(), this.getOutputBits(),this.getMinGates(),this.getMaxGates());
+		CircuitString result = new CircuitString(this.getInputBits(), this
+				.getOutputBits(), this.getMinGates(), this.getMaxGates());
 		CircuitOutputString[] circuitStrings = new CircuitOutputString[outputBits];
-		
-		for(int i = 0; i< this.getOutputBits(); i++){
-			circuitStrings[i] = (CircuitOutputString) this.getCircuits()[i].clone(); 
+
+		for (int i = 0; i < this.getOutputBits(); i++) {
+			circuitStrings[i] = (CircuitOutputString) this.getCircuits()[i]
+					.clone();
 		}
 		result.setCircuits(circuitStrings);
 		result.setInputs(this.getInputs());
 		return result;
-		
+
 	}
-	
+
 	/**
 	 * Mutates the current circuit tree.
 	 * 
@@ -105,31 +137,29 @@ public class CircuitString extends A_Individual{
 	 * @return Itself (mutated).
 	 */
 	public CircuitString performMutation(double mutationProbability) {
-		
-		for(CircuitOutputString currentOutputString : this.getCircuits()){
+
+		for (CircuitOutputString currentOutputString : this.getCircuits()) {
 			currentOutputString.performMutation(mutationProbability);
 		}
-		
+
 		return this;
-		
+
 	}
-	
-	
+
 	public static void performCrossover(CircuitString circuit1,
 			CircuitString circuit2) {
-		
-		CircuitOutputString [] circuits1 = circuit1.getCircuits();
-		CircuitOutputString [] circuits2 = circuit2.getCircuits();
-		
-		for(int i = 0; i < circuits1.length; i++){
+
+		CircuitOutputString[] circuits1 = circuit1.getCircuits();
+		CircuitOutputString[] circuits2 = circuit2.getCircuits();
+
+		for (int i = 0; i < circuits1.length; i++) {
 			CircuitOutputString.performCrossover(circuits1[i], circuits2[i]);
 		}
-		
+
 	}
-	
+
 	public Object operate(Object input) {
 
-		
 		if (!(input instanceof Integer)) {
 			return null;
 		}
@@ -139,11 +169,11 @@ public class CircuitString extends A_Individual{
 		List<Boolean> inputs = new ArrayList<Boolean>();
 
 		int nInputs = this.inputBits;
-		while(nInputs > 0) {
+		while (nInputs > 0) {
 			if ((inputValue % 2) == 1) {
-				 inputs.add(new Boolean(true));
+				inputs.add(new Boolean(true));
 			} else {
-				 inputs.add(new Boolean(false));
+				inputs.add(new Boolean(false));
 			}
 			nInputs--;
 			inputValue /= 2;
@@ -152,15 +182,15 @@ public class CircuitString extends A_Individual{
 		this.setInputs(inputs);
 		int out = 0;
 		int power = 1;
-		List <Boolean> outputs = new ArrayList<Boolean>();
+		List<Boolean> outputs = new ArrayList<Boolean>();
 		for (CircuitOutputString currentTree : this.circuits) {
-		
+
 			Boolean operateResult = currentTree.operate(this.inputs);
 			outputs.add(operateResult);
 
 		}
 		Collections.reverse(outputs);
-		for(Boolean bool : outputs){
+		for (Boolean bool : outputs) {
 			if (bool.booleanValue()) {
 				out += 1 * power;
 			}
@@ -217,11 +247,5 @@ public class CircuitString extends A_Individual{
 
 	private List<Boolean> getInputs() {
 		return inputs;
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-		
 	}
 }

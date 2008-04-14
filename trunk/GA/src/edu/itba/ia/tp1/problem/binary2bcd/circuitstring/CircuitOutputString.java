@@ -11,10 +11,15 @@ public class CircuitOutputString {
 
 	private static final int N_OPERATIONS = 3;
 
-	private String ouputString;
+	private String outputString;
 
 	private Integer cantGates;
 
+	public void dispose() {
+		this.outputString = null;
+		this.cantGates = null;
+	}
+	
 	public void setCantGates(Integer cantGates) {
 		this.cantGates = cantGates;
 	}
@@ -25,22 +30,22 @@ public class CircuitOutputString {
 
 	public CircuitOutputString clone() {
 		CircuitOutputString result = new CircuitOutputString();
-		result.setOuputString(this.getOuputString());
+		result.setOutputString(this.getOutputString());
 		result.setCantGates(this.getCantGates());
 		return result;
 
 	}
 
-	public String getOuputString() {
-		return ouputString;
+	public String getOutputString() {
+		return outputString;
 	}
 
-	public void setOuputString(String ouputString) {
-		this.ouputString = ouputString;
+	public void setOutputString(String outputString) {
+		this.outputString = outputString;
 	}
 
 	public String toString() {
-		return this.ouputString;
+		return this.outputString;
 	}
 
 	public static CircuitOutputString generateRandomCircuitString(
@@ -87,7 +92,7 @@ public class CircuitOutputString {
 
 		}
 
-		result.setOuputString(equation);
+		result.setOutputString(equation);
 		return result;
 
 	}
@@ -97,8 +102,8 @@ public class CircuitOutputString {
 
 		Random rand = new Random();
 
-		String circuit1 = circuitString1.getOuputString();
-		String circuit2 = circuitString2.getOuputString();
+		String circuit1 = circuitString1.getOutputString();
+		String circuit2 = circuitString2.getOutputString();
 		int crossPoint1 = rand.nextInt(circuit1.length());
 		int crossPoint2 = rand.nextInt(circuit2.length());
 
@@ -108,8 +113,8 @@ public class CircuitOutputString {
 		circuit1 = circuit1.replace(crossBranch1, crossBranch2);
 		circuit2 = circuit2.replace(crossBranch2, crossBranch1);
 
-		circuitString1.setOuputString(circuit1);
-		circuitString2.setOuputString(circuit2);
+		circuitString1.setOutputString(circuit1);
+		circuitString2.setOutputString(circuit2);
 	}
 
 	private static String getCrossBranch(String outputString, int crossPoint) {
@@ -166,7 +171,7 @@ public class CircuitOutputString {
 
 	public void performMutation(double mutationProbability) {
 
-		String originalString = this.getOuputString();
+		String originalString = this.getOutputString();
 
 		char[] charArray = originalString.toCharArray();
 		Random rand = new Random();
@@ -199,7 +204,7 @@ public class CircuitOutputString {
 			}
 		}
 
-		this.setOuputString(mutatedString.toString());
+		this.setOutputString(mutatedString.toString());
 	}
 
 	private static String generateRandomOp(int n_operations) {
@@ -229,7 +234,7 @@ public class CircuitOutputString {
 
 		char letterInput = 'A';
 		BooleanExpression boolExpr = null;
-		String evaluationString = this.getOuputString();
+		String evaluationString = this.getOutputString();
 		for (Boolean currentInput : input) {
 			StringBuilder strAux = new StringBuilder();
 			strAux.append(letterInput);

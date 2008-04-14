@@ -1,56 +1,26 @@
-package edu.itba.ia.tp1.problem.binary2bcd.circuittree;
+package edu.itba.ia.tp1.problem.binary2bcd.circuitstring.aptitude;
 
 import edu.itba.ia.tp1.engine.population.A_Individual;
 import edu.itba.ia.tp1.problem.binary2bcd.AbstractAptitude;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitString;
 
 /**
- * This is the aptitude function for a Binary to BCD Converter (CircuitTree
+ * This is the aptitude function for a Binary to BCD Converter (CircuitString
  * implementation).
  * 
  * @author Martín A. Heras
  */
-public class CircuitTreeAptitudeImpl extends AbstractAptitude {
-
+public class CircuitStringAptitudeImpl extends AbstractAptitude {
+	
 	/**
-	 * Creates a new instance of <code>AptitudeImpl</code>.
+	 * Creates a new instance of <code>CircuitStringAptitudeImpl</code>.
 	 */
-	public CircuitTreeAptitudeImpl() {
+	public CircuitStringAptitudeImpl() {
 		super();
 	}
-
-	/**
-	 * Naif approach to get individual aptitude.
-	 * 
-	 * @deprecated
-	 * @param individual
-	 *            The individual.
-	 * @return The individual aptitude.
-	 */
-	public Double evaluate2(A_Individual individual) {
-
-		int size = this.inputOutputMap.size();
-		Double aptitude = new Double(0);
-
-		Double matches = 0.0;
-
-		for (Integer input : this.inputOutputMap.keySet()) {
-
-			if (individual.operate(input)
-					.equals(this.inputOutputMap.get(input))) {
-
-				matches++;
-			}
-		}
-
-		aptitude = new Double(matches / size);
-
-		return aptitude;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.itba.ia.tp1.engine.IAptitude#evaluate(edu.itba.ia.tp1.engine.population.Individual)
+	
+	/* (non-Javadoc)
+	 * @see edu.itba.ia.tp1.engine.I_Aptitude#evaluate(edu.itba.ia.tp1.engine.population.A_Individual)
 	 */
 	public Double evaluate(A_Individual individual) {
 
@@ -59,7 +29,7 @@ public class CircuitTreeAptitudeImpl extends AbstractAptitude {
 		// IO map size.
 		int size = this.inputOutputMap.size();
 		// Number of output bits.
-		int nOutputs = ((CircuitTree) individual).getOutputBits();
+		int nOutputs = ((CircuitString) individual).getOutputBits();
 		// Holds the matches amount. If all output bits matches are solution for
 		// the input given, this variable will be incremented by 1. Otherwise,
 		// it will be incremented by a proportional amount, depending on how
@@ -94,10 +64,10 @@ public class CircuitTreeAptitudeImpl extends AbstractAptitude {
 
 		aptitude = new Double(totalMatchesAmount / size);
 		if (aptitude.compareTo(new Double(0.9)) < 0) {
-			Long nGates = ((CircuitTree) individual).getGatesLength();
+			Long nGates = ((CircuitString) individual).getGatesLength();
 			aptitude -= penalize(aptitude, nGates);
 		}
-
+		
 		return aptitude;
 	}
 
@@ -142,4 +112,5 @@ public class CircuitTreeAptitudeImpl extends AbstractAptitude {
 
 		return penalization;
 	}
+	
 }

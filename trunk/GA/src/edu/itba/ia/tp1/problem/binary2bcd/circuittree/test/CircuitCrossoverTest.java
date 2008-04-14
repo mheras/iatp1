@@ -1,8 +1,8 @@
 package edu.itba.ia.tp1.problem.binary2bcd.circuittree.test;
 
 import edu.itba.ia.tp1.engine.I_Aptitude;
-import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeAptitudeImpl;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.aptitude.MainCircuitTreeAptitudeImpl;
 
 public class CircuitCrossoverTest {
 
@@ -13,7 +13,7 @@ public class CircuitCrossoverTest {
 		
 		Integer input = new Integer(4);
 		
-		I_Aptitude aptitudeAlgorithm = new CircuitTreeAptitudeImpl();
+		I_Aptitude aptitudeAlgorithm = new MainCircuitTreeAptitudeImpl();
 		
 		System.out.println("Randomly generated circuit A:");
 		CircuitTree circuitA = CircuitTree.generateRandomCircuit(4, 8, 4, 5);

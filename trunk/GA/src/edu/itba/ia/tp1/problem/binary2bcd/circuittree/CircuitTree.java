@@ -159,17 +159,16 @@ public class CircuitTree extends A_Individual {
 	}
 
 	/**
-	 * @return 
-	 * 		The number of gates that are part of the circuit.
+	 * @return The number of gates that are part of the circuit.
 	 */
 	public Long getGatesLength() {
-		
+
 		Long length = 0L;
-		
+
 		for (CircuitOutputTree tree : this.circuits) {
 			length += tree.getGates().size();
 		}
-		
+
 		return length;
 	}
 
@@ -386,11 +385,17 @@ public class CircuitTree extends A_Individual {
 		this.circuits = circuits;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see edu.itba.ia.tp1.engine.population.A_Individual#dispose()
 	 */
 	public void dispose() {
-		
+
+		if (this.circuits == null) {
+			return;
+		}
+
 		for (CircuitOutputTree tree : this.circuits) {
 			tree.dispose();
 		}
@@ -399,5 +404,7 @@ public class CircuitTree extends A_Individual {
 		this.inputs = null;
 		this.outputs.clear();
 		this.outputs = null;
+		this.maxGates = null;
+		this.minGates = null;
 	}
 }

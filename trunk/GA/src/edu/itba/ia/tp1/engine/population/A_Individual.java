@@ -14,7 +14,7 @@ public abstract class A_Individual {
 	private Long id;
 	/* Aptitude. */
 	private Double aptitude;
-
+	
 	/**
 	 * Gets individual's aptitude.
 	 * 

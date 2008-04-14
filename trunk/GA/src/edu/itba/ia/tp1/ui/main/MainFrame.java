@@ -1,6 +1,7 @@
-package edu.itba.ia.tp1.ui;
+package edu.itba.ia.tp1.ui.main;
 
-import edu.itba.ia.tp1.ui.listener.SwitchExecuteActionListener;
+import edu.itba.ia.tp1.ui.MethodComboBoxModel;
+import edu.itba.ia.tp1.ui.main.listener.MainSwitchExecuteActionListener;
 
 /**
  * Main application frame.
@@ -168,7 +169,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonSwitchExecution = new javax.swing.JButton();
         labelMutationProbability1 = new javax.swing.JLabel();
         comboProblemImpl = new javax.swing.JComboBox();
-        panelChart = AptitudeChart.getInstance().getChartPanel();
+        panelChart = MainAptitudeChart.getInstance().getChartPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Binary2BCD Converter Genetic Algorithm"); 
@@ -279,7 +280,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonSwitchExecution.setText("Execute"); 
         buttonSwitchExecution.setName("buttonSwitchExecution");
-        buttonSwitchExecution.addActionListener(new SwitchExecuteActionListener());
+        buttonSwitchExecution.addActionListener(new MainSwitchExecuteActionListener());
 
         labelMutationProbability1.setText("Problem representation:"); 
         labelMutationProbability1.setName("labelMutationProbability1"); 
