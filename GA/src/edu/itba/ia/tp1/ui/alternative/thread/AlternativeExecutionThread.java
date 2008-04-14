@@ -166,6 +166,12 @@ public class AlternativeExecutionThread extends SwingWorker<Void, Void> {
 
 		this.printParameters();
 
+		this.bestBit0 = null;
+		this.bestBit1 = null;
+		this.bestBit2 = null;
+		this.bestBit3 = null;
+		this.bestBit4 = null;
+
 		for (int bit = 4; bit >= 0; bit--) {
 
 			if (this.isCancelled()) {
@@ -198,7 +204,7 @@ public class AlternativeExecutionThread extends SwingWorker<Void, Void> {
 				Double worstAptitude = Utils
 						.getWorstAptitude(currentPopulation);
 
-				assignBestIndividual(bit, currentPopulation);
+				this.assignBestIndividual(bit, currentPopulation);
 
 				if (this.engineInfoCallback != null) {
 					this.engineInfoCallback.onEngineStep(engine, avgAptitude,
