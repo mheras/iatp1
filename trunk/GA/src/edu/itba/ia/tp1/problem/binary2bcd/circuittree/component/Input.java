@@ -14,10 +14,17 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
  */
 public class Input extends Wire {
 
+	/**
+	 * Gets input logic state value.
+	 * @return Input logic state value.
+	 */
+	public LogicState getInputValue(){
+		return input;
+	}	
+	
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.problem.binary2bcd.circuit.component.CircuitComponent#operate()
 	 */
-	@Override
 	public void operate() {
 		
 		List<CircuitComponent> nexts = this.getNextComponents();

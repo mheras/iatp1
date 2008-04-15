@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
 import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
@@ -141,28 +142,22 @@ public class DivideAndConquerSwitchExecuteActionListener implements
 			this.dacFrame.getLabelInfo().setText("Execution finalized");
 		}
 
-		System.out.println("Best Circuit [gates = "
-				+ bestCircuit.getGatesLength() + "; aptitude: "
-				+ bestCircuit.getAptitude() + "]:");
-		System.out.println(bestCircuit.toString());
+		StringBuffer resultInfo = new StringBuffer("");
+		resultInfo.append("Best circuit:\n\n");
+		resultInfo.append("Number of gates = ");
+		resultInfo.append(bestCircuit.getGatesLength() + "\n");
+		resultInfo.append("Aptitude = ");
+		resultInfo.append(bestCircuit.getAptitude() + "\n");
+		resultInfo.append("Result =\n");
+		resultInfo.append(bestCircuit.toString());
 
-		System.out.println("Input: 0, Output: " + bestCircuit.operate(0));
-		System.out.println("Input: 1, Output: " + bestCircuit.operate(1));
-		System.out.println("Input: 2, Output: " + bestCircuit.operate(2));
-		System.out.println("Input: 3, Output: " + bestCircuit.operate(3));
-		System.out.println("Input: 4, Output: " + bestCircuit.operate(4));
-		System.out.println("Input: 5, Output: " + bestCircuit.operate(5));
-		System.out.println("Input: 6, Output: " + bestCircuit.operate(6));
-		System.out.println("Input: 7, Output: " + bestCircuit.operate(7));
-		System.out.println("Input: 8, Output: " + bestCircuit.operate(8));
-		System.out.println("Input: 9, Output: " + bestCircuit.operate(9));
-		System.out.println("Input: 10, Output: " + bestCircuit.operate(10));
-		System.out.println("Input: 11, Output: " + bestCircuit.operate(11));
-		System.out.println("Input: 12, Output: " + bestCircuit.operate(12));
-		System.out.println("Input: 13, Output: " + bestCircuit.operate(13));
-		System.out.println("Input: 14, Output: " + bestCircuit.operate(14));
-		System.out.println("Input: 15, Output: " + bestCircuit.operate(15));
+		JOptionPane.showMessageDialog(this.dacFrame, resultInfo.toString(),
+				"Result", JOptionPane.INFORMATION_MESSAGE);
 
+		 System.out.println("Best Circuit [gates = "
+		 + bestCircuit.getGatesLength() + "; aptitude: "
+		 + bestCircuit.getAptitude() + "]:");
+		 System.out.println(bestCircuit.toString());
 	}
 
 	/*
