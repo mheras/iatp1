@@ -96,4 +96,10 @@ public class Population {
 	public void setIndividuals(List<A_Individual> individuals) {
 		this.individuals = individuals;
 	}
+	
+	
+	public boolean contains(A_Individual individualByPosition) {
+		return this.individuals.contains(individualByPosition);
+		
+	}
 }

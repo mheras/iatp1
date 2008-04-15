@@ -34,7 +34,11 @@ public class UniversalImpl implements I_SelectionAlgorithm {
 				Boolean capable = ((cumFreq1.compareTo(randomNumber) < 0) &&
 								   (randomNumber.compareTo(cumFreq2) < 0));
 				if (capable) {
-					ret.addIndividual(population.getIndividualByPosition(j - 1));
+					if(!ret.contains(population.getIndividualByPosition(j - 1))){
+						ret.addIndividual(population.getIndividualByPosition(j - 1));
+					}else{
+						ret.addIndividual(population.getIndividualByPosition(j - 1).clone());
+					}
 				}
 			} 
 		}
