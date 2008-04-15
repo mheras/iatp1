@@ -62,4 +62,6 @@ public abstract class A_Individual {
 	 * Disposes the individual.
 	 */
 	public abstract void dispose();
+	
+	public abstract A_Individual clone();
 }
