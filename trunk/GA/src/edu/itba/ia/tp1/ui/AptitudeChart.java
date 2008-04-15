@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.ui.main;
+package edu.itba.ia.tp1.ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -21,10 +21,10 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author Martín A. Heras
  * 
  */
-public class MainAptitudeChart {
+public class AptitudeChart {
 
 	/* Singleton instance. */
-	private static MainAptitudeChart instance;
+	private static AptitudeChart instance;
 
 	private JPanel chartPanel;
 	private XYSeries aptitudeAvgData;
@@ -44,9 +44,9 @@ public class MainAptitudeChart {
 	 * 
 	 * @return Singleton instance of the aptitude chart.
 	 */
-	public static MainAptitudeChart getInstance() {
+	public static AptitudeChart getInstance() {
 		if (instance == null) {
-			instance = new MainAptitudeChart();
+			instance = new AptitudeChart();
 		}
 		return instance;
 	}
@@ -54,7 +54,7 @@ public class MainAptitudeChart {
 	/**
 	 * Private constructor. Used by getInstance method.
 	 */
-	private MainAptitudeChart() {
+	private AptitudeChart() {
 
 		this.aptitudeAvgData = new XYSeries("Average Aptitude");
 		this.bestAptitudeData = new XYSeries("Best Aptitude");

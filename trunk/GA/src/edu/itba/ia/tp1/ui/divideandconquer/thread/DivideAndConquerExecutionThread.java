@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.ui.main.thread;
+package edu.itba.ia.tp1.ui.divideandconquer.thread;
 
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
@@ -32,7 +32,7 @@ import edu.itba.ia.tp1.ui.thread.IExecutionThreadDone;
  * @author Martín A. Heras
  * 
  */
-public class MainExecutionThread extends SwingWorker<Void, Void> {
+public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 
 	private final String CIRCUIT_TREE = "Circuit Tree";
 	// private final String CIRCUIT_STRING = "Circuit String";
@@ -43,8 +43,8 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 	private IEngineInfo engineInfoCallback;
 	/* Population size. */
 	private Long populationSize;
-	/* Maximum parents. */
-	private Long maximumParents;
+	/* Parents pool. */
+	private Long parentsPool;
 	/* Maximum generations. */
 	private Long maximumGenerations;
 	/* Mutation probability. */
@@ -55,6 +55,8 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 	private I_SelectionAlgorithm replacementAlgorithm;
 	/* Problem description string. */
 	private String problemDesc;
+	/* Current bit. */
+	private int currentBit;
 	/* Current generation. */
 	private long currentGeneration;
 
@@ -64,7 +66,7 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 	 * @param doneCallback
 	 *            Callback used to notify when this thread is done.
 	 */
-	public MainExecutionThread(IExecutionThreadDone doneCallback,
+	public DivideAndConquerExecutionThread(IExecutionThreadDone doneCallback,
 			IEngineInfo engineInfoCallback) {
 		this();
 		this.doneCallback = doneCallback;
@@ -74,7 +76,7 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 	/**
 	 * Creates a new execution thread.
 	 */
-	public MainExecutionThread() {
+	public DivideAndConquerExecutionThread() {
 		// Do nothing.
 	}
 
@@ -118,7 +120,7 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 					this.populationSize);
 		}
 
-		return new Engine(circuitProblem, this.maximumParents,
+		return new Engine(circuitProblem, this.parentsPool,
 				this.maximumGenerations);
 	}
 
@@ -186,7 +188,7 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 		try {
 			super.done();
 			this.get();
-		} catch (InterruptedException e) {
+		} catch (InterruptedException ie) {
 		} catch (CancellationException ce) {
 		} catch (ExecutionException ee) {
 			ee.printStackTrace();
@@ -210,7 +212,7 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 		System.out.println("");
 
 		System.out.println("Population size: " + populationSize);
-		System.out.println("Maximum parents: " + maximumParents);
+		System.out.println("Parents pool: " + parentsPool);
 		System.out.println("Maximum generations: " + maximumGenerations);
 		System.out.println("Mutation probability: " + mutationProbability);
 
@@ -239,22 +241,22 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 	}
 
 	/**
-	 * Gets maximum parents.
+	 * Gets parents pool.
 	 * 
-	 * @return Maximum parents.
+	 * @return Parents pool.
 	 */
-	public Long getMaximumParents() {
-		return maximumParents;
+	public Long getParentsPool() {
+		return parentsPool;
 	}
 
 	/**
-	 * Sets maximum parents.
+	 * Sets parents pool.
 	 * 
-	 * @param maximumParents
-	 *            Maximum parents.
+	 * @param parentsPool
+	 *            Parents pool.
 	 */
-	public void setMaximumParents(Long maximumParents) {
-		this.maximumParents = maximumParents;
+	public void setParentsPool(Long parentsPool) {
+		this.parentsPool = parentsPool;
 	}
 
 	/**
@@ -340,5 +342,13 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 
 	public void setProblemDesc(String problemDesc) {
 		this.problemDesc = problemDesc;
+	}
+
+	public int getCurrentBit() {
+		return currentBit;
+	}
+
+	public void setCurrentBit(int currentBit) {
+		this.currentBit = currentBit;
 	}
 }
