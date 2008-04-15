@@ -1,6 +1,5 @@
 package edu.itba.ia.tp1.ui.thread;
 
-import edu.itba.ia.tp1.ui.alternative.thread.AlternativeExecutionThread;
 import edu.itba.ia.tp1.ui.divideandconquer.thread.DivideAndConquerExecutionThread;
 import edu.itba.ia.tp1.ui.main.thread.MainExecutionThread;
 
@@ -13,7 +12,6 @@ public class ThreadsBag {
 	private static ThreadsBag instance;
 	
 	private MainExecutionThread mainExecutionThread;
-	private AlternativeExecutionThread alternativeExecutionThread;
 	private DivideAndConquerExecutionThread divideAndConquerExecutionThread;
 	
 	public MainExecutionThread getMainExecutionThread() {
@@ -42,14 +40,5 @@ public class ThreadsBag {
 			instance = new ThreadsBag();
 		}
 		return instance;
-	}
-
-	public AlternativeExecutionThread getAlternativeExecutionThread() {
-		return alternativeExecutionThread;
-	}
-
-	public void setAlternativeExecutionThread(
-			AlternativeExecutionThread alternativeExecutionThread) {
-		this.alternativeExecutionThread = alternativeExecutionThread;
 	}
 }
