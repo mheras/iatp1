@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
 
-public class CircuitString extends A_Individual {
+public class CircuitString extends AbstractCircuit {
 
 	/* Collection of inputs. */
 	private List<Boolean> inputs;

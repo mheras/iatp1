@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.CircuitComponent;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Input;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.component.Output;
@@ -17,7 +17,7 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuittree.logicstate.LogicState;
  * @author Jorge Goldman & Martín A. Heras
  * 
  */
-public class CircuitTree extends A_Individual {
+public class CircuitTree extends AbstractCircuit {
 
 	/* Collection of inputs. */
 	private List<CircuitComponent> inputs;
@@ -151,7 +151,6 @@ public class CircuitTree extends A_Individual {
 		StringBuffer buffer = new StringBuffer("");
 
 		for (CircuitOutputTree tree : this.getCircuits()) {
-			buffer.append("Number of gates: " + tree.getGates().size() + "\n");
 			buffer.append(tree.toString() + "\n");
 		}
 

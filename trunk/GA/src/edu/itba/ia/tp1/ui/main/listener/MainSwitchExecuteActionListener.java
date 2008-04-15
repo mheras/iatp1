@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
+import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
 import edu.itba.ia.tp1.ui.main.MainFrame;
 import edu.itba.ia.tp1.ui.main.thread.MainExecutionThread;
 import edu.itba.ia.tp1.ui.thread.IEngineInfo;
@@ -117,7 +118,7 @@ public class MainSwitchExecuteActionListener implements ActionListener,
 	 * 
 	 * @see edu.itba.ia.tp1.ui.threads.IExecutionThreadDone#onExecutionThreadDone(edu.itba.ia.tp1.ui.threads.ExecutionThread)
 	 */
-	public void onExecutionThreadDone() {
+	public void onExecutionThreadDone(AbstractCircuit bestCircuit) {
 		if (this.mainFrame != null) {
 			this.mainFrame.getButtonSwitchExecution().setText(EXECUTE);
 			this.mainFrame.getLabelInfo().setText("Execution finalized");

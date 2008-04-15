@@ -194,7 +194,7 @@ public class MainExecutionThread extends SwingWorker<Void, Void> {
 			e.printStackTrace();
 		} finally {
 			if (this.doneCallback != null) {
-				this.doneCallback.onExecutionThreadDone();
+				this.doneCallback.onExecutionThreadDone(null);
 			}
 		}
 	}

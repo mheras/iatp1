@@ -143,13 +143,13 @@ public class AptitudeChart {
 	
 	public void incrementGeneration() {
 		this.generation++;
-		if (this.aptitudeAvgData.getItemCount() == 100) {
-			this.aptitudeAvgData.remove(0);
-			this.bestAptitudeData.remove(0);
-			this.worstAptitudeData.remove(0);
-			this.generationsAxis.setLowerBound(this.generation - 99);
-			this.generationsAxis.setUpperBound(this.generation - 1);
-		}
+//		if (this.aptitudeAvgData.getItemCount() == 100) {
+//			this.aptitudeAvgData.remove(0);
+//			this.bestAptitudeData.remove(0);
+//			this.worstAptitudeData.remove(0);
+//			this.generationsAxis.setLowerBound(this.generation - 99);
+//			this.generationsAxis.setUpperBound(this.generation - 1);
+//		}
 	}
 
 	public boolean isSplinesOn() {
