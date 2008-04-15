@@ -295,10 +295,31 @@ public class CircuitOutputTree {
 		CircuitComponent parent = gateList.get(0);
 		/* Operates over each children of every gate recursively. */
 		if (parent instanceof BinaryGate) {
-			operateSon(((BinaryGate) parent).getLeftSon());
-			operateSon(((BinaryGate) parent).getRightSon());
+
+			CircuitComponent leftSon = ((BinaryGate) parent).getLeftSon();
+			CircuitComponent rightSon = ((BinaryGate) parent).getRightSon();
+
+			if (leftSon instanceof Input) {
+				parent.setInput(((Input) leftSon).getInputValue());
+			} else {
+				operateSon(leftSon);
+			}
+			
+			if (rightSon instanceof Input) {
+				parent.setInput(((Input) rightSon).getInputValue());
+			} else {
+				operateSon(rightSon);
+			}
+
 		} else {
-			operateSon(((UnaryGate) parent).getSon());
+			
+			CircuitComponent son = ((UnaryGate) parent).getSon();
+			
+			if (son instanceof Input) {
+				parent.setInput(((Input) son).getInputValue());
+			} else {
+				operateSon(son);
+			}
 		}
 		/* If the gate is ready we operate over it. */
 		if (parent.isReady()) {
@@ -308,29 +329,43 @@ public class CircuitOutputTree {
 	}
 
 	/**
-	 * @param son
+	 * @param component
 	 *            The component wich we are going to operate
 	 */
-	private void operateSon(CircuitComponent son) {
-		/* If we are dealing with an input, we only have to operate over it. */
-		if (son instanceof Input) {
-			son.operate();
-			return;
-		} else {
-			/* If its a Gate and it is not ready to operate. */
-			if (son instanceof BinaryGate) {
-				operateSon(((BinaryGate) son).getLeftSon());
-				operateSon(((BinaryGate) son).getRightSon());
-			} else {
-				operateSon(((UnaryGate) son).getSon());
-			}
-			/* If the gate is ready to operate, we perform the operation. */
-			if (son.isReady()) {
-				((Gate) son).operate();
-			}
-			return;
-		}
+	private void operateSon(CircuitComponent component) {
 
+		/* If its a Gate and it is not ready to operate. */
+		if (component instanceof BinaryGate) {
+			
+			CircuitComponent leftSon = ((BinaryGate) component).getLeftSon();
+			CircuitComponent rightSon = ((BinaryGate) component).getRightSon();
+			
+			if (leftSon instanceof Input) {
+				component.setInput(((Input) leftSon).getInputValue());
+			} else {
+				operateSon(leftSon);
+			}
+			
+			if (rightSon instanceof Input) {
+				component.setInput(((Input) rightSon).getInputValue());
+			} else {
+				operateSon(rightSon);
+			}
+
+		} else {
+			
+			CircuitComponent son = ((UnaryGate) component).getSon();
+			
+			if (son instanceof Input) {
+				component.setInput(((Input) son).getInputValue());
+			} else {
+				operateSon(son);
+			}
+		}
+		/* If the gate is ready to operate, we perform the operation. */
+		if (component.isReady()) {
+			((Gate) component).operate();
+		}
 	}
 
 	/**
@@ -477,17 +512,18 @@ public class CircuitOutputTree {
 
 	/**
 	 * @param fakeInput
-	 * 		The input componponent corresponding to one tree
+	 *            The input componponent corresponding to one tree
 	 * @param inputList
-	 * 		The input list corresponding to the other tree.
-	 * @return
-	 * 		The input of the other circuit found
+	 *            The input list corresponding to the other tree.
+	 * @return The input of the other circuit found
 	 */
 	private static CircuitComponent findRealInput(CircuitComponent fakeInput,
 			List<CircuitComponent> inputList) {
 		CircuitComponent result = null;
-		/* Iterates over the list of inputs looking for the one with the same id as the
-		 * input given as a parameter. */
+		/*
+		 * Iterates over the list of inputs looking for the one with the same id
+		 * as the input given as a parameter.
+		 */
 		for (CircuitComponent currentInput : inputList) {
 			if (currentInput.getId() == fakeInput.getId()) {
 				result = currentInput;
@@ -499,9 +535,10 @@ public class CircuitOutputTree {
 
 	/**
 	 * @param inputList
-	 * 		List of inputs.
+	 *            List of inputs.
 	 * @param crossedInputsComponent1
-	 * 		List of components to be removed from the nextComponent list of the inputs.
+	 *            List of components to be removed from the nextComponent list
+	 *            of the inputs.
 	 */
 	private static void removeNextComponent(List<CircuitComponent> inputList,
 			List<CircuitComponent> crossedInputsComponent1) {
@@ -872,13 +909,13 @@ public class CircuitOutputTree {
 	 * Diposes this Circuit Output Tree.
 	 */
 	public void dispose() {
-		
+
 		for (CircuitComponent comp : this.gates) {
 			comp.dispose();
 		}
-		
+
 		this.gates.clear();
 		this.gates = null;
-		
+
 	}
 }
