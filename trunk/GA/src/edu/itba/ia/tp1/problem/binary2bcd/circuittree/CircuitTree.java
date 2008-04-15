@@ -207,9 +207,9 @@ public class CircuitTree extends AbstractCircuit {
 
 		List<CircuitComponent> outputs = this.getOutputs();
 
-		for (CircuitComponent currentInput : inputs) {
-			currentInput.operate();
-		}
+//		for (CircuitComponent currentInput : inputs) {
+//			currentInput.operate();
+//		}
 
 		for (CircuitOutputTree currentTree : this.circuits) {
 			currentTree.operate();
