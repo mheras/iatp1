@@ -1,6 +1,7 @@
 package edu.itba.ia.tp1.ui.thread;
 
 import edu.itba.ia.tp1.ui.alternative.thread.AlternativeExecutionThread;
+import edu.itba.ia.tp1.ui.divideandconquer.thread.DivideAndConquerExecutionThread;
 import edu.itba.ia.tp1.ui.main.thread.MainExecutionThread;
 
 /**
@@ -13,9 +14,19 @@ public class ThreadsBag {
 	
 	private MainExecutionThread mainExecutionThread;
 	private AlternativeExecutionThread alternativeExecutionThread;
+	private DivideAndConquerExecutionThread divideAndConquerExecutionThread;
 	
 	public MainExecutionThread getMainExecutionThread() {
 		return mainExecutionThread;
+	}
+
+	public DivideAndConquerExecutionThread getDivideAndConquerExecutionThread() {
+		return divideAndConquerExecutionThread;
+	}
+
+	public void setDivideAndConquerExecutionThread(
+			DivideAndConquerExecutionThread divideAndConquerExecutionThread) {
+		this.divideAndConquerExecutionThread = divideAndConquerExecutionThread;
 	}
 
 	public void setMainExecutionThread(MainExecutionThread executionThread) {

@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.ui.main.listener;
+package edu.itba.ia.tp1.ui.divideandconquer.listener;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -10,8 +10,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
-import edu.itba.ia.tp1.ui.main.MainFrame;
-import edu.itba.ia.tp1.ui.main.thread.MainExecutionThread;
+import edu.itba.ia.tp1.ui.divideandconquer.DivideAndConquerFrame;
+import edu.itba.ia.tp1.ui.divideandconquer.thread.DivideAndConquerExecutionThread;
 import edu.itba.ia.tp1.ui.thread.IEngineInfo;
 import edu.itba.ia.tp1.ui.thread.IExecutionThreadDone;
 import edu.itba.ia.tp1.ui.thread.ThreadsBag;
@@ -23,13 +23,13 @@ import edu.itba.ia.tp1.ui.thread.ThreadsBag;
  * @author Martín A. Heras
  * 
  */
-public class MainSwitchExecuteActionListener implements ActionListener,
-		IExecutionThreadDone, IEngineInfo {
+public class DivideAndConquerSwitchExecuteActionListener implements
+		ActionListener, IExecutionThreadDone, IEngineInfo {
 
 	private final String EXECUTE = "Execute";
 	private final String CANCEL = "Cancel";
 	/* Main frame. */
-	private MainFrame mainFrame;
+	private DivideAndConquerFrame dacFrame;
 
 	/*
 	 * (non-Javadoc)
@@ -44,46 +44,62 @@ public class MainSwitchExecuteActionListener implements ActionListener,
 		 * If button says cancel, just cancel the active worker thread.
 		 */
 		if (source.getText().equalsIgnoreCase(CANCEL)) {
-			MainExecutionThread thread = ThreadsBag.getInstance()
-					.getMainExecutionThread();
+			DivideAndConquerExecutionThread thread = ThreadsBag.getInstance()
+					.getDivideAndConquerExecutionThread();
 			if (thread != null) {
 				thread.cancel(true);
-				this.mainFrame.getLabelInfo().setText("Execution cancelled");
+				this.dacFrame.getLabelInfo().setText("Execution cancelled");
 			}
 			return;
 		}
 
-		this.mainFrame = (MainFrame) this.getParentFrame(source);
+		this.dacFrame = (DivideAndConquerFrame) this.getParentFrame(source);
 
-		this.mainFrame.getLabelInfo().setText("Initializing population...");
+		this.dacFrame.getLabelInfo().setText("Initializing population...");
 
 		/* Retrieves parameters from UI components. */
-		Long populationSize = (Long) this.mainFrame.getSpinnerPopulationSize()
+		Long populationSize = (Long) this.dacFrame.getSpinnerPopulationSize()
 				.getValue();
-		Long maximumParents = (Long) this.mainFrame.getSpinnerMaximumParents()
+		Long parentsPool = (Long) this.dacFrame.getSpinnerParentsPool()
 				.getValue();
-		Long maximumGenerations = (Long) this.mainFrame
+		Long maximumGenerations = (Long) this.dacFrame
 				.getSpinnerMaximumGenerations().getValue();
-		Double mutationProbability = (Double) this.mainFrame
+		Double mutationProbability = (Double) this.dacFrame
 				.getSpinnerMutationProbability().getValue();
-		I_SelectionAlgorithm selection = (I_SelectionAlgorithm) this.mainFrame
+		I_SelectionAlgorithm selection = (I_SelectionAlgorithm) this.dacFrame
 				.getComboSelectionMethod().getSelectedItem();
-		I_SelectionAlgorithm replacement = (I_SelectionAlgorithm) this.mainFrame
+		I_SelectionAlgorithm replacement = (I_SelectionAlgorithm) this.dacFrame
 				.getComboReplacementMethod().getSelectedItem();
-		String problemDesc = (String) this.mainFrame.getComboProblemImpl()
-				.getSelectedItem();	
+		String problemDesc = (String) this.dacFrame.getComboProblemImpl()
+				.getSelectedItem();
+		String strBit = (String) this.dacFrame.getComboCurrentBit()
+				.getSelectedItem();
+		
+		int currentBit;
+		if (strBit.equalsIgnoreCase("Bit 4")) {
+			currentBit = 4;
+		} else if (strBit.equalsIgnoreCase("Bit 3")) {
+			currentBit = 3;
+		} else if (strBit.equalsIgnoreCase("Bit 2")) {
+			currentBit = 2;
+		} else if (strBit.equalsIgnoreCase("Bit 1")) {
+			currentBit = 1;
+		} else {
+			currentBit = 0;
+		}
 
 		/* Creates a worker thread, configures it and executes it. */
-		MainExecutionThread thread = new MainExecutionThread(this, this);
+		DivideAndConquerExecutionThread thread = new DivideAndConquerExecutionThread(this, this);
 		thread.setMaximumGenerations(maximumGenerations);
-		thread.setMaximumParents(maximumParents);
+		thread.setParentsPool(parentsPool);
 		thread.setMutationProbability(mutationProbability);
 		thread.setPopulationSize(populationSize);
 		thread.setSelectionAlgorithm(selection);
 		thread.setReplacementAlgorithm(replacement);
 		thread.setProblemDesc(problemDesc);
+		thread.setCurrentBit(currentBit);
 
-		ThreadsBag.getInstance().setMainExecutionThread(thread);
+		ThreadsBag.getInstance().setDivideAndConquerExecutionThread(thread);
 		thread.execute();
 
 		source.setText(CANCEL);
@@ -118,9 +134,9 @@ public class MainSwitchExecuteActionListener implements ActionListener,
 	 * @see edu.itba.ia.tp1.ui.threads.IExecutionThreadDone#onExecutionThreadDone(edu.itba.ia.tp1.ui.threads.ExecutionThread)
 	 */
 	public void onExecutionThreadDone() {
-		if (this.mainFrame != null) {
-			this.mainFrame.getButtonSwitchExecution().setText(EXECUTE);
-			this.mainFrame.getLabelInfo().setText("Execution finalized");
+		if (this.dacFrame != null) {
+			this.dacFrame.getButtonSwitchExecution().setText(EXECUTE);
+			this.dacFrame.getLabelInfo().setText("Execution finalized");
 		}
 	}
 
@@ -135,11 +151,11 @@ public class MainSwitchExecuteActionListener implements ActionListener,
 
 		DecimalFormat fmt = (DecimalFormat) DecimalFormat.getInstance();
 
-		this.mainFrame.getLabelAvgAptitude().setText(
+		this.dacFrame.getLabelAvgAptitude().setText(
 				String.valueOf(fmt.format(avgAptitude)));
-		this.mainFrame.getLabelBestAptitude().setText(
+		this.dacFrame.getLabelBestAptitude().setText(
 				String.valueOf(fmt.format(bestAptitude)));
-		this.mainFrame.getLabelWorstAptitude().setText(
+		this.dacFrame.getLabelWorstAptitude().setText(
 				String.valueOf(fmt.format(worstAptitude)));
 	}
 
@@ -149,6 +165,6 @@ public class MainSwitchExecuteActionListener implements ActionListener,
 	 * @see edu.itba.ia.tp1.ui.thread.IEngineInfo#onInitPopulationDone()
 	 */
 	public void onInitPopulationDone() {
-		this.mainFrame.getLabelInfo().setText("Executing...");
+		this.dacFrame.getLabelInfo().setText("Executing...");
 	}
 }

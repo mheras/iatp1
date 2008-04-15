@@ -1,19 +1,17 @@
-package edu.itba.ia.tp1.ui.main;
+package edu.itba.ia.tp1.ui.divideandconquer;
 
 import edu.itba.ia.tp1.ui.AptitudeChart;
 import edu.itba.ia.tp1.ui.MethodComboBoxModel;
-import edu.itba.ia.tp1.ui.main.listener.MainSwitchExecuteActionListener;
+import edu.itba.ia.tp1.ui.divideandconquer.listener.DivideAndConquerSwitchExecuteActionListener;
 
-/**
- * Main application frame.
- *
- * @author  Martín A. Heras
- */
-public class MainFrame extends javax.swing.JFrame {
+public class DivideAndConquerFrame extends javax.swing.JFrame {
     
-	private static final long serialVersionUID = -4318743507589837307L;
+	private static final long serialVersionUID = -4130777173031668172L;
 	
+    // Components.
     private javax.swing.JButton buttonSwitchExecution;
+    private javax.swing.JCheckBox chkStopExecAuto;
+    private javax.swing.JComboBox comboCurrentBit;
     private javax.swing.JComboBox comboReplacementMethod;
     private javax.swing.JComboBox comboProblemImpl;
     private javax.swing.JComboBox comboSelectionMethod;
@@ -21,11 +19,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelAvgAptitudeTitle;
     private javax.swing.JLabel labelBestAptitude;
     private javax.swing.JLabel labelBestAptitudeTitle;
+    private javax.swing.JLabel labelCurrentBit;
     private javax.swing.JLabel labelInfo;
-    private javax.swing.JLabel labelMaximumParents;
-    private javax.swing.JLabel labelMaximumParents1;
+    private javax.swing.JLabel labelParentsPool;
+    private javax.swing.JLabel labelMaximumGenerations;
     private javax.swing.JLabel labelMutationProbability;
-    private javax.swing.JLabel labelMutationProbability1;
+    private javax.swing.JLabel labelProblemImpl;
     private javax.swing.JLabel labelPopulationSize;
     private javax.swing.JLabel labelReplacementMethod;
     private javax.swing.JLabel labelSelectionMethod;
@@ -35,114 +34,17 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelExecutionParameters;
     private javax.swing.JPanel panelStatusBar;
     private javax.swing.JSpinner spinnerMaximumGenerations;
-    private javax.swing.JSpinner spinnerMaximumParents;
+    private javax.swing.JSpinner spinnerParentsPool;
     private javax.swing.JSpinner spinnerMutationProbability;
-    private javax.swing.JSpinner spinnerPopulationSize;
-    
-	public javax.swing.JButton getButtonSwitchExecution() {
-		return buttonSwitchExecution;
-	}
-
-	public javax.swing.JComboBox getComboReplacementMethod() {
-		return comboReplacementMethod;
-	}
-
-	public javax.swing.JComboBox getComboSelectionMethod() {
-		return comboSelectionMethod;
-	}
-
-	public javax.swing.JLabel getLabelAvgAptitude() {
-		return labelAvgAptitude;
-	}
-
-	public javax.swing.JLabel getLabelAvgAptitudeTitle() {
-		return labelAvgAptitudeTitle;
-	}
-
-	public javax.swing.JLabel getLabelBestAptitude() {
-		return labelBestAptitude;
-	}
-
-	public javax.swing.JLabel getLabelBestAptitudeTitle() {
-		return labelBestAptitudeTitle;
-	}
-
-	public javax.swing.JLabel getLabelInfo() {
-		return labelInfo;
-	}
-
-	public javax.swing.JLabel getLabelMaximumParents() {
-		return labelMaximumParents;
-	}
-
-	public javax.swing.JLabel getLabelMaximumParents1() {
-		return labelMaximumParents1;
-	}
-
-	public javax.swing.JLabel getLabelMutationProbability() {
-		return labelMutationProbability;
-	}
-
-	public javax.swing.JLabel getLabelMutationProbability1() {
-		return labelMutationProbability1;
-	}
-
-	public javax.swing.JLabel getLabelPopulationSize() {
-		return labelPopulationSize;
-	}
-
-	public javax.swing.JLabel getLabelReplacementMethod() {
-		return labelReplacementMethod;
-	}
-
-	public javax.swing.JLabel getLabelSelectionMethod() {
-		return labelSelectionMethod;
-	}
-
-	public javax.swing.JLabel getLabelWorstAptitude() {
-		return labelWorstAptitude;
-	}
-
-	public javax.swing.JLabel getLabelWorstAptitudeTitle() {
-		return labelWorstAptitudeTitle;
-	}
-
-	public javax.swing.JPanel getPanelChart() {
-		return panelChart;
-	}
-
-	public javax.swing.JPanel getPanelExecutionParameters() {
-		return panelExecutionParameters;
-	}
-
-	public javax.swing.JPanel getPanelStatusBar() {
-		return panelStatusBar;
-	}
-
-	public javax.swing.JSpinner getSpinnerMaximumGenerations() {
-		return spinnerMaximumGenerations;
-	}
-
-	public javax.swing.JSpinner getSpinnerMaximumParents() {
-		return spinnerMaximumParents;
-	}
-
-	public javax.swing.JSpinner getSpinnerMutationProbability() {
-		return spinnerMutationProbability;
-	}
-
-	public javax.swing.JSpinner getSpinnerPopulationSize() {
-		return spinnerPopulationSize;
-	}
-
+    private javax.swing.JSpinner spinnerPopulationSize;   
+	
 	/** Creates new form MainFrame */
-    public MainFrame() {
+    public DivideAndConquerFrame() {
         initComponents();
     }
-    
-    
+
     /**
-     * initializes components. 
+     * Init components.
      */
     private void initComponents() {
 
@@ -163,43 +65,46 @@ public class MainFrame extends javax.swing.JFrame {
         labelMutationProbability = new javax.swing.JLabel();
         labelPopulationSize = new javax.swing.JLabel();
         spinnerPopulationSize = new javax.swing.JSpinner();
-        labelMaximumParents = new javax.swing.JLabel();
-        spinnerMaximumParents = new javax.swing.JSpinner();
-        labelMaximumParents1 = new javax.swing.JLabel();
+        labelParentsPool = new javax.swing.JLabel();
+        spinnerParentsPool = new javax.swing.JSpinner();
+        labelMaximumGenerations = new javax.swing.JLabel();
         spinnerMaximumGenerations = new javax.swing.JSpinner();
         buttonSwitchExecution = new javax.swing.JButton();
-        labelMutationProbability1 = new javax.swing.JLabel();
+        labelProblemImpl = new javax.swing.JLabel();
         comboProblemImpl = new javax.swing.JComboBox();
+        labelCurrentBit = new javax.swing.JLabel();
+        comboCurrentBit = new javax.swing.JComboBox();
+        chkStopExecAuto = new javax.swing.JCheckBox();
         panelChart = AptitudeChart.getInstance().getChartPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Binary2BCD Converter Genetic Algorithm"); 
-        setName("Form"); 
+        setTitle("Binary2BCD Converter Genetic Algorithm (Divide & Conquer)");
+        setName("Form");
         setResizable(false);
 
         panelStatusBar.setBackground(java.awt.SystemColor.inactiveCaption);
         panelStatusBar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        panelStatusBar.setName("panelStatusBar"); 
+        panelStatusBar.setName("panelStatusBar");
 
-        labelAvgAptitudeTitle.setText("Avg. Aptitude:"); 
-        labelAvgAptitudeTitle.setName("labelAvgAptitudeTitle"); 
+        labelAvgAptitudeTitle.setText("Avg. Aptitude:");
+        labelAvgAptitudeTitle.setName("labelAvgAptitudeTitle");
 
-        labelAvgAptitude.setText("0.0000"); 
-        labelAvgAptitude.setName("labelAvgAptitude"); 
+        labelAvgAptitude.setText("0.0000");
+        labelAvgAptitude.setName("labelAvgAptitude");
 
-        labelBestAptitude.setText("0.0000"); 
-        labelBestAptitude.setName("labelBestAptitude"); 
+        labelBestAptitude.setText("0.0000");
+        labelBestAptitude.setName("labelBestAptitude");
 
-        labelBestAptitudeTitle.setText("Best Aptitude:"); 
-        labelBestAptitudeTitle.setName("labelBestAptitudeTitle"); 
+        labelBestAptitudeTitle.setText("Best Aptitude:");
+        labelBestAptitudeTitle.setName("labelBestAptitudeTitle");
 
-        labelWorstAptitude.setText("0.0000"); 
-        labelWorstAptitude.setName("labelWorstAptitude"); 
+        labelWorstAptitude.setText("0.0000");
+        labelWorstAptitude.setName("labelWorstAptitude");
 
-        labelWorstAptitudeTitle.setText("Worst Aptitude:"); 
-        labelWorstAptitudeTitle.setName("labelWorstAptitudeTitle"); 
+        labelWorstAptitudeTitle.setText("Worst Aptitude:");
+        labelWorstAptitudeTitle.setName("labelWorstAptitudeTitle");
 
-        labelInfo.setName("labelInfo"); 
+        labelInfo.setName("labelInfo");
 
         javax.swing.GroupLayout panelStatusBarLayout = new javax.swing.GroupLayout(panelStatusBar);
         panelStatusBar.setLayout(panelStatusBarLayout);
@@ -219,7 +124,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelWorstAptitude, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelStatusBarLayout.setVerticalGroup(
@@ -234,60 +139,71 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        labelAvgAptitudeTitle.getAccessibleContext().setAccessibleName(""); 
+        labelAvgAptitudeTitle.getAccessibleContext().setAccessibleName("");
 
         panelExecutionParameters.setBorder(javax.swing.BorderFactory.createTitledBorder("Execution Parameters"));
-        panelExecutionParameters.setName("panelExecutionParameters"); 
+        panelExecutionParameters.setName("panelExecutionParameters");
 
-        labelSelectionMethod.setText("Selection method:"); 
-        labelSelectionMethod.setName("labelSelectionMethod"); 
+        labelSelectionMethod.setText("Selection method:");
+        labelSelectionMethod.setName("labelSelectionMethod");
 
         comboSelectionMethod.setModel(new MethodComboBoxModel());
-        comboSelectionMethod.setName("comboSelectionMethod"); 
+        comboSelectionMethod.setName("comboSelectionMethod");
 
         comboReplacementMethod.setModel(new MethodComboBoxModel());
-        comboReplacementMethod.setName("comboReplacementMethod"); 
+        comboReplacementMethod.setName("comboReplacementMethod");
 
-        labelReplacementMethod.setText("Replacement method:"); 
-        labelReplacementMethod.setName("labelReplacementMethod"); 
+        labelReplacementMethod.setText("Replacement method:");
+        labelReplacementMethod.setName("labelReplacementMethod");
 
-        spinnerMutationProbability.setModel(new javax.swing.SpinnerNumberModel(0.15d, 0.0d, 1.0d, 0.05d));
-        spinnerMutationProbability.setToolTipText(""); 
-        spinnerMutationProbability.setName("spinnerMutationProbability"); 
+        spinnerMutationProbability.setModel(new javax.swing.SpinnerNumberModel(0.0050d, 0.0d, 1.0d, 0.0050d));
+        spinnerMutationProbability.setToolTipText("");
+        spinnerMutationProbability.setName("spinnerMutationProbability");
 
-        labelMutationProbability.setText("Mutation probability:"); 
-        labelMutationProbability.setName("labelMutationProbability"); 
+        labelMutationProbability.setText("Mutation probability:");
+        labelMutationProbability.setName("labelMutationProbability");
 
-        labelPopulationSize.setText("Population size:"); 
-        labelPopulationSize.setName("labelPopulationSize"); 
+        labelPopulationSize.setText("Population size:");
+        labelPopulationSize.setName("labelPopulationSize");
 
-        spinnerPopulationSize.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(800L), Long.valueOf(0L), null, Long.valueOf(1L)));
-        spinnerPopulationSize.setToolTipText(""); 
-        spinnerPopulationSize.setName("spinnerPopulationSize"); 
+        spinnerPopulationSize.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(200L), Long.valueOf(2L), null, Long.valueOf(1L)));
+        spinnerPopulationSize.setToolTipText("");
+        spinnerPopulationSize.setName("spinnerPopulationSize");
 
-        labelMaximumParents.setText("Maximum parents:"); 
-        labelMaximumParents.setName("labelMaximumParents"); 
+        labelParentsPool.setText("Parents pool:");
+        labelParentsPool.setName("labelParentsPool");
 
-        spinnerMaximumParents.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(180L), Long.valueOf(0L), null, Long.valueOf(1L)));
-        spinnerMaximumParents.setToolTipText(""); 
-        spinnerMaximumParents.setName("spinnerMaximumParents"); 
+        spinnerParentsPool.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(100L), Long.valueOf(2L), null, Long.valueOf(1L)));
+        spinnerParentsPool.setToolTipText("");
+        spinnerParentsPool.setName("spinnerMaximumParents");
 
-        labelMaximumParents1.setText("Maximum generations:"); 
-        labelMaximumParents1.setName("labelMaximumParents1"); 
+        labelMaximumGenerations.setText("Maximum generations:");
+        labelMaximumGenerations.setName("labelMaximumParents1");
 
-        spinnerMaximumGenerations.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(10000L), Long.valueOf(0L), null, Long.valueOf(1L)));
-        spinnerMaximumGenerations.setToolTipText(""); 
-        spinnerMaximumGenerations.setName("spinnerMaximumGenerations"); 
+        spinnerMaximumGenerations.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(150L), Long.valueOf(0L), null, Long.valueOf(1L)));
+        spinnerMaximumGenerations.setToolTipText("");
+        spinnerMaximumGenerations.setName("spinnerMaximumGenerations");
 
-        buttonSwitchExecution.setText("Execute"); 
+        buttonSwitchExecution.setText("Execute");
         buttonSwitchExecution.setName("buttonSwitchExecution");
-        buttonSwitchExecution.addActionListener(new MainSwitchExecuteActionListener());
+        buttonSwitchExecution.addActionListener(new DivideAndConquerSwitchExecuteActionListener());
 
-        labelMutationProbability1.setText("Problem representation:"); 
-        labelMutationProbability1.setName("labelMutationProbability1"); 
+        labelProblemImpl.setText("Problem representation:");
+        labelProblemImpl.setName("labelMutationProbability1");
 
         comboProblemImpl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Circuit Tree", "Circuit String" }));
-        comboProblemImpl.setName("comboProblemImpl"); 
+        comboProblemImpl.setName("comboReplacementMethod1");
+
+        labelCurrentBit.setText("Current bit:");
+        labelCurrentBit.setName("labelCurrentBit");
+
+        comboCurrentBit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bit 4", "Bit 3", "Bit 2", "Bit 1", "Bit 0" }));
+        comboCurrentBit.setName("comboCurrentBit");
+
+        chkStopExecAuto.setSelected(true);
+        chkStopExecAuto.setText("Stop execution automatically");
+        chkStopExecAuto.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        chkStopExecAuto.setName("chkStopExecAuto");
 
         javax.swing.GroupLayout panelExecutionParametersLayout = new javax.swing.GroupLayout(panelExecutionParameters);
         panelExecutionParameters.setLayout(panelExecutionParametersLayout);
@@ -296,21 +212,25 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelExecutionParametersLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExecutionParametersLayout.createSequentialGroup()
-                        .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelExecutionParametersLayout.createSequentialGroup()
+                    .addGroup(panelExecutionParametersLayout.createSequentialGroup()
+                        .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExecutionParametersLayout.createSequentialGroup()
                                 .addComponent(labelPopulationSize)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                                 .addComponent(spinnerPopulationSize, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelExecutionParametersLayout.createSequentialGroup()
-                                .addComponent(labelMaximumParents)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                                .addComponent(spinnerMaximumParents, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelExecutionParametersLayout.createSequentialGroup()
-                                .addComponent(labelMaximumParents1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                                .addComponent(spinnerMaximumGenerations, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(91, 91, 91)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExecutionParametersLayout.createSequentialGroup()
+                                .addComponent(labelParentsPool)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                .addComponent(spinnerParentsPool, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExecutionParametersLayout.createSequentialGroup()
+                                .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelMaximumGenerations)
+                                    .addComponent(labelCurrentBit))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(comboCurrentBit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(spinnerMaximumGenerations, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))))
+                        .addGap(101, 101, 101)
                         .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panelExecutionParametersLayout.createSequentialGroup()
                                 .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,10 +243,11 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(comboSelectionMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(spinnerMutationProbability, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(panelExecutionParametersLayout.createSequentialGroup()
-                                .addComponent(labelMutationProbability1)
+                                .addComponent(labelProblemImpl)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboProblemImpl, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(buttonSwitchExecution, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE))
+                    .addComponent(buttonSwitchExecution, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                    .addComponent(chkStopExecAuto, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         panelExecutionParametersLayout.setVerticalGroup(
@@ -340,12 +261,12 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(labelPopulationSize))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spinnerMaximumParents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelMaximumParents))
+                            .addComponent(spinnerParentsPool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelParentsPool))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(spinnerMaximumGenerations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelMaximumParents1)))
+                            .addComponent(labelMaximumGenerations)))
                     .addGroup(panelExecutionParametersLayout.createSequentialGroup()
                         .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(comboSelectionMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,22 +281,26 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(labelMutationProbability))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelExecutionParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelMutationProbability1)
-                            .addComponent(comboProblemImpl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                            .addComponent(labelProblemImpl)
+                            .addComponent(comboProblemImpl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelCurrentBit)
+                            .addComponent(comboCurrentBit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chkStopExecAuto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(buttonSwitchExecution)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panelChart.setBackground(new java.awt.Color(204, 204, 204));
         panelChart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panelChart.setName("panelChart"); 
+        panelChart.setName("panelChart");
 
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
         panelChartLayout.setHorizontalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 606, Short.MAX_VALUE)
+            .addGap(0, 614, Short.MAX_VALUE)
         );
         panelChartLayout.setVerticalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,15 +327,71 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(panelChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelExecutionParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(panelExecutionParameters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelStatusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }
 
+	public javax.swing.JButton getButtonSwitchExecution() {
+		return buttonSwitchExecution;
+	}
+
+	public javax.swing.JCheckBox getChkStopExecAuto() {
+		return chkStopExecAuto;
+	}
+
+	public javax.swing.JComboBox getComboCurrentBit() {
+		return comboCurrentBit;
+	}
+
+	public javax.swing.JComboBox getComboReplacementMethod() {
+		return comboReplacementMethod;
+	}
+
 	public javax.swing.JComboBox getComboProblemImpl() {
 		return comboProblemImpl;
-	} 
+	}
+
+	public javax.swing.JComboBox getComboSelectionMethod() {
+		return comboSelectionMethod;
+	}
+
+	public javax.swing.JLabel getLabelAvgAptitude() {
+		return labelAvgAptitude;
+	}
+
+	public javax.swing.JLabel getLabelBestAptitude() {
+		return labelBestAptitude;
+	}
+
+	public javax.swing.JLabel getLabelInfo() {
+		return labelInfo;
+	}
+
+	public javax.swing.JLabel getLabelWorstAptitude() {
+		return labelWorstAptitude;
+	}
+
+	public javax.swing.JPanel getPanelChart() {
+		return panelChart;
+	}
+
+	public javax.swing.JSpinner getSpinnerMaximumGenerations() {
+		return spinnerMaximumGenerations;
+	}
+
+	public javax.swing.JSpinner getSpinnerMutationProbability() {
+		return spinnerMutationProbability;
+	}
+
+	public javax.swing.JSpinner getSpinnerPopulationSize() {
+		return spinnerPopulationSize;
+	}
+
+	public javax.swing.JSpinner getSpinnerParentsPool() {
+		return spinnerParentsPool;
+	}
 }

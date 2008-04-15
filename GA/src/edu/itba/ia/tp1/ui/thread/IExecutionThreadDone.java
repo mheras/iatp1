@@ -1,4 +1,4 @@
-package edu.itba.ia.tp1.ui.main.thread;
+package edu.itba.ia.tp1.ui.thread;
 
 
 /**
@@ -7,10 +7,10 @@ package edu.itba.ia.tp1.ui.main.thread;
  * @author Martín A. Heras
  * 
  */
-public interface IMainExecutionThreadDone {
+public interface IExecutionThreadDone {
 
 	/**
 	 * This method will be called once the active execution thread is done.
 	 */
-	public void onExecutionThreadDone(MainExecutionThread executionThread);
+	public void onExecutionThreadDone();
 }
