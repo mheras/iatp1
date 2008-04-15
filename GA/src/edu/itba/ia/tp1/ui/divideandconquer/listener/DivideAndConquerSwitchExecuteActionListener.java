@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
+import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
 import edu.itba.ia.tp1.ui.divideandconquer.DivideAndConquerFrame;
 import edu.itba.ia.tp1.ui.divideandconquer.thread.DivideAndConquerExecutionThread;
 import edu.itba.ia.tp1.ui.thread.IEngineInfo;
@@ -74,7 +75,7 @@ public class DivideAndConquerSwitchExecuteActionListener implements
 				.getSelectedItem();
 		String strBit = (String) this.dacFrame.getComboCurrentBit()
 				.getSelectedItem();
-		
+
 		int currentBit;
 		if (strBit.equalsIgnoreCase("Bit 4")) {
 			currentBit = 4;
@@ -89,7 +90,8 @@ public class DivideAndConquerSwitchExecuteActionListener implements
 		}
 
 		/* Creates a worker thread, configures it and executes it. */
-		DivideAndConquerExecutionThread thread = new DivideAndConquerExecutionThread(this, this);
+		DivideAndConquerExecutionThread thread = new DivideAndConquerExecutionThread(
+				this, this);
 		thread.setMaximumGenerations(maximumGenerations);
 		thread.setParentsPool(parentsPool);
 		thread.setMutationProbability(mutationProbability);
@@ -133,11 +135,16 @@ public class DivideAndConquerSwitchExecuteActionListener implements
 	 * 
 	 * @see edu.itba.ia.tp1.ui.threads.IExecutionThreadDone#onExecutionThreadDone(edu.itba.ia.tp1.ui.threads.ExecutionThread)
 	 */
-	public void onExecutionThreadDone() {
+	public void onExecutionThreadDone(AbstractCircuit bestCircuit) {
 		if (this.dacFrame != null) {
 			this.dacFrame.getButtonSwitchExecution().setText(EXECUTE);
 			this.dacFrame.getLabelInfo().setText("Execution finalized");
 		}
+
+		System.out.println("Best Circuit [gates = "
+				+ bestCircuit.getGatesLength() + "; aptitude: "
+				+ bestCircuit.getAptitude() + "]:");
+		System.out.println(bestCircuit.toString());
 	}
 
 	/*

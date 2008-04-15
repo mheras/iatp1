@@ -3,6 +3,8 @@ package edu.itba.ia.tp1.engine.population;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
+
 /**
  * Utilities for population.
  * 
@@ -12,24 +14,32 @@ import java.util.List;
 public class Utils {
 
 	/**
-	 * Gets the best individual.
+	 * Gets the best circuit, depending on its aptitude and gates length.
 	 * 
-	 * @param population The population.
-	 * @return The best individual.
+	 * @param population
+	 *            The population.
+	 * @return The best circuit.
 	 */
-	public static A_Individual getBestIndividual(Population population) {
-		A_Individual best = null;
+	public static AbstractCircuit getBestCircuit(Population population) {
+		AbstractCircuit best = null;
 
 		for (A_Individual individual : population.getIndividuals()) {
+			AbstractCircuit current = (AbstractCircuit) individual;
 			if (best == null) {
-				best = individual;
+				best = current;
 			} else {
-				if (individual.getAptitude().compareTo(best.getAptitude()) >= 0) {
-					best = individual;
+				if (current.getAptitude().compareTo(best.getAptitude()) > 0) {
+					// If it has better aptitude, it is the best.
+					best = current;
+				} else if (current.getAptitude().compareTo(best.getAptitude()) == 0) {
+					// If it has the best one aptitude, checks if it has less gates. 
+					if (current.getGatesLength() < best.getGatesLength()) {
+						best = current;
+					}
 				}
 			}
 		}
-		
+
 		return best;
 	}
 

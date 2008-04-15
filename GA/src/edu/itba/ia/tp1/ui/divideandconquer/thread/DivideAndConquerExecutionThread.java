@@ -12,10 +12,11 @@ import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.Utils;
 import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
 import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
-import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitStringProblem;
+import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.DivideAndConquerCircuitStringProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm.CircuitStringCrossGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm.CircuitStringMutationGeneticOperation;
-import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.aptitude.CircuitStringAptitudeImpl;
+import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.aptitude.DivideAndConquerCircuitStringAptitudeImpl;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.DivideAndConquerCircuitTreeProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeCrossGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeMutationGeneticOperation;
@@ -36,7 +37,9 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 
 	private final String CIRCUIT_TREE = "Circuit Tree";
 	// private final String CIRCUIT_STRING = "Circuit String";
-
+	
+	/* Algorithm best circuit. */
+	private AbstractCircuit bestCircuit;
 	/* Done callback. */
 	private IExecutionThreadDone doneCallback;
 	/* Engine info callback. */
@@ -107,7 +110,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 			/* IMPLEMENTACION CIRCUITSTRING */
 
 			/* Aptitude function. */
-			aptitudeAlg = new CircuitStringAptitudeImpl();
+			aptitudeAlg = new DivideAndConquerCircuitStringAptitudeImpl(currentBit);
 
 			/* Reproduction: Crossover & mutation. */
 			reproductionAlg = new ReproductionAlgorithm(
@@ -115,7 +118,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 					new CircuitStringMutationGeneticOperation(
 							this.mutationProbability), aptitudeAlg);
 
-			circuitProblem = new CircuitStringProblem(this.selectionAlgorithm,
+			circuitProblem = new DivideAndConquerCircuitStringProblem(this.selectionAlgorithm,
 					this.replacementAlgorithm, reproductionAlg, aptitudeAlg,
 					this.populationSize);
 		}
@@ -159,6 +162,8 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 			Double bestAptitude = Utils.getBestAptitude(currentPopulation);
 			Double worstAptitude = Utils.getWorstAptitude(currentPopulation);
 
+			this.refreshBestCircuit(Utils.getBestCircuit(currentPopulation));
+
 			if (this.engineInfoCallback != null) {
 				this.engineInfoCallback.onEngineStep(avgAptitude, bestAptitude,
 						worstAptitude);
@@ -176,6 +181,26 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 		}
 
 		return null;
+	}
+	
+	/**
+	 * Refreshes the best circuit.
+	 * @param currentBest The current step best circuit.
+	 */
+	private void refreshBestCircuit(AbstractCircuit currentBest) {
+		if (this.bestCircuit == null) {
+			this.bestCircuit = currentBest;
+		} else {
+			if (currentBest.getAptitude().compareTo(this.bestCircuit.getAptitude()) > 0) {
+				// If it has better aptitude, it is the best.
+				this.bestCircuit = currentBest;
+			} else if (currentBest.getAptitude().compareTo(this.bestCircuit.getAptitude()) == 0) {
+				// If it has the best one aptitude, checks if it has less gates. 
+				if (currentBest.getGatesLength() < this.bestCircuit.getGatesLength()) {
+					this.bestCircuit = currentBest;
+				}
+			}
+		}
 	}
 
 	/*
@@ -196,7 +221,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 			e.printStackTrace();
 		} finally {
 			if (this.doneCallback != null) {
-				this.doneCallback.onExecutionThreadDone();
+				this.doneCallback.onExecutionThreadDone(this.bestCircuit);
 			}
 		}
 	}
