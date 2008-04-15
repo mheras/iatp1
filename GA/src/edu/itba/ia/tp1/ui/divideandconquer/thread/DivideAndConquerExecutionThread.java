@@ -16,10 +16,10 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitStringProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm.CircuitStringCrossGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm.CircuitStringMutationGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.aptitude.CircuitStringAptitudeImpl;
-import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTreeProblem;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.DivideAndConquerCircuitTreeProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeCrossGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm.CircuitTreeMutationGeneticOperation;
-import edu.itba.ia.tp1.problem.binary2bcd.circuittree.aptitude.MainCircuitTreeAptitudeImpl;
+import edu.itba.ia.tp1.problem.binary2bcd.circuittree.aptitude.DivideAndConquerCircuitTreeAptitudeImpl;
 import edu.itba.ia.tp1.ui.AptitudeChart;
 import edu.itba.ia.tp1.ui.thread.IEngineInfo;
 import edu.itba.ia.tp1.ui.thread.IExecutionThreadDone;
@@ -80,7 +80,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 		// Do nothing.
 	}
 
-	private Engine createAppropiateEngine() {
+	private Engine createAppropiateEngine(int currentBit) {
 
 		I_Aptitude aptitudeAlg;
 		ReproductionAlgorithm reproductionAlg;
@@ -91,7 +91,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 			/* IMPLEMENTACION CIRCUITTREE */
 
 			/* Aptitude function. */
-			aptitudeAlg = new MainCircuitTreeAptitudeImpl();
+			aptitudeAlg = new DivideAndConquerCircuitTreeAptitudeImpl(currentBit);
 
 			/* Reproduction: Crossover & mutation. */
 			reproductionAlg = new ReproductionAlgorithm(
@@ -99,7 +99,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 					new CircuitTreeMutationGeneticOperation(
 							this.mutationProbability), aptitudeAlg);
 
-			circuitProblem = new CircuitTreeProblem(this.selectionAlgorithm,
+			circuitProblem = new DivideAndConquerCircuitTreeProblem(this.selectionAlgorithm,
 					this.replacementAlgorithm, reproductionAlg, aptitudeAlg,
 					this.populationSize);
 		} else {
@@ -139,7 +139,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 		chart.setMaxGenerations(this.maximumGenerations);
 
 		// Creates the engine based on UI parameters.
-		Engine engine = createAppropiateEngine();
+		Engine engine = createAppropiateEngine(this.currentBit);
 
 		if (this.engineInfoCallback != null) {
 			this.engineInfoCallback.onInitPopulationDone();
