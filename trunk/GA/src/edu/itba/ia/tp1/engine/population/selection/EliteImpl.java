@@ -31,8 +31,10 @@ public class EliteImpl implements ISelectionAlgorithm {
 
 		return newPopulation;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {

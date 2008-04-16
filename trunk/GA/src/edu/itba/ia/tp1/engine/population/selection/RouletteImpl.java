@@ -21,34 +21,40 @@ public class RouletteImpl implements ISelectionAlgorithm {
 	public Population execute(Population population, Long nIndividuals) {
 		Random random = new Random();
 		Population ret = new Population();
-		List<Double> cumulativeFrequencies = Utils.getCumulativeFrequencies(population);
-		/* Add 0.0 in the first position to enable the first individual to be picked */
+		List<Double> cumulativeFrequencies = Utils
+				.getCumulativeFrequencies(population);
+		/*
+		 * Add 0.0 in the first position to enable the first individual to be
+		 * picked
+		 */
 		cumulativeFrequencies.add(0, 0.0);
-		
+
 		for (int i = 0; i < nIndividuals; i++) {
 			Double randomNumber = random.nextDouble();
 			for (int j = 1; j < cumulativeFrequencies.size(); j++) {
 				Double cumFreq1 = cumulativeFrequencies.get(j - 1);
 				Double cumFreq2 = cumulativeFrequencies.get(j);
-				Boolean capable = ((cumFreq1.compareTo(randomNumber)) < 0 &&
-								   (randomNumber.compareTo(cumFreq2) < 0));
+				Boolean capable = ((cumFreq1.compareTo(randomNumber)) < 0 && (randomNumber
+						.compareTo(cumFreq2) < 0));
 				if (capable) {
-					if (!ret.contains(population.getIndividualByPosition(j-1))) {
-						ret
-								.addIndividual(population
-										.getIndividualByPosition(j-1));
+					if (!ret
+							.contains(population.getIndividualByPosition(j - 1))) {
+						ret.addIndividual(population
+								.getIndividualByPosition(j - 1));
 					} else {
-						ret.addIndividual(population.getIndividualByPosition(j-1)
-								.clone());
+						ret.addIndividual(population.getIndividualByPosition(
+								j - 1).clone());
 					}
 				}
-			} 
+			}
 		}
 
 		return ret;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
