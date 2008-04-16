@@ -10,7 +10,6 @@ public class DivideAndConquerFrame extends javax.swing.JFrame {
 	
     // Components.
     private javax.swing.JButton buttonSwitchExecution;
-    private javax.swing.JCheckBox chkStopExecAuto;
     private javax.swing.JComboBox comboCurrentBit;
     private javax.swing.JComboBox comboReplacementMethod;
     private javax.swing.JComboBox comboProblemImpl;
@@ -74,7 +73,6 @@ public class DivideAndConquerFrame extends javax.swing.JFrame {
         comboProblemImpl = new javax.swing.JComboBox();
         labelCurrentBit = new javax.swing.JLabel();
         comboCurrentBit = new javax.swing.JComboBox();
-        chkStopExecAuto = new javax.swing.JCheckBox();
         panelChart = AptitudeChart.getInstance().getChartPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -200,11 +198,6 @@ public class DivideAndConquerFrame extends javax.swing.JFrame {
         comboCurrentBit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bit 4", "Bit 3", "Bit 2", "Bit 1", "Bit 0" }));
         comboCurrentBit.setName("comboCurrentBit");
 
-        chkStopExecAuto.setSelected(true);
-        chkStopExecAuto.setText("Stop execution automatically");
-        chkStopExecAuto.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        chkStopExecAuto.setName("chkStopExecAuto");
-
         javax.swing.GroupLayout panelExecutionParametersLayout = new javax.swing.GroupLayout(panelExecutionParameters);
         panelExecutionParameters.setLayout(panelExecutionParametersLayout);
         panelExecutionParametersLayout.setHorizontalGroup(
@@ -247,7 +240,7 @@ public class DivideAndConquerFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboProblemImpl, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(buttonSwitchExecution, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-                    .addComponent(chkStopExecAuto, javax.swing.GroupLayout.Alignment.TRAILING))
+                    )
                 .addContainerGap())
         );
         panelExecutionParametersLayout.setVerticalGroup(
@@ -286,7 +279,7 @@ public class DivideAndConquerFrame extends javax.swing.JFrame {
                             .addComponent(labelCurrentBit)
                             .addComponent(comboCurrentBit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chkStopExecAuto)
+                
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(buttonSwitchExecution)
                 .addContainerGap())
@@ -339,9 +332,7 @@ public class DivideAndConquerFrame extends javax.swing.JFrame {
 		return buttonSwitchExecution;
 	}
 
-	public javax.swing.JCheckBox getChkStopExecAuto() {
-		return chkStopExecAuto;
-	}
+
 
 	public javax.swing.JComboBox getComboCurrentBit() {
 		return comboCurrentBit;
