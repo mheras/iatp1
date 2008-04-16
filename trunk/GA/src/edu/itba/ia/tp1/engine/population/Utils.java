@@ -32,7 +32,8 @@ public class Utils {
 					// If it has better aptitude, it is the best.
 					best = current;
 				} else if (current.getAptitude().compareTo(best.getAptitude()) == 0) {
-					// If it has the best one aptitude, checks if it has less gates. 
+					// If it has the best one aptitude, checks if it has less
+					// gates.
 					if (current.getGatesLength() < best.getGatesLength()) {
 						best = current;
 					}

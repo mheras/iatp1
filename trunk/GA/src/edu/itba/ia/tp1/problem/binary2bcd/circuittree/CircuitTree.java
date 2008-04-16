@@ -333,6 +333,9 @@ public class CircuitTree extends AbstractCircuit {
 		newCircuitTree.setOutputs(clonedOutputs);
 		newCircuitTree.setCircuits(clonedTrees);
 		newCircuitTree.resetCircuit();
+		
+		newCircuitTree.setAptitude(new Double(this.getAptitude()));
+		
 		return newCircuitTree;
 	}
 
