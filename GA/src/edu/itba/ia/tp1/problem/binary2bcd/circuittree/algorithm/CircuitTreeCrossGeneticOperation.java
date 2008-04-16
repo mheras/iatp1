@@ -6,7 +6,7 @@ package edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm;
 import java.util.Random;
 
 import edu.itba.ia.tp1.engine.population.Population;
-import edu.itba.ia.tp1.engine.population.reproduction.I_GeneticOperation;
+import edu.itba.ia.tp1.engine.population.reproduction.IGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
 
 /**
@@ -14,7 +14,7 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
  * 
  * @author Jorge Goldman
  */
-public class CircuitTreeCrossGeneticOperation implements I_GeneticOperation {
+public class CircuitTreeCrossGeneticOperation implements IGeneticOperation {
 
 	/*
 	 * (non-Javadoc)

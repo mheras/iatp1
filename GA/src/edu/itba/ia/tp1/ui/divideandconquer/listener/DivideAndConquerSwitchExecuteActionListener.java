@@ -10,7 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.ISelectionAlgorithm;
 import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
 import edu.itba.ia.tp1.ui.divideandconquer.DivideAndConquerFrame;
 import edu.itba.ia.tp1.ui.divideandconquer.thread.DivideAndConquerExecutionThread;
@@ -68,9 +68,9 @@ public class DivideAndConquerSwitchExecuteActionListener implements
 				.getSpinnerMaximumGenerations().getValue();
 		Double mutationProbability = (Double) this.dacFrame
 				.getSpinnerMutationProbability().getValue();
-		I_SelectionAlgorithm selection = (I_SelectionAlgorithm) this.dacFrame
+		ISelectionAlgorithm selection = (ISelectionAlgorithm) this.dacFrame
 				.getComboSelectionMethod().getSelectedItem();
-		I_SelectionAlgorithm replacement = (I_SelectionAlgorithm) this.dacFrame
+		ISelectionAlgorithm replacement = (ISelectionAlgorithm) this.dacFrame
 				.getComboReplacementMethod().getSelectedItem();
 		String problemDesc = (String) this.dacFrame.getComboProblemImpl()
 				.getSelectedItem();

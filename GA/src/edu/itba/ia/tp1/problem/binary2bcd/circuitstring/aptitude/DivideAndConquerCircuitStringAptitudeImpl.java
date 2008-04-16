@@ -2,7 +2,7 @@ package edu.itba.ia.tp1.problem.binary2bcd.circuitstring.aptitude;
 
 import java.util.HashMap;
 
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 import edu.itba.ia.tp1.problem.binary2bcd.AbstractAptitude;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitString;
 
@@ -24,7 +24,7 @@ public class DivideAndConquerCircuitStringAptitudeImpl extends AbstractAptitude 
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.engine.I_Aptitude#evaluate(edu.itba.ia.tp1.engine.population.A_Individual)
 	 */
-	public Double evaluate(A_Individual individual) {
+	public Double evaluate(AbstractIndividual individual) {
 
 		int size = this.inputOutputMap.size();
 		Double aptitude = new Double(0);

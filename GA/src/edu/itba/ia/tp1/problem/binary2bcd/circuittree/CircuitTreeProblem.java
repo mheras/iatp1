@@ -3,19 +3,19 @@
  */
 package edu.itba.ia.tp1.problem.binary2bcd.circuittree;
 
-import edu.itba.ia.tp1.engine.A_Problem;
-import edu.itba.ia.tp1.engine.I_Aptitude;
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.AbstractProblem;
+import edu.itba.ia.tp1.engine.IAptitude;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
-import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.ISelectionAlgorithm;
 
 /**
  * Binary2BCD Problem that is solved by the GA Engine (CircuitTree implementation).
  * 
  * @author Pablo F. Siviero
  */
-public class CircuitTreeProblem extends A_Problem {
+public class CircuitTreeProblem extends AbstractProblem {
 
 	/**
 	 * Creates a new CircuitTree implementation problem.
@@ -26,9 +26,9 @@ public class CircuitTreeProblem extends A_Problem {
 	 * @param aptitude Aptitude function.
 	 * @param populationSize Population size.
 	 */
-	public CircuitTreeProblem(I_SelectionAlgorithm selection,
-			I_SelectionAlgorithm replacement,
-			ReproductionAlgorithm reproduction, I_Aptitude aptitude,
+	public CircuitTreeProblem(ISelectionAlgorithm selection,
+			ISelectionAlgorithm replacement,
+			ReproductionAlgorithm reproduction, IAptitude aptitude,
 			Long populationSize) {
 		super(selection, replacement, reproduction, aptitude, populationSize);
 	}
@@ -44,7 +44,7 @@ public class CircuitTreeProblem extends A_Problem {
 		
 		for (long i = 0; i < populationSize; i++) {
 			/* Generates a random circuit. */
-			A_Individual circuit =	CircuitTree.generateRandomCircuit(4, 5, 10, 40);
+			AbstractIndividual circuit =	CircuitTree.generateRandomCircuit(4, 5, 10, 40);
 			/* Sets its own aptitude. */
 			circuit.setAptitude(this.getAptitude().evaluate(circuit));
 			

@@ -1,6 +1,6 @@
 package edu.itba.ia.tp1.engine;
 
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 
 /**
  * Implementations of IAptitude should provide the way to analyze how adapted is
@@ -8,7 +8,7 @@ import edu.itba.ia.tp1.engine.population.A_Individual;
  * 
  * @author Pablo F. Siviero
  */
-public interface I_Aptitude {
+public interface IAptitude {
 
 	/**
 	 * Evaluates an Individual.
@@ -16,5 +16,5 @@ public interface I_Aptitude {
 	 * @param x The individual to analyze
 	 * @return a number between 0 and 1 representing how adapted it is.
 	 */
-	public Double evaluate(A_Individual x);
+	public Double evaluate(AbstractIndividual x);
 }

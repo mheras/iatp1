@@ -13,7 +13,7 @@ import edu.itba.ia.tp1.engine.population.Population;
  * @author Pablo F. Siviero
  * 
  */
-public interface I_GeneticOperation {
+public interface IGeneticOperation {
 
 	/**
 	 * Performs a change over a Population and returns it back again.

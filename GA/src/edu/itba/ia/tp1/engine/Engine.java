@@ -19,7 +19,7 @@ public class Engine {
 	/* Current generation. */
 	private Long currentGeneration;
 	/* Specific problem. */
-	private A_Problem problem;
+	private AbstractProblem problem;
 
 	/**
 	 * Creates a new instance of the engine.
@@ -32,7 +32,7 @@ public class Engine {
 	 * @param maxGenerations
 	 *            Maximum generations going to be performed by the engine.
 	 */
-	public Engine(A_Problem problem, Long maxParents, Long maxGenerations) {
+	public Engine(AbstractProblem problem, Long maxParents, Long maxGenerations) {
 		this.maxParents = maxParents;
 		this.maxGenerations = maxGenerations;
 		this.currentGeneration = 0L;
@@ -151,7 +151,7 @@ public class Engine {
 	 * 
 	 * @return The problem attached to the engine.
 	 */
-	public A_Problem getProblem() {
+	public AbstractProblem getProblem() {
 		return problem;
 	}
 

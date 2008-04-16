@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.ISelectionAlgorithm;
 import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
 import edu.itba.ia.tp1.ui.main.MainFrame;
 import edu.itba.ia.tp1.ui.main.thread.MainExecutionThread;
@@ -67,9 +67,9 @@ public class MainSwitchExecuteActionListener implements ActionListener,
 				.getSpinnerMaximumGenerations().getValue();
 		Double mutationProbability = (Double) this.mainFrame
 				.getSpinnerMutationProbability().getValue();
-		I_SelectionAlgorithm selection = (I_SelectionAlgorithm) this.mainFrame
+		ISelectionAlgorithm selection = (ISelectionAlgorithm) this.mainFrame
 				.getComboSelectionMethod().getSelectedItem();
-		I_SelectionAlgorithm replacement = (I_SelectionAlgorithm) this.mainFrame
+		ISelectionAlgorithm replacement = (ISelectionAlgorithm) this.mainFrame
 				.getComboReplacementMethod().getSelectedItem();
 		String problemDesc = (String) this.mainFrame.getComboProblemImpl()
 				.getSelectedItem();	

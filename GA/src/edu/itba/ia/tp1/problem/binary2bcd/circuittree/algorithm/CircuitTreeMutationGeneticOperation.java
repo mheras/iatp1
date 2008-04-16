@@ -3,9 +3,9 @@
  */
 package edu.itba.ia.tp1.problem.binary2bcd.circuittree.algorithm;
 
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 import edu.itba.ia.tp1.engine.population.Population;
-import edu.itba.ia.tp1.engine.population.reproduction.I_GeneticOperation;
+import edu.itba.ia.tp1.engine.population.reproduction.IGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
 
 /**
@@ -13,7 +13,7 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
  * 
  * @author Jorge Goldman
  */
-public class CircuitTreeMutationGeneticOperation implements I_GeneticOperation {
+public class CircuitTreeMutationGeneticOperation implements IGeneticOperation {
 
 	/* Probability of mutation. */
 	private Double mutationProbability;
@@ -40,7 +40,7 @@ public class CircuitTreeMutationGeneticOperation implements I_GeneticOperation {
 		// hacer es mutar cada uno de los miembros de la poblacion, devolviendo
 		// esa poblacion mutada.
 
-		for (A_Individual individual : children.getIndividuals()) {
+		for (AbstractIndividual individual : children.getIndividuals()) {
 			CircuitTree circuitChild = (CircuitTree) individual;
 			circuitChild.performMutation(mutationProbability);
 		}

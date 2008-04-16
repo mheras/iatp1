@@ -1,7 +1,7 @@
 package edu.itba.ia.tp1.engine.population.reproduction;
 
-import edu.itba.ia.tp1.engine.I_Aptitude;
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.IAptitude;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
@@ -14,11 +14,11 @@ import edu.itba.ia.tp1.engine.population.Population;
 public class ReproductionAlgorithm {
 
 	/* Crossover algorithm. */
-	private I_GeneticOperation crossover;
+	private IGeneticOperation crossover;
 	/* Mutation algorithm. */
-	private I_GeneticOperation mutation;
+	private IGeneticOperation mutation;
 	/* Aptitude function. */
-	private I_Aptitude aptitude;
+	private IAptitude aptitude;
 
 	/**
 	 * Creates a new reproduction algorithm, based on crossover and mutation
@@ -29,8 +29,8 @@ public class ReproductionAlgorithm {
 	 * @param mutation
 	 *            Mutation algorithm.
 	 */
-	public ReproductionAlgorithm(I_GeneticOperation crossover,
-			I_GeneticOperation mutation, I_Aptitude aptitude) {
+	public ReproductionAlgorithm(IGeneticOperation crossover,
+			IGeneticOperation mutation, IAptitude aptitude) {
 		this.crossover = crossover;
 		this.mutation = mutation;
 		this.aptitude = aptitude;
@@ -57,7 +57,7 @@ public class ReproductionAlgorithm {
 			children = this.mutation.perform(children);
 		}
 		// Calculates each child's aptitude.		
-		for (A_Individual individual : children.getIndividuals()) {
+		for (AbstractIndividual individual : children.getIndividuals()) {
 			individual.setAptitude(this.aptitude.evaluate(individual));
 		}
 
@@ -69,7 +69,7 @@ public class ReproductionAlgorithm {
 	 * 
 	 * @return The crossover algorithm.
 	 */
-	public I_GeneticOperation getCrossover() {
+	public IGeneticOperation getCrossover() {
 		return crossover;
 	}
 
@@ -79,7 +79,7 @@ public class ReproductionAlgorithm {
 	 * @param crossover
 	 *            The crossover algorithm.
 	 */
-	public void setCrossover(I_GeneticOperation crossover) {
+	public void setCrossover(IGeneticOperation crossover) {
 		this.crossover = crossover;
 	}
 
@@ -88,7 +88,7 @@ public class ReproductionAlgorithm {
 	 * 
 	 * @return The mutation algorithm.
 	 */
-	public I_GeneticOperation getMutation() {
+	public IGeneticOperation getMutation() {
 		return mutation;
 	}
 
@@ -98,7 +98,7 @@ public class ReproductionAlgorithm {
 	 * @param mutation
 	 *            The mutation algorithm.
 	 */
-	public void setMutation(I_GeneticOperation mutation) {
+	public void setMutation(IGeneticOperation mutation) {
 		this.mutation = mutation;
 	}
 
@@ -107,7 +107,7 @@ public class ReproductionAlgorithm {
 	 * 
 	 * @return The aptitude function.
 	 */
-	public I_Aptitude getAptitude() {
+	public IAptitude getAptitude() {
 		return aptitude;
 	}
 
@@ -117,7 +117,7 @@ public class ReproductionAlgorithm {
 	 * @param aptitude
 	 *            The aptitude function.
 	 */
-	public void setAptitude(I_Aptitude aptitude) {
+	public void setAptitude(IAptitude aptitude) {
 		this.aptitude = aptitude;
 	}
 }

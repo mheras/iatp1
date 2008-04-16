@@ -3,7 +3,7 @@ package edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm;
 import java.util.Random;
 
 import edu.itba.ia.tp1.engine.population.Population;
-import edu.itba.ia.tp1.engine.population.reproduction.I_GeneticOperation;
+import edu.itba.ia.tp1.engine.population.reproduction.IGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitString;
 
 /**
@@ -12,7 +12,7 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitString;
  * @author Martín A. Heras
  *
  */
-public class CircuitStringCrossGeneticOperation implements I_GeneticOperation {
+public class CircuitStringCrossGeneticOperation implements IGeneticOperation {
 
 	/*
 	 * (non-Javadoc)

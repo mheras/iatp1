@@ -1,6 +1,6 @@
 package edu.itba.ia.tp1.problem.binary2bcd.circuittree.aptitude;
 
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 import edu.itba.ia.tp1.problem.binary2bcd.AbstractAptitude;
 import edu.itba.ia.tp1.problem.binary2bcd.circuittree.CircuitTree;
 
@@ -27,7 +27,7 @@ public class MainCircuitTreeAptitudeImpl extends AbstractAptitude {
 	 *            The individual.
 	 * @return The individual aptitude.
 	 */
-	public Double evaluate2(A_Individual individual) {
+	public Double evaluate2(AbstractIndividual individual) {
 
 		int size = this.inputOutputMap.size();
 		Double aptitude = new Double(0);
@@ -53,7 +53,7 @@ public class MainCircuitTreeAptitudeImpl extends AbstractAptitude {
 	 * 
 	 * @see edu.itba.ia.tp1.engine.IAptitude#evaluate(edu.itba.ia.tp1.engine.population.Individual)
 	 */
-	public Double evaluate(A_Individual individual) {
+	public Double evaluate(AbstractIndividual individual) {
 
 		// Aptitude to return.
 		Double aptitude = new Double(0.0);

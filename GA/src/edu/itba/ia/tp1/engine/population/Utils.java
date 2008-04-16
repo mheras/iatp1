@@ -23,7 +23,7 @@ public class Utils {
 	public static AbstractCircuit getBestCircuit(Population population) {
 		AbstractCircuit best = null;
 
-		for (A_Individual individual : population.getIndividuals()) {
+		for (AbstractIndividual individual : population.getIndividuals()) {
 			AbstractCircuit current = (AbstractCircuit) individual;
 			if (best == null) {
 				best = current;
@@ -55,7 +55,7 @@ public class Utils {
 
 		Double sum = 0.0;
 
-		for (A_Individual individual : population.getIndividuals()) {
+		for (AbstractIndividual individual : population.getIndividuals()) {
 			sum += individual.getAptitude();
 		}
 
@@ -74,7 +74,7 @@ public class Utils {
 		Double best = 0.0;
 		Double currentApt;
 
-		for (A_Individual individual : population.getIndividuals()) {
+		for (AbstractIndividual individual : population.getIndividuals()) {
 			currentApt = individual.getAptitude();
 			if (currentApt.compareTo(best) > 0) {
 				best = currentApt;
@@ -96,7 +96,7 @@ public class Utils {
 		Double worst = 1.0;
 		Double currentApt;
 
-		for (A_Individual individual : population.getIndividuals()) {
+		for (AbstractIndividual individual : population.getIndividuals()) {
 			currentApt = individual.getAptitude();
 			if (currentApt.compareTo(worst) < 0) {
 				worst = currentApt;

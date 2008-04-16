@@ -3,8 +3,8 @@ package edu.itba.ia.tp1.problem.binary2bcd;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.itba.ia.tp1.engine.I_Aptitude;
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.IAptitude;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 
 /**
  * Abstract functionality of all aptitude functions.
@@ -12,7 +12,7 @@ import edu.itba.ia.tp1.engine.population.A_Individual;
  * @author Martín A. Heras
  *
  */
-public abstract class AbstractAptitude implements I_Aptitude {
+public abstract class AbstractAptitude implements IAptitude {
 
 	/* Input-Output map. */
 	protected Map<Integer, Integer> inputOutputMap;
@@ -27,7 +27,7 @@ public abstract class AbstractAptitude implements I_Aptitude {
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.engine.I_Aptitude#evaluate(edu.itba.ia.tp1.engine.population.A_Individual)
 	 */
-	public abstract Double evaluate(A_Individual x);
+	public abstract Double evaluate(AbstractIndividual x);
 
 	/**
 	 * Initializes the input-output map.

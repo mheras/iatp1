@@ -1,8 +1,8 @@
 package edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm;
 
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 import edu.itba.ia.tp1.engine.population.Population;
-import edu.itba.ia.tp1.engine.population.reproduction.I_GeneticOperation;
+import edu.itba.ia.tp1.engine.population.reproduction.IGeneticOperation;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitString;
 
 /**
@@ -11,7 +11,7 @@ import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitString;
  * @author Martín A. Heras
  */
 public class CircuitStringMutationGeneticOperation implements
-		I_GeneticOperation {
+		IGeneticOperation {
 
 	/* Probability of mutation. */
 	private Double mutationProbability;
@@ -38,7 +38,7 @@ public class CircuitStringMutationGeneticOperation implements
 		// hacer es mutar cada uno de los miembros de la poblacion, devolviendo
 		// esa poblacion mutada.
 
-		for (A_Individual individual : children.getIndividuals()) {
+		for (AbstractIndividual individual : children.getIndividuals()) {
 			CircuitString circuitChild = (CircuitString) individual;
 			circuitChild.performMutation(mutationProbability);
 		}

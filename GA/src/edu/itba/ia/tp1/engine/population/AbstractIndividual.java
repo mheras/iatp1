@@ -8,7 +8,7 @@ package edu.itba.ia.tp1.engine.population;
  * 
  * @author Pablo F. Siviero
  */
-public abstract class A_Individual {
+public abstract class AbstractIndividual {
 
 	/* Individual identification. */
 	private Long id;
@@ -63,5 +63,5 @@ public abstract class A_Individual {
 	 */
 	public abstract void dispose();
 	
-	public abstract A_Individual clone();
+	public abstract AbstractIndividual clone();
 }

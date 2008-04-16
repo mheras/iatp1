@@ -1,6 +1,6 @@
 package edu.itba.ia.tp1.problem.binary2bcd.circuitstring.aptitude;
 
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 import edu.itba.ia.tp1.problem.binary2bcd.AbstractAptitude;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.CircuitString;
 
@@ -22,7 +22,7 @@ public class CircuitStringAptitudeImpl extends AbstractAptitude {
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.engine.I_Aptitude#evaluate(edu.itba.ia.tp1.engine.population.A_Individual)
 	 */
-	public Double evaluate(A_Individual individual) {
+	public Double evaluate(AbstractIndividual individual) {
 
 		// Aptitude to return.
 		Double aptitude = new Double(0.0);
