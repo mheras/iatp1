@@ -2,6 +2,7 @@ package edu.itba.ia.tp1.engine.population.selection;
 
 import java.util.Random;
 
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 import edu.itba.ia.tp1.engine.population.Population;
 
 /**
@@ -47,7 +48,14 @@ public class EliteRouletteImpl implements ISelectionAlgorithm {
 		/* Si todavia no se completo la poblacion, se obtiene por ruleta el resto. */
 		if (ret.getSize() < nIndividuals.longValue()) {
 			Population roulettePopulation = roulette.execute(shallowCopy, new Long(nIndividuals.intValue() - ret.getSize()));
-			ret.addAll(roulettePopulation.getIndividuals());
+			for(AbstractIndividual individual: roulettePopulation.getIndividuals()){
+				if(elitePopulation.getIndividuals().contains(individual)){
+					ret.addIndividual(individual.clone());
+				}else{
+					ret.addIndividual(individual);
+				}
+			}
+			
 		}
 		
 		return ret;
