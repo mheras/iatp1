@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: 1.6.0 (Sun Microsystems Inc.)
+Main-Class: edu.itba.ia.tp1.main.DivideAndConquerMain
+Class-Path: lib/gnujaxp.jar lib/itext-2.0.6.jar lib/jcommon-1.0.12.jar lib/jfreechart-1.0.9.jar lib/jfreechart-1.0.9-experimental.jar lib/jfreechart-1.0.9-swt.jar lib/commons-collections-3.2.jar lib/junit.jar lib/servlet.jar lib/looks-2.1.4.jar lib/jboolexpr-1.2.jar lib/swtgraphics2d.jar
