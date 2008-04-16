@@ -21,46 +21,56 @@ public class EliteUniversalImpl implements ISelectionAlgorithm {
 	 */
 	public Population execute(Population population, Long nIndividuals) {
 		Population ret = new Population();
-		
+
 		Population shallowCopy = new Population();
-		
+
 		shallowCopy.addAll(population.getIndividuals());
 		Random random = new Random();
 		Long eliteCount = (long) Math.floor(random.nextDouble() * nIndividuals);
-		
+
 		EliteImpl elite = new EliteImpl();
 		Population elitePopulation = elite.execute(shallowCopy, eliteCount);
 		ret.addAll(elitePopulation.getIndividuals());
-		shallowCopy.getIndividuals().removeAll(elitePopulation.getIndividuals());
-		
+		shallowCopy.getIndividuals()
+				.removeAll(elitePopulation.getIndividuals());
+
 		UniversalImpl universal = new UniversalImpl();
-		
-//		List<Double> relativeFrequencies = Utils.getRelativeFrequencies(population);
-//		
-//		for (int i = 0; i < relativeFrequencies.size(); i++) {
-//			int nSelected = (int) Math.floor(relativeFrequencies.get(i) * nIndividuals);
-//			
-//			while (nSelected-- != 0) {
-//				ret.addIndividual(population.getIndividualByPosition(i));
-//			}
-//		}
-//		
-		/* Si todavia no se completo la poblacion, se obtiene por ruleta el resto. */
+
+		// List<Double> relativeFrequencies =
+		// Utils.getRelativeFrequencies(population);
+		//		
+		// for (int i = 0; i < relativeFrequencies.size(); i++) {
+		// int nSelected = (int) Math.floor(relativeFrequencies.get(i) *
+		// nIndividuals);
+		//			
+		// while (nSelected-- != 0) {
+		// ret.addIndividual(population.getIndividualByPosition(i));
+		// }
+		// }
+		//		
+		/*
+		 * Si todavia no se completo la poblacion, se obtiene por ruleta el
+		 * resto.
+		 */
 		if (ret.getSize() < nIndividuals.longValue()) {
-			Population universalPopulation = universal.execute(shallowCopy, new Long(nIndividuals.intValue() - ret.getSize()));
-			for(AbstractIndividual individual: universalPopulation.getIndividuals()){
-				if(elitePopulation.getIndividuals().contains(individual)){
+			Population universalPopulation = universal.execute(shallowCopy,
+					new Long(nIndividuals.intValue() - ret.getSize()));
+			for (AbstractIndividual individual : universalPopulation
+					.getIndividuals()) {
+				if (elitePopulation.getIndividuals().contains(individual)) {
 					ret.addIndividual(individual.clone());
-				}else{
+				} else {
 					ret.addIndividual(individual);
 				}
 			}
 		}
-		
+
 		return ret;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
