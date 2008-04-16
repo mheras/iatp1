@@ -94,11 +94,12 @@ public class MainCircuitTreeAptitudeImpl extends AbstractAptitude {
 		}
 
 		aptitude = new Double(totalMatchesAmount / size);
-		if (aptitude.compareTo(new Double(0.9)) < 0) {
+
+		if (aptitude.compareTo(1.0) != 0) {
 			Long nGates = ((CircuitTree) individual).getGatesLength();
 			aptitude -= penalize(aptitude, nGates);
 		}
-
+		
 		return aptitude;
 	}
 
