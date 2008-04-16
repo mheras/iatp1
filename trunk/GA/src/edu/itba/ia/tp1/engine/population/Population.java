@@ -16,13 +16,13 @@ import java.util.List;
 public class Population {
 
 	/* Set of individuals */
-	private List<A_Individual> individuals;
+	private List<AbstractIndividual> individuals;
 
 	/**
 	 * Creates a new population.
 	 */
 	public Population() {
-		this.individuals = new ArrayList<A_Individual>();
+		this.individuals = new ArrayList<AbstractIndividual>();
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class Population {
 	 * 
 	 * @param individual An individual.
 	 */
-	public void addIndividual(A_Individual individual) {
+	public void addIndividual(AbstractIndividual individual) {
 		this.individuals.add(individual);
 	}
 
@@ -48,7 +48,7 @@ public class Population {
 	 * 
 	 * @param individual An individual.
 	 */
-	public void removeIndividual(A_Individual individual) {
+	public void removeIndividual(AbstractIndividual individual) {
 		this.individuals.remove(individual);
 	}
 	
@@ -65,7 +65,7 @@ public class Population {
 	 * 
 	 * @param population A population to be added.
 	 */
-	public void addAll(Collection<? extends A_Individual> population) {
+	public void addAll(Collection<? extends AbstractIndividual> population) {
 		this.individuals.addAll(population);
 	}
 	
@@ -75,7 +75,7 @@ public class Population {
 	 * @param position Individual position.
 	 * @return The individual.
 	 */
-	public A_Individual getIndividualByPosition(int position) {
+	public AbstractIndividual getIndividualByPosition(int position) {
 		return this.individuals.get(position);
 	}
 
@@ -85,7 +85,7 @@ public class Population {
 	 * Gets the individuals.
 	 * @return The individuals.
 	 */
-	public List<A_Individual> getIndividuals() {
+	public List<AbstractIndividual> getIndividuals() {
 		return individuals;
 	}
 
@@ -93,12 +93,12 @@ public class Population {
 	 * Sets the individuals.
 	 * @param individuals The individuals.
 	 */
-	public void setIndividuals(List<A_Individual> individuals) {
+	public void setIndividuals(List<AbstractIndividual> individuals) {
 		this.individuals = individuals;
 	}
 	
 	
-	public boolean contains(A_Individual individualByPosition) {
+	public boolean contains(AbstractIndividual individualByPosition) {
 		return this.individuals.contains(individualByPosition);
 		
 	}

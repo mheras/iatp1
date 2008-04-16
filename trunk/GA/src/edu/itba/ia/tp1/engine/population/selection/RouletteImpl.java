@@ -11,7 +11,7 @@ import edu.itba.ia.tp1.engine.population.Utils;
  * 
  * @author Pablo F. Siviero
  */
-public class RouletteImpl implements I_SelectionAlgorithm {
+public class RouletteImpl implements ISelectionAlgorithm {
 
 	/*
 	 * (non-Javadoc)

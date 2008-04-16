@@ -1,6 +1,6 @@
 package edu.itba.ia.tp1.problem.binary2bcd;
 
-import edu.itba.ia.tp1.engine.population.A_Individual;
+import edu.itba.ia.tp1.engine.population.AbstractIndividual;
 
 /**
  * Abstract circuit. This is the superclass of all circuit implementations.
@@ -8,7 +8,7 @@ import edu.itba.ia.tp1.engine.population.A_Individual;
  * @author Martín A. Heras
  *
  */
-public abstract class AbstractCircuit extends A_Individual {
+public abstract class AbstractCircuit extends AbstractIndividual {
 
 	/* (non-Javadoc)
 	 * @see edu.itba.ia.tp1.engine.population.A_Individual#dispose()

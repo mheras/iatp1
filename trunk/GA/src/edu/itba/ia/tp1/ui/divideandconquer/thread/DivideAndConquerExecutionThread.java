@@ -5,13 +5,13 @@ import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingWorker;
 
-import edu.itba.ia.tp1.engine.A_Problem;
+import edu.itba.ia.tp1.engine.AbstractProblem;
 import edu.itba.ia.tp1.engine.Engine;
-import edu.itba.ia.tp1.engine.I_Aptitude;
+import edu.itba.ia.tp1.engine.IAptitude;
 import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.Utils;
 import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
-import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.ISelectionAlgorithm;
 import edu.itba.ia.tp1.problem.binary2bcd.AbstractCircuit;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.DivideAndConquerCircuitStringProblem;
 import edu.itba.ia.tp1.problem.binary2bcd.circuitstring.algorithm.CircuitStringCrossGeneticOperation;
@@ -53,9 +53,9 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 	/* Mutation probability. */
 	private Double mutationProbability;
 	/* Selection algorithm. */
-	private I_SelectionAlgorithm selectionAlgorithm;
+	private ISelectionAlgorithm selectionAlgorithm;
 	/* Replacement algorithm. */
-	private I_SelectionAlgorithm replacementAlgorithm;
+	private ISelectionAlgorithm replacementAlgorithm;
 	/* Problem description string. */
 	private String problemDesc;
 	/* Current bit. */
@@ -85,9 +85,9 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 
 	private Engine createAppropiateEngine(int currentBit) {
 
-		I_Aptitude aptitudeAlg;
+		IAptitude aptitudeAlg;
 		ReproductionAlgorithm reproductionAlg;
-		A_Problem circuitProblem = null;
+		AbstractProblem circuitProblem = null;
 
 		if (this.problemDesc.equalsIgnoreCase(CIRCUIT_TREE)) {
 
@@ -327,7 +327,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 	 * 
 	 * @return The selection algorithm.
 	 */
-	public I_SelectionAlgorithm getSelectionAlgorithm() {
+	public ISelectionAlgorithm getSelectionAlgorithm() {
 		return selectionAlgorithm;
 	}
 
@@ -337,7 +337,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 	 * @param selectionAlgorithm
 	 *            The selection algorithm.
 	 */
-	public void setSelectionAlgorithm(I_SelectionAlgorithm selectionAlgorithm) {
+	public void setSelectionAlgorithm(ISelectionAlgorithm selectionAlgorithm) {
 		this.selectionAlgorithm = selectionAlgorithm;
 	}
 
@@ -346,7 +346,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 	 * 
 	 * @return The replacement algorithm.
 	 */
-	public I_SelectionAlgorithm getReplacementAlgorithm() {
+	public ISelectionAlgorithm getReplacementAlgorithm() {
 		return replacementAlgorithm;
 	}
 
@@ -357,7 +357,7 @@ public class DivideAndConquerExecutionThread extends SwingWorker<Void, Void> {
 	 *            The replacement algorithm.
 	 */
 	public void setReplacementAlgorithm(
-			I_SelectionAlgorithm replacementAlgorithm) {
+			ISelectionAlgorithm replacementAlgorithm) {
 		this.replacementAlgorithm = replacementAlgorithm;
 	}
 

@@ -8,9 +8,9 @@ import java.util.Comparator;
  * 
  * @author Pablo F. Siviero
  */
-public class PopulationSortComparatorImpl implements Comparator<A_Individual> {
+public class PopulationSortComparatorImpl implements Comparator<AbstractIndividual> {
 
-	public int compare(A_Individual individual1, A_Individual individual2) {
+	public int compare(AbstractIndividual individual1, AbstractIndividual individual2) {
 
 		return individual1.getAptitude().compareTo(individual2.getAptitude());
 

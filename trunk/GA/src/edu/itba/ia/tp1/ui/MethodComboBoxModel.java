@@ -7,7 +7,7 @@ import javax.swing.DefaultComboBoxModel;
 import edu.itba.ia.tp1.engine.population.selection.EliteImpl;
 import edu.itba.ia.tp1.engine.population.selection.EliteRouletteImpl;
 import edu.itba.ia.tp1.engine.population.selection.EliteUniversalImpl;
-import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.ISelectionAlgorithm;
 import edu.itba.ia.tp1.engine.population.selection.RouletteImpl;
 import edu.itba.ia.tp1.engine.population.selection.UniversalImpl;
 
@@ -22,7 +22,7 @@ public class MethodComboBoxModel extends DefaultComboBoxModel {
 
 	private static final long serialVersionUID = 3876446600843158951L;
 
-	private static Vector<I_SelectionAlgorithm> algorithms = new Vector<I_SelectionAlgorithm>();
+	private static Vector<ISelectionAlgorithm> algorithms = new Vector<ISelectionAlgorithm>();
 
 	static {
 		// Yes... We use a static block...

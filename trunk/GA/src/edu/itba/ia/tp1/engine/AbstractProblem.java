@@ -5,7 +5,7 @@ package edu.itba.ia.tp1.engine;
 
 import edu.itba.ia.tp1.engine.population.Population;
 import edu.itba.ia.tp1.engine.population.reproduction.ReproductionAlgorithm;
-import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
+import edu.itba.ia.tp1.engine.population.selection.ISelectionAlgorithm;
 
 /**
  * The GA Engine solves a Problem, a child of AProblem. The problem is applied
@@ -18,18 +18,18 @@ import edu.itba.ia.tp1.engine.population.selection.I_SelectionAlgorithm;
  * 
  * @author Pablo F. Siviero
  */
-public abstract class A_Problem {
+public abstract class AbstractProblem {
 
 	/* Population over which the GA performs selection and replacement. */
 	private Population population;
 	/* Selection algorithm. */
-	private I_SelectionAlgorithm selection;
+	private ISelectionAlgorithm selection;
 	/* Replacement algorithm. */
-	private I_SelectionAlgorithm replacement;
+	private ISelectionAlgorithm replacement;
 	/* Reproduction algorithm. */
 	private ReproductionAlgorithm reproduction;
 	/* The aptitude function to evaluate an individual. */
-	private I_Aptitude aptitude;
+	private IAptitude aptitude;
 	/* Population size. */
 	private Long populationSize;
 
@@ -42,9 +42,9 @@ public abstract class A_Problem {
 	 * @param aptitude Aptitude function.
 	 * @param populationSize Fixed population size.
 	 */
-	public A_Problem(I_SelectionAlgorithm selection,
-			I_SelectionAlgorithm replacement,
-			ReproductionAlgorithm reproduction, I_Aptitude aptitude, Long populationSize) {
+	public AbstractProblem(ISelectionAlgorithm selection,
+			ISelectionAlgorithm replacement,
+			ReproductionAlgorithm reproduction, IAptitude aptitude, Long populationSize) {
 		this.selection = selection;
 		this.replacement = replacement;
 		this.reproduction = reproduction;
@@ -84,7 +84,7 @@ public abstract class A_Problem {
 	 * Gets the selection algorithm.
 	 * @return The selection algorithm.
 	 */
-	public I_SelectionAlgorithm getSelection() {
+	public ISelectionAlgorithm getSelection() {
 		return selection;
 	}
 
@@ -92,7 +92,7 @@ public abstract class A_Problem {
 	 * Sets the selection algorithm.
 	 * @param selection The selection algorithm.
 	 */
-	public void setSelection(I_SelectionAlgorithm selection) {
+	public void setSelection(ISelectionAlgorithm selection) {
 		this.selection = selection;
 	}
 
@@ -100,7 +100,7 @@ public abstract class A_Problem {
 	 * Gets the replacement algorithm.
 	 * @return The replacement algorithm.
 	 */
-	public I_SelectionAlgorithm getReplacement() {
+	public ISelectionAlgorithm getReplacement() {
 		return replacement;
 	}
 
@@ -108,7 +108,7 @@ public abstract class A_Problem {
 	 * Sets the replacement algorithm.
 	 * @param replacement The replacement algorithm.
 	 */
-	public void setReplacement(I_SelectionAlgorithm replacement) {
+	public void setReplacement(ISelectionAlgorithm replacement) {
 		this.replacement = replacement;
 	}
 
@@ -132,7 +132,7 @@ public abstract class A_Problem {
 	 * Gets the aptitude function.
 	 * @return The aptitude function.
 	 */
-	public I_Aptitude getAptitude() {
+	public IAptitude getAptitude() {
 		return aptitude;
 	}
 
@@ -140,7 +140,7 @@ public abstract class A_Problem {
 	 * Sets the aptitude function.
 	 * @param aptitude The aptitude function.
 	 */
-	public void setAptitude(I_Aptitude aptitude) {
+	public void setAptitude(IAptitude aptitude) {
 		this.aptitude = aptitude;
 	}
 
